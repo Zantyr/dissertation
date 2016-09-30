@@ -1,4 +1,4 @@
-\documentclass[11pt]{article} %default 10pt
+\documentclass[12pt,a4paper,oneside]{report} %default 10pt
 \usepackage[utf8]{inputenc}
 \usepackage{geometry} % to change the page dimensions
 \usepackage{booktabs} % for much better looking tables
@@ -51,9 +51,24 @@
 
 \begin{document}
 \maketitle
-
-\section{Spis treści}
+\begin{abstract}
 Przepisać na Pythona 3.5
+Wstęp do pracy oto jedna strona.\par
+Wstęp do zagadnienia - kilka stron \par
+Wstęp do drugiego zagadnienia - kilka stron \par
+Opis implementacji - najwięcej \par
+Wyniki - dużo stron\par
+Analiza wyników i podsumowanie \par
+\title{Słowa kluczowe}
+Python
+\end{abstract}
+\renewcommand{\abstractname}{Strzeszczenie}
+\begin{abstract}
+Przepisać na Pythona 3.5
+\end{abstract}
+
+\tableofcontents
+
 \section{Temat pracy}
 
 \section{Klasyfikatory i klasteryzacja - rodzaje algorytmów i porównanie}
@@ -89,12 +104,15 @@ Przepisać na Pythona 3.5
 
 \begin{thebibliography}{9}
 \bibitem{cichosz} Paweł Cichosz, \emph{Systemy uczące się}
-\bibitem{2} ..., \emph{Książka od Łukasza Dzianacha}
+\bibitem{flasinski} Mariusz Flasiński, \emph{Wstęp do sztucznej inteligencji}
 \bibitem{rutkowski} Leszek Rutkowski, \emph{Metody i techniki sztucznej inteligencji}, Warszawa 2005, PWN, rozdziały 6, 8, 10
 \bibitem{szczepaniak} Piotr S. Szczepaniak \emph{Obliczenia inteligentne, szybkie przekształcenia i klasyfikatory}, Warszawa 2004, Akademicka Oficyna Wydawnicza EXIT
 \bibitem{wojcik} Waldemar Wójcik et alii, \emph{Sztuczna inteligencja i metody optymalizacji - od teorii do praktyki}, Lublin 2008, Polskie Towarzystwo Informatyczne
 \bibitem{parol} Mirosław Parol, Paweł Piotrowski et alii, \emph{Sztuczna inteligencja w praktyce - Laboratorium}, ćwiczenie 3
 \bibitem{malina} Witold Malina, Maciej Smiatacz, \emph{Rozpoznawanie obrazów}, Warszawa 2010, akademicka Oficyna Wydawnicza EXIT
 \bibitem{podolak} Igor T. Podolak, \emph{Klasyfikator Hierarchiczny z nakładającymi się grupami klas}, Kraków 2012, Wydawnictwo Uniwersytetu Jagiellońskiego
+\bibitem{hastie} Trevor Hastie, Robert Tibshirani, Jerome Friedman, \emph{The Elements of Statistical Learning}, Springer, druga edycja
+\bibitem{pythonwiki} \emph{https://wiki.python.org/moin/PythonForArtificialIntelligence}
+\bibitem{stanford} \emph{http://cs.stanford.edu/people/eroberts/courses/soco/projects/2000-01/neural-networks/Sources/index.html}
 \end{thebibliography}
 \end{document}

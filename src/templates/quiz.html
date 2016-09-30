@@ -1,0 +1,162 @@
+<html><head>
+<meta charset='utf-8'>
+<style>
+body{
+	padding: 0;
+	background: #035;
+}
+
+div{
+	padding: 0;
+	display:block;	
+	font-size: 42;
+}
+
+#maindiv{
+	margin: 5% auto;
+	background: #058;
+	width: 80%;
+	height: 80%;
+}
+
+#questionbox{
+	position:relative;
+	max-width:100%;
+	height: 40%;
+	margin: 5% 5%;
+	background: #6a6;
+}
+
+#question{
+	position:absolute;
+	text-align:center;
+	width: 100%;
+	top:50%;
+	transform: translate(0, -50%);
+}
+
+#answerbox{
+	position: relative;
+	padding: 0;
+	margin:auto;
+	width:90%;
+	height: 40%;
+}
+
+#answerboxA{
+	position: absolute;
+	margin: 0;
+	background: #63d;
+	left:2.5%;
+	width: 45%;
+	height: 100%;
+}
+
+#answerboxB{
+	position: absolute;
+	margin: 0;
+	background: #d36;
+	left:52.5%;
+	width: 45%;
+	height: 100%;
+}
+
+.answer{
+	font-size: 28;
+	position:absolute;
+	text-align:center;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+}
+
+.answer:hover{
+	cursor:pointer;
+}
+
+
+</style>
+
+<script>
+var i = 0;
+var answers = []
+
+{{data|safe}}
+
+function question(){
+	document.getElementById("question").innerHTML = questions[0];
+	document.getElementById("answerA").innerHTML = answersA[0];
+	document.getElementById("answerB").innerHTML = answersB[0];	
+	i = 0;
+	answers = [];
+}
+
+function indexOfMax(arr) {
+    if (arr.length == 0) {
+        return -1;
+    }
+    var max = arr[0];
+    var maxIndex = 0;
+
+    for (var l = 1;  l< arr.length; l++) {
+        if (arr[l] > max) {
+            maxIndex = l;
+            max = arr[l];
+        }
+    }
+    return maxIndex;
+}
+
+function answerA(){
+	i++;
+	answers.push('A')
+	if (i >= questions.length){
+		results();		
+	}
+	document.getElementById("question").innerHTML = questions[i];
+	document.getElementById("answerA").innerHTML = answersA[i];
+	document.getElementById("answerB").innerHTML = answersB[i];		
+}
+
+function answerB(){
+	i++;
+	answers.push('B')
+	if (i >= questions.length){
+		results();		
+	}
+	document.getElementById("question").innerHTML = questions[i];
+	document.getElementById("answerA").innerHTML = answersA[i];
+	document.getElementById("answerB").innerHTML = answersB[i];
+}
+
+function results(){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "{{target|safe}}");
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "vector");
+            hiddenField.setAttribute("value", answers);
+            form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+}
+
+</script>
+</head>
+
+<body>
+<div id="maindiv">
+	<div id="questionbox" onClick="javascript: question();">
+		<div id="question"  onClick="javascript: question();">Click to start</div>
+	</div>
+	<div id="answerbox">
+		<div id="answerboxA" onClick="javascript: answerA();"> 		
+			<div id="answerA" class="answer"></div>
+		</div>
+		<div id="answerboxB" onClick="javascript: answerB();"> 		
+			<div id="answerB" class="answer"></div>
+		</div>
+	</div>
+</div>
+</body></html>

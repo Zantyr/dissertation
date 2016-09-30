@@ -1,0 +1,46 @@
+<html><head>
+<meta charset='utf-8'>
+<style>
+body{
+	padding: 0;
+	background: #035;
+}
+
+div{
+	padding: 0;
+	display:block;	
+	font-size: 42;
+}
+
+#maindiv{
+	margin: 5% auto;
+	background: #058;
+	width: 80%;
+	height: 80%;
+}
+
+#questionbox{
+	position:relative;
+	max-width:100%;
+	height: 40%;
+	margin: 5% 5%;
+	background: #6a6;
+}
+
+#question{
+	position:absolute;
+	text-align:center;
+	width: 100%;
+	top:50%;
+	transform: translate(0, -50%);
+}
+</style>
+</head>
+
+<body>
+<div id="maindiv">
+	<div id="questionbox">
+		<div id="question">Your predicted job: {{job}}</div>
+	</div>
+</div>
+</body></html>

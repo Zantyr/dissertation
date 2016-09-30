@@ -1,0 +1,33 @@
+Podobieństwo i pomiar jegoż
+
+Dla zbioru cech:
+    pdobieństwo s to iloraz liczności iloczynu zbiorów cech dwu obiektów do liczności ich sumy
+    podobieństwo można też zdefiniować dodając braki danych cech w obu obiektach:
+    odmienność to 1 - s
+
+    odległość może być miarą podobieństwa. $s(u,v) = \frac{1}{1+ d(u,v)}$
+    miarą podobieństwa może być też iloczyn skalarny [podzielony iloczyn ich długości (?)]
+    korelacja liniowa Pearsona też
+    amplituda kosinusowa też
+    odległość hamminga też (różnica bitów)
+    
+    Uzycie odległości Hamminga do zakodowania liczb:
+        kwantyzacja na przedziału (0-3 0000 4-6 1000 7-9 1100 etc.)
+        można używać alfabetu niebinarnego, a na przykłąd zwykłego (wtedy różnica stringów)
+        
+    odpowiedzialność neuronu - czy wpływa on na wynik?
+    
+    sieci boolowskie - mają neurony AND oraz OR, wystarczy posiadać odpowiednie macierze wag
+    
+    Adaptatywne neurony = ADALINE
+    
+    Klasyfikacja - ostatni etap procesu rozpoznawania, rodzaj decyzji
+        Można klasyfikować siecią perceptronów, ale powstają klasy "bez klasy", czyli klasy puste
+        Sieć Kohonena - oparta o rywalizację neuronów, modyfikacja tylko zwycięskich neuronów (zmniejszające się otoczenie może wpłynąć pozytywnie na wynik w kolejnych epokach)
+        Klasyfikatory maksymalnoogległościowe(SVM):
+            wprowadzone przez Vapnika
+            uzywane także w regresjach
+            minimum globalnego funkcji kosztu
+            wymaga funkcji o odpowiednim wymiarze VC
+                koszt błędnej klasyfikacji ??
+                inwariantność ?? - sprawdzić pojęcie

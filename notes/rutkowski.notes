@@ -1,0 +1,104 @@
+Metody Grupowania Danych
+
+Podział danych na grupy powinien mieć dwie cechy:
+    homogeniczność w grupach - elementy grupy powinny być mozliwie podobne do siebie
+    heterogeniczność między grupami - elementy rożnych grup powinny możliwie mocno się różnić
+
+Kluczowe do rozróznienia jest zagadnienie miary, czyli sposobu definiowania odległości między danymi punktami. Ze względu na to, że cechy mają wartości numeryczne (bądź to binarne, bądź to rzeczywiste), jest to generalnie obliczanie długości wektora w jakiejś metryce.
+
+Przykłądy metryk: euklidesowa ...?
+
+Ważne jest reprezentowanie grup: mogą one byc charakteryzowane przez jakiś centralny punkt(częściej), rzadziej zbiór reguł logicznych
+
+Podział na grupy ma następujące charaktery: ostry, rozmyty i posybilistyczny(inne rozmyte)
+            to do: podział na grupy - definicje matematyczne
+    ostry: do jednej i tylko jednej grupy
+    rozmyty: do wszystkich z rozmaitym stopniem przynależności, ich suma to 1
+    posybilistyczny: rozmyty bez sumy prznależności=1
+
+Miary odległości:
+    Minkowskiego - ??, uogólniona metryka, gdzie reszta metryk to przypadki,
+    euklidesowa - klasyczna, Mink r=2
+    Manhattan - kraciasta, Mink r=1
+    Hamminga - Manhattan binarny - różnica liczby bitów
+
+Wadą Minkowskiego jest wpływ zmiennych - duży rozchył zmiennych bardziej wpływa na klasyfikację, rozwiązaniem jest skalowanie norm. Norma to macierz dodana do miary i współczynniki tej macierzy modyfikuja wagi. (BTW, miara to iloczyn wektorowy chyba)
+
+Norma Malahanobisa - hiperelipsy o dowolnej orientacji
+Norma diagonalna - just hiperelipsy
+
+
+
+
+Algorytmy klasyfikacji:
+    HCM, FCM - hard/fuzzy c-means (ze stałą normą)
+    
+    Hard c-means jednoznacznie rozdziela dane na c grup:
+        1. Inicjalizacja
+        2. Wyznaczenie przynależności obiektów do grup na podstawie ich odległości od środków grup
+        3. Wyznaczenie nowych środków grup poprzez obliczenie średniego położenia obiektów
+        4. Sprawdzenie warunków zatrzymania algorytmu. Jeśli nie, pętla do 2.
+    
+    Zatrzymanie to odpowiednio mała zmiana położenia środków grup. Inicjalizacja to losowy wybór podziału elementów na grupy.
+    
+    Ze zmienną normą: Gustafsona-Kessela (pozwala szukać grup o kształtach, o których nic nie wiemy)
+    
+    Algorytm FMLE - Fuzzy Maximum Likelihood Estimates - coś o estymatorach
+
+
+
+
+Kryteria jakości grupowania:
+    a) wskaźniki rozmycia macierzy podziału
+    b) wskaźnik Fukuyamy-Sugeno
+    c) wskaźnik Xie-Bieni
+
+
+
+
+
+
+
+
+Sieci neuronowe:
+
+    Model perceptronu
+    Różne funkcje aktywacji: bipolarne,unipolarne
+    Perceptron dzieli przestrzeń możliwych wektorów wejścia na dwie półprzestrzenie
+    Neurony uczy się przez minimalizację funkcji błędu
+    Neuron sigmoidalny - inna funkcja aktywacji
+    Neuron Hebba - może uczyć się także bez nauczyciela - wzmacnia się, jeśli dwie komórki są aktywne razem
+
+Sieci uczy się epokami (epoka = trenowanie raz na każdym przykładzie)
+
+
+Sieci wielowarstwowe:
+    Algorytm wstecznej propagacji błędów
+    Algorytm zmiennej metryki
+    Algorytm Levnberga-Marquardta
+
+Dobór architektury sieci:
+    Ilość warstw określa, jakie bryły można stworzyć przy pomocy neuronów
+    Trójwarstwowe sieci są wstanie podobnoż pokryć dowolny obszar, rozwiązując problemy klasyfikacji
+        Twierdzenie Kołmogorowa o aproksymacji funkcji
+
+Overfitting - kiedy sieć neuronowa uczy się przykładów na pamięć - odpowiedni dobór ilości przykładów
+Do oceny odpowiedniej ilości neuronów użyteczny jest wymiar Vapnika-Chervonenkisa:
+    VC - maksymalna liczba wektorów, które można pogrupować na wszystkie możliwe sposoby przy pomocy funkcji z danego zbioru funkcji.
+    
+Sieci rekurencyjne
+    Mogą działać jako pamięć
+    Hopfielda, Hamminga, RTRN, Elmana, BAM
+    Iterują aż do ustabilizowania sygnału.
+    typu WTA WTM - tylko zwycięzca lub okolice zwycięzcy mogą modyfikować swoje wagi
+    
+    WTM - sieci Kohonena
+    Modyfikacja współczynnika uczenia z kolejnymi epokami
+    
+    
+    
+    ART, radialne, probabilistyczne
+
+
+
+Elastyczne systemy neuronowo-rozmyte

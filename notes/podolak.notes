@@ -1,0 +1,9 @@
+Klasyfikacja hierarchiczna ma dwa główne podejścia:
+    dzelisz na kategorie atrybutów i wtedy rozwiązujesz podproblemy, masz cząstkowe hipotezy, które finalnie sumujesz
+    podział klas na podzbiory, nauka pozbiorami, łączenie hipotezy
+
+HCOC:
+    Drzewo klasyfikatorów
+    Każdy z nich albo daje swój wynik, albo pokazuje na konieczność podziału problemu na podproblemy
+
+Jest to związane nieco z Map/Reduce

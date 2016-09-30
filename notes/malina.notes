@@ -1,0 +1,14 @@
+Rozpoznawanie obrazów:
+    Wstępna obróbka danych (redukcja)
+    Klasyfikacja
+
+Systemy rozpoznające:
+    Proste i złożone
+        Złożone: jednowarstwowe i wielowarstwowe
+    Deterministyczne i statystyczne
+
+Klasyfikatory wykorzystują dyskryminatory, czyli elementy, które określają współczynniki podobieństwa do klasy.
+Istnieje coś takiego, jak decyzja wymijająca, która nie przyporządkowywuje elementu do żadnej z klasy
+
+metoda fixa i hodgesa
+

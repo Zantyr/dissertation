@@ -73,14 +73,32 @@ Przepisać na Pythona 3.5
 
 \section{Klasyfikatory i klasteryzacja - rodzaje algorytmów i porównanie}
 \subsection{Czym jest problem klasyfikacji i klasteryzacji}
+
+Zarówno problem klasyfikacji i klasteryzacji definiuje się w podobny sposób: istotą problemu jest przydzielenie każdego elementu ze skończonego zbioru \emph{obiektów} do jednej lub kilku grup zwanych \emph{klasami}. Różnica między dwoma pojęciami leży w sposobie uczenia algorytmu: klasteryzacja wykorzystuje sprzężenie zwrotne co do poprawnej klasyfikacji - jest więc przykładem algorytmu uczenia maszynowego \emph{nadzorowanego}. Algorytmy klasteryzacyjne natomiast próbują same dokonać wytworzenia wzorca klas - należą do algorytmów uczenia \emph{nienadzorowanego}.\par
+
+Aby podział na klasy był satysfakcjonujący, musi spełniać dwa kryteria. Po pierwsze, elementy wewnątrz klasy muszą być mozliwie do siebie podobne. Po drugie, elementy z różnych klas muszą różnić się od siebie o ile jest to tylko możliwe.\par
+
+Aby możliwe było opisanie problemu, potrzebna jest formalne zdefiniowanie zarówno cech, jak i podobieństwa. W praktyce cechy można definiować dwojako: jako wartości binarne lub rzeczywiste (znormalzowane do jedności, lub nie). W ten sposób opis danego obiektu przyjmuje postać wektora cech (ang. \emph{features}). W takiej reprezentacji miarą podobieństwa, lub bardziej niepodobieństwa, jest odległość między tymi dwoma wektorami. Formalnie podobieństwo $s$ definiuje się jako:\par
+    \begin{equation}
+    tu-wzor
+    \end{equation}
+Ważnym pojęciem do zmierzenia podobieństwa między dwoma obiektami jest pojęcie \emph{metryki}. Metryka jest funkcją, która przyjmując dwa wektory zwraca odległość między nimi. O ile pojęcie odległości pojmowane intuicyjnie jest jednoznaczne, jednak dla celów rozróżnienia obiektów, które są wektorami w przestrzeni o bardzo wielu wymiarach, odpowiednio dobrana metryka pozwala na lepsze dopasowanie modelu klasy do rzeczywistego rozkładu cech wśród jej członków.\par
+
+Najważniejsze dwie metryki to metryka euklidesowa, oraz metryka Manhattan. Są one rozszerzeniem ogólnej metryki Minkowskiego, podanej we wzorze (?). Szczególnym przypadkiem metryki typu Manhattan jest metryka Hamminga, która dla ciągów binarnych jest analogiem sumą bitów jedynkowych funkcji XOR. \par
+
+Drugim elementem, poza metryką, definiującym kształt klasy jest \emph{norma}. Norma ma najczęściej postać macierzy $n \times n$ współczynników, gdzie $n$ to długość wektora cech, w której znajdują się współczynniki przekształcające wektor w taki sposób, aby zrównoważyć wpływ różnego rozrzutu cech na klasyfikację, jak i uwzględnić zależności między cechami. \par
+
+Uzbrojeni w definicję podobieństwa i sposób jego obliczenia, jesteśmy w stanie w miarę dobrze ocenić poprawność działania algorytmów. Ważnym elementem różnych rozwiązań jest też sposób klasyfikacji: dzieli się ją na \emph{ostrą}, \emph{rozmytą} i \emph{posybilistyczną}. Klasyfikacja ostra przyporządkowuje obiekt do jednej i tylko jednej klasy. Klasyfikacja rozmyta wiąże obiekt z róznymi klasami z różną siłą, przy czym suma współczynników określających przynależność dla danego obiektu jest zawsze równa jedności. Klasifykacja posybilistyczna różni się od poprzedniej zniesieniem ograniczenia sumy.\par
+
 \subsection{State-of-the-art metod sztucznej inteligencji}
 \subsection{Binarny klasyfikator Bernoulliego}
 \subsection{Sieć neuronowa}
 \section{Badania zawodowe i psychologiczne}
 \subsection{Obecne systemy klasyfikacji psychologicznej}
 \subsection{Kryteria wyboru metod}
-\subsection{Model ... (ten z sześcioma opcjami)}
-\subsection{Model ... (z szesnastoma klasami)}
+\subsection{Model Hollanda (ten z sześcioma opcjami)}
+\subsection{Model MBTI (z szesnastoma klasami)}
+16FP Questionnaire, enneagramme, big five personality traits
 \subsection{Lista badanych zawodów}
 \section{Wybór cech wejściowych}
 \subsection{Problem ograniczenia ilości pytań}

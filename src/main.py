@@ -1,8 +1,12 @@
+#!/usr/bin/env python
 import flask
-import numpy as np
-from sklearn.naive_bayes import BernoulliNB
-app = flask.Flask(__name__)
+import naivebayes
+import svmclass
+import kohonen
 
+classifiers = {'kohonen':Kohonen,'bayes':NaiveBayes,'svm':SVM}
+
+app = flask.Flask(__name__)
 jobs = []
 
 with open('static/jobs','r') as f:
@@ -18,15 +22,8 @@ with open('static/tests','r') as f:
         vectors.append(vector)
         jobflags.append(job)
 
-#Alternative clasifier from tensorflow - pick up the TF packet to work correctly
-#feature_columns = learn.infer_real_valued_columns_from_input(vectors))
-#clf = learn.DNNClassifier(feature_columns=feature_columns, hidden_units=[len(vectors)+5, len(vectors)+5, len(vectors)+5], n_classes=len(jobflags))
-
-#Current classsifier - naive Bayes
-clf = BernoulliNB()
-
-
-clf.fit(np.array(vectors),np.array(jobflags))
+clf = classifiers['bayes']()
+clf.fit(vectors,jobflags)
 
 @app.route('/')
 def main():
@@ -69,7 +66,7 @@ def learn():
 
 @app.route('/pick.html',methods=['POST'])
 def pick():
-    ans = flask.request.form['vector']   
+    ans = flask.request.form['vector']
     return flask.render_template('pick.html',jobs=jobs,vector=ans)
 
 @app.route('/results.html',methods=['POST'])

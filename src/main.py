@@ -1,31 +1,15 @@
-#!/usr/bin/env python
+#!env/bin/python
 import flask
-import naivebayes
-import svmclass
-import kohonen
-
-classifiers = {'kohonen':Kohonen,'bayes':NaiveBayes,'svm':SVM}
-
+from loadclfs import loadclfs
 app = flask.Flask(__name__)
-jobs = []
+clf = loadclfs()
 
+jobs = []
 with open('static/jobs','r') as f:
     for line in f:
         jobs.append(line.strip())
 
-jobflags = []
-vectors = []
-
-with open('static/tests','r') as f:
-    for line in f:
-        job,vector = map(lambda x: eval(x),map(lambda x:x.strip(),line.split(';')))
-        vectors.append(vector)
-        jobflags.append(job)
-
-clf = classifiers['bayes']()
-clf.fit(vectors,jobflags)
-
-@app.route('/')
+@app.route('/quiz')
 def main():
     questions=[]
     with open('static/quiz','r') as f:
@@ -33,10 +17,14 @@ def main():
             q,a,b=map(lambda x:x.strip(),line.split(';'))
             questions.append((q,a,b))
     q,a,b=map(lambda x:list(x),zip(*questions))
+    q,a,b=map(lambda x:list(x),zip(*questions))
+    q = map(lambda x:x.encode('utf-8'),q)
+    a = map(lambda x:x.encode('utf-8'),a)
+    b = map(lambda x:x.encode('utf-8'),b)
     data = "var questions=" + str(q) + "\nvar answersA=" + str(a) + "\nvar answersB=" + str(b)
-    return flask.render_template('quiz.html',data=data,target='/results.html')
+    return flask.render_template('quiz.html',data=data,target='/results')
 
-@app.route('/save.html',methods=['POST'])
+@app.route('/save',methods=['POST'])
 def save():
     ans = flask.request.form['vector'].replace('A','0').replace('B','1')
     job = flask.request.form['job']
@@ -44,14 +32,19 @@ def save():
     line = ';'.join([job,ans])
     with open('static/tests','aw') as f:
         f.write(line+'\n')
+    with open('static/logtests','aw') as f:
+        f.write(line+'\n')
     questions=[]
     with open('static/quiz','r') as f:
         for line in f:
             q,a,b=map(lambda x:x.strip(),line.split(';'))
             questions.append((q,a,b))
     q,a,b=map(lambda x:list(x),zip(*questions))
+    q = map(unicode,q)
+    a = map(unicode,a)
+    b = map(unicode,b)
     data = "var questions=" + str(q) + "\nvar answersA=" + str(a) + "\nvar answersB=" + str(b)
-    return flask.render_template('quiz.html',data=data,target='/pick.html')
+    return flask.render_template('quiz.html',data=data,target='/pick')
 
 @app.route('/learn')
 def learn():
@@ -62,19 +55,24 @@ def learn():
             questions.append((q,a,b))
     q,a,b=map(lambda x:list(x),zip(*questions))
     data = "var questions=" + str(q) + "\nvar answersA=" + str(a) + "\nvar answersB=" + str(b)
-    return flask.render_template('quiz.html',data=data,target='/pick.html')
+    return flask.render_template('quiz.html',data=data,target='/pick')
 
-@app.route('/pick.html',methods=['POST'])
+@app.route('/pick',methods=['POST'])
 def pick():
     ans = flask.request.form['vector']
     return flask.render_template('pick.html',jobs=jobs,vector=ans)
 
-@app.route('/results.html',methods=['POST'])
+@app.route('/results',methods=['POST'])
 def results():
     ans = flask.request.form['vector']
     ans = ans.replace('A','0').replace('B','1')
     ans = eval(ans)
-    job = jobs[clf.predict(np.array([ans]))[0]]
-    return flask.render_template('result.html',job=job)
+    prediction = map(lambda x:{'job':jobs[x.predict([ans])],'model':x.name},clf)
+    print(prediction)
+    line = prediction + list(ans)
+    with open('static/logresults','aw') as f:
+        f.write(str(line)+'\n')
+    return flask.render_template('result.html',prediction=prediction)
 
-app.run('0.0.0.0',port=80)
+if __name__=="__main__":
+    app.run('0.0.0.0',port=80)

@@ -46,7 +46,7 @@
     tabsize=3
 }
 
-\title{System doradztwa zawodowego z wykorzystaniem metod sztucznej inteligencji}
+\title{System doradztwa zawodowego z wykorzystaniem metod sztucznej inteligencji - szkic}
 \author{Paweł Tomasik}
 
 \begin{document}
@@ -69,10 +69,10 @@ Przepisać na Pythona 3.5
 
 \tableofcontents
 
-\section{Temat pracy}
+\chapter{Temat pracy}
 
-\section{Klasyfikatory i klasteryzacja - rodzaje algorytmów i porównanie}
-\subsection{Czym jest problem klasyfikacji i klasteryzacji}
+\chapter{Klasyfikatory i klasteryzacja - rodzaje algorytmów i porównanie}
+\section{Czym jest problem klasyfikacji i klasteryzacji}
 
 Zarówno problem klasyfikacji i klasteryzacji definiuje się w podobny sposób: istotą problemu jest przydzielenie każdego elementu ze skończonego zbioru \emph{obiektów} do jednej lub kilku grup zwanych \emph{klasami}. Różnica między dwoma pojęciami leży w sposobie uczenia algorytmu: klasteryzacja wykorzystuje sprzężenie zwrotne co do poprawnej klasyfikacji - jest więc przykładem algorytmu uczenia maszynowego \emph{nadzorowanego}. Algorytmy klasteryzacyjne natomiast próbują same dokonać wytworzenia wzorca klas - należą do algorytmów uczenia \emph{nienadzorowanego}.\par
 
@@ -90,34 +90,100 @@ Drugim elementem, poza metryką, definiującym kształt klasy jest \emph{norma}.
 
 Uzbrojeni w definicję podobieństwa i sposób jego obliczenia, jesteśmy w stanie w miarę dobrze ocenić poprawność działania algorytmów. Ważnym elementem różnych rozwiązań jest też sposób klasyfikacji: dzieli się ją na \emph{ostrą}, \emph{rozmytą} i \emph{posybilistyczną}. Klasyfikacja ostra przyporządkowuje obiekt do jednej i tylko jednej klasy. Klasyfikacja rozmyta wiąże obiekt z róznymi klasami z różną siłą, przy czym suma współczynników określających przynależność dla danego obiektu jest zawsze równa jedności. Klasifykacja posybilistyczna różni się od poprzedniej zniesieniem ograniczenia sumy.\par
 
-\subsection{State-of-the-art metod sztucznej inteligencji}
-\subsection{Binarny klasyfikator Bernoulliego}
-\subsection{Sieć neuronowa}
-\section{Badania zawodowe i psychologiczne}
-\subsection{Obecne systemy klasyfikacji psychologicznej}
-\subsection{Kryteria wyboru metod}
-\subsection{Model Hollanda (ten z sześcioma opcjami)}
-\subsection{Model MBTI (z szesnastoma klasami)}
+\section{State-of-the-art metod sztucznej inteligencji}
+Badania w zakresie sztucznej inteligencji, trwające od lat 60. XX wieku, wytworzyły dużą liczbę technik komputerowych opartych na zasadach \emph{soft computing}. \emph{Wstawić tutaj klasyfikację technik sztucznej inteligencji!}\par
+
+Klasyfikacja:
+    sieci perceptronowe
+    sieci kohonena
+    klasyfikatory maksymalnoodległościowe
+    klasyfikatory statystyczne (naiwny model bayesowski)
+Klasteryzacja:
+    hard c-means
+    fuzzy c-means
+    Gustafsona-Kessela
+    Fuzzy Maximum Likelihood Estimates
+
+W tej pracy zostaną wykorzystane po dwie metody klasyfikacji i klasteryzacji. Zostaną one opisane poniżej
+
+\subsection{Naiwny model bayesowski}
+Naiwny model bayesowski opiera się na 
+\subsection{SVM}
+\subsection{Algorytm k-średnich}
+\subsection{Sieci Kohonena}
+
+\section{Ocena jakości grupowania}
+Kryteria jakości grupowania:
+    a) wskaźniki rozmycia macierzy podziału
+    b) wskaźnik Fukuyamy-Sugeno
+    c) wskaźnik Xie-Bieni
+\section{Sieć neuronowa}
+Sieć neuronowa jest najczęściej wykorzystywaną techniką sztucznej inteligencji. Ze względu na bardzo prostą zasadę działania, dorobiła się ona dziesiątek modyfikacji, uwzględniając różne sposoby łączenia, uczenia i działania neuronów.
+\subsection{Sieci Kohonena}
+\subsection{Overfitting}
+\section{Binarny klasyfikator bayesowski}
+\section{Klasyfikator maksymalnoogległościowy}
+Klasyfikatory maksymalnoodległościowe zostały wynalezione przez Vapnika. Opierają się one na wyznaczeniu granicy między zestawmi danych w taki sposób, aby zachować możliwie dużą odległość najbliższych punktów od granicy. Inna nazwa tej metody, \emph{maszyna wektorów wspierających}, oddaje sposób w jaki zostaje to wykonane. Wybiera się $n$ punktów:\par
+    ... opis działania metody...\par
+Istotne do poprawnego wykorzystania SVM jest wykonanie kilku kroków \cite{chih-wei}. Po pierwsze, należy przygotować i znormalizować dane. Drugim etapem jest wybór rodzaju funkcji jądra. Standardowo rozróżnia się cztery jej rodzaje: liniowe, wielomianowe, RBF i sigmoidalne. Następnie, należy ocenić odpowiednio \emph{ten parametr jądra}. Zgodnie z badaniami samego autora tej metody, musi być on równy wymiarowi $VC$ (\emph{Vapnika-Chernocośtam}) dla zbioru danych. Wymiar VC definiuje się jako ...... . Wraz z oceną tego parametru należy jeszcze znaleźć współczynnik błędu. \par
+\section{Metoda k średnich}
+\chapter{Badania zawodowe i psychologiczne}
+\section{Obecne systemy klasyfikacji psychologicznej}
+\section{Kryteria wyboru metod}
+\section{Model Hollanda (ten z sześcioma opcjami)}
+Model ten opracowany przez ...Hollanda... w roku ... . Klasyfikuje on ludzi na sześć głównych klas, a bardziej szczegółowo, szereguje funkcje zawodowe ludzi według ich preferencji. Te sześć funkcji zestawionych jest w przeciwstawne pary:\par
+Artystyczny - Konwencjonalny\par
+Realistyczny - Spoleczny\par
+Badawczy - Przedsiebiorczy\par
+Zawody są przydzielone do jednej lub kilku z tych klas według umiejętności, których wymagają, mogą one należeć także do klas przeciwstawnych, jeżeli obydwie umiejętności są potrzebne - nie wykluczają się one wzajemnie.\par
+\section{Model MBTI (z szesnastoma klasami)}
+Model MBTI klasyfikuje ludzi na szesnaście kategorii według ich preferencji w funkcjach poznawczych. Ludzie są opisani jako klasy będące kombinacją czterech spektrów cech:\par
+Introwersja - ekstrawersja\par
+Poznanie - intuicja\par
+Rozumowanie - uczuciowość\par
+Postrzeganie - osądzanie\par
+\section{Inne}
 16FP Questionnaire, enneagramme, big five personality traits
-\subsection{Lista badanych zawodów}
-\section{Wybór cech wejściowych}
-\subsection{Problem ograniczenia ilości pytań}
-\subsection{Okrojenie modeli psychologicznych}
-\subsection{Dostosowanie pytań dodatkowych (data mining)}
-\section{Implementacja i zbieranie danych}
-\subsection{Moduł inteligentny}
-\subsection{Moduł respondenta}
-\subsection{Moduł uczenia wsadowego}
-\subsection{Moduł prezentacji danych}
-\subsection{Moduł kreacji testów}
-\subsection{Aplikacja systemu do zadanego problemu}
-\subsection{Schemat}
-\section{Wyniki}
-\subsection{Porównanie trafności klasyfikatorów}
-\subsection{Wnioski wyciągnięte z badań}
-\section{Kod źródłowy}
-\subsection{Wsadowy skrypt instalacyjny (Unix)}
-\subsection{Kod źródłowy modułu inteligentnego}
+\section{Lista badanych zawodów}
+\chapter{Wybór cech wejściowych}
+\section{Problem ograniczenia ilości pytań}
+\section{Okrojenie modeli psychologicznych}
+\section{Dostosowanie pytań dodatkowych (data mining)}
+\section{Walidacja krzyżowa}
+\chapter{Implementacja i zbieranie danych}
+Python jest językiem szeroko wykorzystywanym w środowiskach naukowych, głównie ze względu na połączenie prostoty przy silnie rozwiniętych bibliotekach matematycznych. Z tego powodu istnieje dość duży ekosystem modułów SI opartych o pakiet numpy. Jedna z list jest dostępna pod adresem \cite{pythonwiki}. W pracy skorzystano między innymi z modułów zamieszczonych na tamtej liscie. Wykorzystane moduły zlisotwano w tabeli \ref{table:modules}.\par
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|}
+\toprule
+klasyfikator NN & FANN \ref{fann}\\
+    klasyfikator na sieci Kohonena & FANN\\
+    SVM & libSVM via PyBrain \ref{pybrain}\\
+    naiwny model bayesowski & sklearn \\
+    Klasyfikator skupiskowy & ??? \\
+    hard c-means &  \\
+    fuzzy c-means & \\
+    Gustafsona-Kessela & \\
+    Fuzzy Maximum Likelihood Estimates & \\
+\bottomrule
+\end{tabular}
+\label{table:modules}
+\caption{Moduły wykorzystane w pracy}
+\end{table}
+\section{Moduł inteligentny}
+\section{Moduł respondenta}
+\section{Moduł uczenia wsadowego}
+\section{Moduł prezentacji danych}
+\section{Moduł kreacji testów}
+\section{Aplikacja systemu do zadanego problemu}
+\section{Schemat}
+\chapter{Wyniki}
+\section{Porównanie trafności klasyfikatorów}
+\section{Wnioski wyciągnięte z badań}
+\chapter{Kod źródłowy}
+\section{Wsadowy skrypt instalacyjny (Unix)}
+\section{Kod źródłowy modułu inteligentnego}
 \lstinputlisting[breaklines]{src/main.py}
 
 \begin{thebibliography}{9}
@@ -132,5 +198,9 @@ Uzbrojeni w definicję podobieństwa i sposób jego obliczenia, jesteśmy w stan
 \bibitem{hastie} Trevor Hastie, Robert Tibshirani, Jerome Friedman, \emph{The Elements of Statistical Learning}, Springer, druga edycja
 \bibitem{pythonwiki} \emph{https://wiki.python.org/moin/PythonForArtificialIntelligence}
 \bibitem{stanford} \emph{http://cs.stanford.edu/people/eroberts/courses/soco/projects/2000-01/neural-networks/Sources/index.html}
+\bibitem{chih-wei}Chih-Wei Hsu, Chih-Chung Chang, Chih-Jen Lin, \emph{A Practical Guide to Support Vector Classication}, Last updated: May 19, 2016
+\bibitem{fann} \emph{http://leenissen.dk/fann/wp/}
+\bibitem{simpleai} \emph{https://github.com/simpleai-team/simpleai}
+\bibitem{pybrain} \emph{http://pybrain.org/pages/features}
 \end{thebibliography}
 \end{document}

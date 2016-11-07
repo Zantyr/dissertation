@@ -7,7 +7,7 @@ class Kohonen(object):
         self.net.set_learning_rate(rate)
     def fit(self,input,desired):
         self.net.train(input,desired)
-    def predict(self.data):
+    def predict(self,data):
         return self.net.run(x)
     def save(self,filename):
         self.net.save(filename)

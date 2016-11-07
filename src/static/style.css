@@ -1,0 +1,49 @@
+body{
+	padding: 0;
+	background: #369;
+	font-family:"Open Sans",sans;
+}
+
+div{
+	padding: 0;
+	display:block;
+	font-size: 42;
+}
+
+#maindiv{
+	margin: 5% auto;
+	background: #258;
+	width: 80%;
+	height: 80%;
+}
+
+#questionboxgreen{
+	position:relative;
+	max-width:100%;
+	height: 40%;
+	margin: 5% 5%;
+	background: #6a6;
+	border-style:solid;
+	border-width:medium;
+	border-color:#5b5;
+	border-radius:10%;
+}
+#questionboxred{
+	position:relative;
+	max-width:100%;
+	height: 40%;
+	margin: 5% 5%;
+	background: #a66;
+	border-style:solid;
+	border-width:medium;
+	border-color:#b55;
+	border-radius:10%;
+}
+
+#question{
+	position:absolute;
+	text-align:center;
+	width: 100%;
+	top:50%;
+	transform: translate(0, -50%);
+}

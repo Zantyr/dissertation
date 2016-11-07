@@ -1,40 +1,6 @@
 <html><head>
 <meta charset='utf-8'>
-<style>
-body{
-	padding: 0;
-	background: #035;
-}
-
-div{
-	padding: 0;
-	display:block;	
-	font-size: 42;
-}
-
-#maindiv{
-	margin: 5% auto;
-	background: #058;
-	width: 80%;
-	height: 80%;
-}
-
-#questionbox{
-	position:relative;
-	max-width:100%;
-	height: 40%;
-	margin: 5% 5%;
-	background: #6a6;
-}
-
-#question{
-	position:absolute;
-	text-align:center;
-	width: 100%;
-	top:50%;
-	transform: translate(0, -50%);
-}
-</style>
+<link type='text/css' rel='stylesheet' href='{{url_for('static',filename='style.css')}}'>
 </head>
 
 <body>
@@ -43,7 +9,7 @@ div{
 		<div id="question">Pick your job:</div>
 	</div>
     {%for job in jobs%}
-    <form method='post' action='save.html'><input type='hidden' name='vector' value='{{vector|safe}}'><input type='submit' name='job' value='{{job|safe}}'></form>
+    <form method='post' action='save'><input type='hidden' name='vector' value='{{vector|safe}}'><input type='submit' name='job' value='{{job|safe}}'></form>
     {%endfor%}
 </div>
 </body></html>

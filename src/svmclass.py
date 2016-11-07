@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0,"/media/arioch/adbf5f51-d439-433b-8e45-7c52b1f6b8e7/home/zantyr/dissertation/src/env/lib/python2.7/site-packages")
 from pybrain.structure.modules.svmunit import SVMUnit
 from pybrain.supervised.trainers.svmtrainer import SVMTrainer
 

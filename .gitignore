@@ -6,3 +6,4 @@
 *.pdf
 */env/*
 *.quest
+*/libsvm/*

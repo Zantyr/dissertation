@@ -36,13 +36,12 @@ env/bin/pip install -U scikit-learn 2>&1 >>install.log
 echo "13/15   Instalacja pybrain"
 env/bin/pip install pybrain 2>&1 >>install.log
 echo "14/15   Instalacja biblioteki libSVM"
-cd env/lib/python2.7/site-packages
 chmod 777 .
 git clone https://github.com/cjlin1/libsvm.git
 cd libsvm
 make
-echo "15/15   Instalacja fann2 - eksperymentalnie"
 cd ..
+echo "15/15   Instalacja fann2 - eksperymentalnie"
 wget http://downloads.sourceforge.net/project/fann/fann/2.2.0/FANN-2.2.0-Source.zip 2>&1 >>install.log
 unzip FANN-2.2.0-Source.zip 2>&1 >>install.log
 cd FANN-2.2.0-Source/
@@ -50,9 +49,8 @@ cmake . 2>&1 >>install.log
 make install 2>&1 >>install.log
 cd examples/
 make runtest 2>&1 >>install.log
-cd ..
+cd ../..
 yes | apt-get install swig 2>&1 >>install.log
-cd ../../../../..
 env/bin/pip install fann2 2>&1 >>install.log
 echo "Tutaj jeszcze msuza byc dodatkowe biblioteki - kohonen, linki do libsvm poprawnie konfigurnac itd"
 END=$(date +%s.%N)

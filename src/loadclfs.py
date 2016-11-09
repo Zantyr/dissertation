@@ -1,11 +1,11 @@
 from naivebayes import NaiveBayes
 from sys import argv
-#from svmclass import SVM
+from svmclass import SVM
 #from kohonen import Kohonen
-#from kmeans import KMeans
+from kmeans import KMeans
 def loadclfs():
     #classifiers = {'kohonen':Kohonen,'bayes':NaiveBayes,'svm':SVM,'kmeans':KMeans}
-    classifiers = [NaiveBayes]
+    classifiers = [NaiveBayes,SVM,KMeans]
 
     def parse_test_data():
         jobflags = []

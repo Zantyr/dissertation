@@ -1,13 +1,39 @@
 import sys
-sys.path.insert(0,"/media/arioch/adbf5f51-d439-433b-8e45-7c52b1f6b8e7/home/zantyr/dissertation/src/env/lib/python2.7/site-packages")
-from pybrain.structure.modules.svmunit import SVMUnit
-from pybrain.supervised.trainers.svmtrainer import SVMTrainer
+import os
+from subprocess import Popen,PIPE
+import random
 
 class SVM(object):
     def __init__(self):
-        self.svm = SVMUnit()
+        self.name = "Klasyfikator maksymalnoodleglosciowy"
     def fit(self,input,desired):
-        trainer = SVMTrainer(self.svm,zip(input,desired))
-        trainer.train(log2C=0.,log2g=1.1)
+        identifier = self._random_id()
+        with open("static/svm.tmp","w") as f:
+            f.write('\n'.join(
+                map(
+                    lambda (i,j):
+                        str(j) +
+                             ''.join(map(lambda (x,y):" {0}:{1}".format(str(x),str(y)),enumerate(i))),
+                           zip(input,desired))))
+        cmd = 'libsvm/svm-train "static/svm.tmp" "static/svm.model"'
+        Popen(cmd, shell = True, stdout = PIPE).communicate()  
+        os.remove("static/svm.tmp")
+        return self   
     def predict(self,data):
-        return self.svm.activateOnDataset(data)
+        identifier = self._random_id()
+        with open("static/svm.in.{}".format(identifier),"w") as f:
+            f.write('\n'.join(
+                map(
+                    lambda i:
+                        "0 " +
+                             ''.join(map(lambda (x,y):" {0}:{1}".format(str(x),str(y)),enumerate(i))),
+                           data)))
+        cmd = 'libsvm/svm-predict "static/svm.in.{0}" "static/svm.model" "static/svm.out.{0}"'.format(identifier)
+        Popen(cmd, shell = True, stdout = PIPE).communicate() 
+        with open("static/svm.out.{0}".format(identifier),"r") as f:
+            classification = int(f.read().strip())
+        os.remove("static/svm.in.{0}".format(identifier))
+        os.remove("static/svm.out.{0}".format(identifier))
+        return classification
+    def _random_id(self):
+        return ''.join([str(random.randint(0,9)) for x in range(10)])

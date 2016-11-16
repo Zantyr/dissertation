@@ -62,6 +62,10 @@ def pick():
     ans = flask.request.form['vector']
     return flask.render_template('pick.html',jobs=jobs,vector=ans)
 
+@app.route('/')
+def index():
+    return flask.render_template('main.html')
+
 @app.route('/results',methods=['POST'])
 def results():
     ans = flask.request.form['vector']

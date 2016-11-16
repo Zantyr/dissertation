@@ -1,12 +1,12 @@
 from sklearn.cluster import KMeans as sKMeans
 import numpy as np
 from collections import Counter
+from selectors import PersonalitySelector,JobSelector
 
 class KMeans(object):
     def __init__(self):
         self.classes = 6
         self.name = "Metoda Ksrednich - klasteryzacja"
-        self.max_points = 1000
         self.kmeans = sKMeans(n_clusters=self.classes,init='random')
     def fit(self,input,desired):
         self.kmeans = self.kmeans.fit(np.array(input))
@@ -18,6 +18,16 @@ class KMeans(object):
     def predict(self,data):
         return [self.mapping[x] for x in self.kmeans.predict(np.array(data,dtype='double'))][0]
         
+class JobKMeans(JobSelector):
+    def __init__(self):
+        super(JobKMeans,self).__init__()
+        self.model = KMeans()
+
+class PersonalityKMeans(PersonalitySelector):
+    def __init__(self):
+        super(PersonalityKMeans,self).__init__()
+        self.model = KMeans()
+
 
 if __name__=="__main__":
     s = KMeans().fit([[0,8],[-2,-3],[5,4],[4,4],[-2,-3],[1,1],[8,8],[5,5],[4,3],[1,0],[0,1],[1,2]],[0,1,2,3,4,5,0,1,2,3,4,5])

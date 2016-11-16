@@ -1,8 +1,8 @@
-from naivebayes import NaiveBayes
+from naivebayes import NaiveBayes,JobNaiveBayes,PersonalityNaiveBayes
 from sys import argv
-from svmclass import SVM
+from svmclass import SVM,JobSVM,PersonalitySVM
 #from kohonen import Kohonen
-from kmeans import KMeans
+from kmeans import KMeans,JobKMeans,PersonalityKMeans
 def loadclfs():
     #classifiers = {'kohonen':Kohonen,'bayes':NaiveBayes,'svm':SVM,'kmeans':KMeans}
     classifiers = [NaiveBayes,SVM,KMeans]
@@ -22,5 +22,7 @@ def loadclfs():
             pass #load classifier here
     except:
         clf = map(lambda x:x(),classifiers)
-        clf = map(lambda x: x.fit(*parse_test_data()),clf)  
+        clf = map(lambda x: x.fit(*parse_test_data()),clf) 
+        for i in clf:
+            print i.name 
     return clf

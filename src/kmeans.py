@@ -8,7 +8,7 @@ class KMeans(object):
         self.classes = 6
         self.name = "Metoda Ksrednich - klasteryzacja"
         self.kmeans = sKMeans(n_clusters=self.classes,init='random')
-    def fit(self,input,desired):
+    def fit(self,input,desired,_):
         self.kmeans = self.kmeans.fit(np.array(input))
         self.match = zip(self.kmeans.labels_,desired)
         self.match.sort(key=lambda x:x[0])

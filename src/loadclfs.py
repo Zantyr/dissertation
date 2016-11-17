@@ -3,19 +3,24 @@ from sys import argv
 from svmclass import SVM,JobSVM,PersonalitySVM
 #from kohonen import Kohonen
 from kmeans import KMeans,JobKMeans,PersonalityKMeans
+from scoring import HollandScoring,MBScoring
 def loadclfs():
     #classifiers = {'kohonen':Kohonen,'bayes':NaiveBayes,'svm':SVM,'kmeans':KMeans}
-    classifiers = [NaiveBayes,SVM,KMeans]
+    classifiers = [HollandScoring,MBScoring,NaiveBayes,SVM,KMeans,PersonalityNaiveBayes]
 
     def parse_test_data():
         jobflags = []
         vectors = []
+        mbtiflags = []
         with open('static/tests','r') as f:
             for line in f:
-                job,vector = map(lambda x: eval(x),map(lambda x:x.strip(),line.split(';')))
+                valid,vector = map(lambda x: eval(x),map(lambda x:x.strip(),line.split(';')))
+                job = valid[0]
+                mbti = valid[1]
                 vectors.append(vector)
                 jobflags.append(job)
-        return vectors,jobflags
+                mbtiflags.append(mbti)
+        return vectors,jobflags,mbtiflags
 
     try:
         with open(argv[1],'r'):

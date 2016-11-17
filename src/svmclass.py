@@ -8,7 +8,7 @@ class SVM(object):
     def __init__(self,suffix=''):
         self.suffix=suffix
         self.name = "Klasyfikator maksymalnoodleglosciowy"
-    def fit(self,input,desired):
+    def fit(self,input,desired,_):
         identifier = self._random_id()
         with open("static/svm{0}.tmp".format(self.suffix),"w") as f:
             f.write('\n'.join(

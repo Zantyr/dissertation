@@ -1,14 +1,75 @@
 <html><head>
 <meta charset='utf-8'>
 <style>
-body{padding: 0;background: #369;font-family:"Open Sans",sans;}
-#maindiv{width:65%;height:80%;max-height:80%;top:10%;position:absolute;left:17.5%;background:#eee;border-style: hidden;border-radius: 1em;}
-#questionbox{background: #47a;font-size: 42;font-weight: bold;width:80%;display: block;position: relative;left:10%;top:5%;height:40%;border-style: hidden;border-radius:1em;}
-#question{background: #47a;}
-a{text-decoration: none;color:#000;}
-#answerbox{display: block;position: relative;top: 10%;width:80%;left:10%;height:40%;}
-#answerboxA{display:block;height:50%;max-height:50%;text-align: center;font-size:24;font-style: italic;background:#da6;}
-#answerboxB{display:block;height:50%;max-height:50%;font-style: italic;text-align: center;font-size:24;background:#6da;}
+body{
+	margin: 0;
+	padding: 0;
+	background: #7ce;
+	font-family:"Open Sans",sans;
+	height:100vh;}
+#sp{
+display: block;
+width: 100%;
+height:10%;
+}
+#maindiv{
+	margin: 0 auto;
+	padding:0;
+	width:50em;
+	height:30em;
+	background:#eee;
+	border: 0;
+	border-radius: 5px;}
+#questionbox{
+	margin: 1em 0 -1em 0 ;
+	padding: 0;
+	9background: #47a;
+	font-size: 42;
+	font-weight: bold;
+	width:100%;
+	display: inline-block;
+	height:45%;
+	border: 0;
+	border-radius:5px;}
+#question{
+	text-align: center;
+	display:block;
+	margin: 0;
+	padding: 0;}
+a{
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	color:#000;}
+#answerbox{
+	margin: 0;
+	padding: 0;
+	display: block;
+	position: relative;
+	top: 10%;
+	width:95%;
+	left:2.5%;
+	height:40%;}
+#answerboxA{
+	margin: 0;
+	padding: 0;
+	display:block;
+	height:50%;
+	max-height:50%;
+	text-align: center;
+	font-size:24;
+	font-style: italic;
+	background:#da6;}
+#answerboxB{
+	margin: 0;
+	padding: 0;
+	display:block;
+	height:50%;
+	max-height:50%;
+	font-style: italic;
+	text-align: center;
+	font-size:24;
+	background:#6da;}
 </style>
 <script>
 var i = 0;
@@ -79,6 +140,7 @@ function results(){
 </head>
 
 <body>
+<div id=sp></div>
 <div id="maindiv">
 	<div id="questionbox" onClick="javascript: question();">
 		<div id="question"  onClick="javascript: question();">Click to start</div>

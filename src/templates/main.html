@@ -2,58 +2,70 @@
 <meta charset='utf-8'>
 <style>
 body{
+	margin: 0;
 	padding: 0;
-	background: #369;
+	background: #7ce;
 	font-family:"Open Sans",sans;
-    font-size:20;
-}
-.content
-{
-	position: absolute;
-	left:20%;
-	background-color:#eee;
-	text-align:justify;
-	width:60%;
-	border-radius: 1em;
-	border-style:hidden;
-}
-.content h5
-{
+	height:90vh;}
+#maindiv{
+	margin: 0 auto;
+	padding:0;
+	width:50em;
+	height:30em;
+	background:#eee;
+	border: 0;
+	border-radius: 5px;}
+#questionbox{
+	margin: 0.5em 0 -0.5em 0.5em;
+	padding: 0;
+	width: 24em;
+	background: #47a;
+	font-size: 2em;
+	font-weight: bold;
+	display: inline-block;
+	height:6em;
+	border: 0;
+	border-radius:5px;}
+a{
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	color:#000;}
+h2{
 	text-align:center;
+}
+.text{
+	width:80%;
+	text-align: justify;
+	margin-left: 10%;
 }
 .spacer{
-	display:inline-block;
-	padding:0;
-	border:0;
-	width:33%;
-	max-width:33%;
-}
-.button-link{
-	padding: 30px 0;
-	text-align:center;
+	margin-left:30%;
+	margin-top:5%;
+	width:40%;
 }
 .button{
-	background-color:#66e;
+	background-color: #47a;
+	text-align:center;
+	padding: 10px auto;
+	font-size:24;
 }
-.text{border-style:hidden;padding: 1em 0 1em 0;}
-a {text-decoration: none;}
 </style>
 </head>
 
 <body>
 <div id="maindiv">
-	<div class='content'>
-<h5>Kurs zawodowy z technikami sztucznej inteligencji</h2>
-<div class=text>Odpowiedz na 80 prostych pytań i dowiedz się, jaki jest twój charakter zawodowy.
-	Test zajmie około 15 minut.Test bazowany jest na pytaniach z testów takich jak model Hollanda czy Myersa-Briggsa
-	Test ma charakter zabawy psychologicznej i mimo bazowania na istniejących testach nie gwarantuje stuprocentowej poprawności.
-	Wraz z wynikami bazowanymi na samych pytaniach możesz zobaczyć, w jaki sposób różne techniki SI klasyfikują Twój charakter
-<div class=spacer></div>
-<div class=spacer><div class='button-box'>
-	<a href='/quiz' class='button-link'><div class='button'>Weź udział!</div></a>
-</div>
-</div>
-</div>
+	<div class='questionbox'>
+			<h2>Quiz zawodowy z technikami sztucznej inteligencji</h2>
+			<div class=text>Odpowiedz na 80 prostych pytań i dowiedz się, jaki jest twój charakter zawodowy.
+			Test zajmie około 15 minut.Test bazowany jest na pytaniach z testów takich jak model Hollanda czy Myersa-Briggsa
+			Test ma charakter zabawy psychologicznej i mimo bazowania na istniejących testach nie gwarantuje stuprocentowej poprawności.
+			Wraz z wynikami bazowanymi na samych pytaniach możesz zobaczyć, w jaki sposób różne techniki SI klasyfikują Twój charakter
+			</div>
+			<div class=spacer><div class='button-box'>
+					<a href='/quiz' class='button-link'><div class='button'>Weź udział!</div></a>
+			</div>
 	</div>
+</div>
 </div>
 </body></html>

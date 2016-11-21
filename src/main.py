@@ -16,7 +16,7 @@ def MBTI(t):
                 ' J' if t[3] > 0 else (' P' if t[3] < 0 else " (JP)")])
 
 def JSfy_list(l):
-    return str(l)
+    return "[\"{}\"]".format('","'.join([x.encode('utf-8') for x in l])).decode('utf-8')
 
 @app.route('/quiz')
 def main():
@@ -27,9 +27,11 @@ def main():
             questions.append((q,a,b))
     q,a,b=map(lambda x:list(x),zip(*questions))
     q,a,b=map(lambda x:list(x),zip(*questions))
-    q = map(lambda x:x.encode('utf-8'),q)
-    a = map(lambda x:x.encode('utf-8'),a)
-    b = map(lambda x:x.encode('utf-8'),b)
+    q = map(lambda x:x.decode('utf-8'),q)
+    a = map(lambda x:x.decode('utf-8'),a)
+    b = map(lambda x:x.decode('utf-8'),b)
+    for i in q:
+        print i
     data = "var questions=" + JSfy_list(q) + "\nvar answersA=" + JSfy_list(a) + "\nvar answersB=" + JSfy_list(b)
     return flask.render_template('quiz.html',data=data,target='/results')
 
@@ -81,11 +83,11 @@ def results():
     ans = ans.replace('A','0').replace('B','1')
     ans = eval(ans)
     prediction = map(lambda x:{'job':x.predict([ans]),'model':x.name},clf)
-    print(prediction)    
+    print(prediction)
     prediction = map(lambda x:{'job':jobs[x['job']] if type(x['job'])!=tuple else MBTI(x['job']),'model':x['model']},prediction)
     line = prediction + list(ans)
     with open('static/logresults','aw') as f:
-        f.write(JSfy_list(line)+'\n')
+        f.write(str(line)+'\n')
     return flask.render_template('result.html',prediction=prediction)
 
 if __name__=="__main__":

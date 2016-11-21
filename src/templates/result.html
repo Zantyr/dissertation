@@ -4,20 +4,64 @@
 table tr td
 {
     border-style:solid;
+    border-color:#369;
     margin:0;
-    padding:0;
+    padding:4;
+}
+table{
+  margin-top:2em;
+  margin-bottom:2em;
+  margin-left: auto;
+  margin-right: auto;
+}
+body{
+	margin: 0;
+	padding: 1em 0 0 0;
+	background: #7ce;
+	font-family:"Open Sans",sans;
+	height:90vh;}
+#maindiv{
+	margin: 0 auto;
+	padding:0;
+	width:50em;
+	height:30em;
+	background:#eee;
+	border: 0;
+	border-radius: 5px;}
+#questionbox{
+	margin: 0.5em 0 -0.5em 0.5em;
+	padding: 0;
+	width: 24em;
+	background: #47a;
+	font-size: 2em;
+	font-weight: bold;
+	display: inline-block;
+	border: 0;
+	border-radius:5px;
+}
+#content{
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align:center;
+  font-size:18;
 }
 </style>
 </head>
 <body>
 <div id="maindiv">
 	<div id="questionbox">
-        <table>
-            <tr><td>Klasyfikator</td><td>Klasyfikacja</td></tr>
+        <div><table>
+            <tr><td><i>Klasyfikator</i></td><td><i>Klasyfikacja</i></td></tr>
             {% for job in prediction %}
 		        <tr><td>{{job.model}}</td><td>{{job.job}}</td></tr>
             {% endfor %}
-        </table>    
+        </table></div>
+        <div id=content>
+          Opisy róznych typów osobowości według Hollanda znajdziesz
+          <a href='http://testy-zawodowe.pl/praca/8,typy-osobowosci-zawodowej'>
+            tutaj</a>. Opisy typów Myersa-Briggsa znajdziesz
+          <a href='https://www.16personalities.com/pl/typy-osobowosci'>tutaj</a>.
+        </div>
 	</div>
 </div>
 </body></html>

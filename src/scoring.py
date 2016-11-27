@@ -6,8 +6,8 @@ class HollandScoring(object):
     def fit(self,*args):
         return self
     def predict(self,data):
-        vector = ((0,1),(0,2),(0,3),(0,4),(0,5),(1,2),(1,3),(1,4),(1,5),(2,3),
-                  (2,4),(2,5),(3,4),(3,5),(4,5),(0,3),(1,4),(2,5),(5,4),(3,2),
+        vector = ((0,1),(0,2),(0,3),(0,5),(1,3),(1,2),(1,4),(1,5),(2,3),
+                  (2,4),(0,4),(2,5),(3,4),(3,5),(4,5),(0,3),(1,4),(2,5),(5,4),(3,2),
                   (1,0),(1,2),(3,4),(5,0),(0,2),(1,3),(2,4),(3,5),(4,0),(5,1))
         choices = [x[y] for x,y in zip(vector,data[0][:30])]
         print(Counter(choices))
@@ -35,4 +35,3 @@ class MBScoring(object):
         JP -= sum([1 if x else -1 for x in data[17:20]])
         print((EI,SN,TF,JP))
         return (EI,SN,TF,JP)
-        

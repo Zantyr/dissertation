@@ -1,0 +1,17 @@
+Przekroje czynne ksenonu i samaru:
+  ksenon-135 = 2-3 miliona barnów
+  samar-149 = 75 tysięcy barnów
+    (nieradioaktywny)
+  samar-151 = 15 tysięcy barnów
+  uran-235 na reakcję = 500 barnów
+
+Efekty:
+  spadek mocy
+  nieodpalalność
+  niestabilność
+
+Osiąganie stanu równowagi
+
+
+http://www.nuceng.ca/ep6p3/class/Module3D_XenonJun21.pdf
+https://ansn.iaea.org/Common/documents/Training/TRIGA%20Reactors%20(Safety%20and%20Technology)/chapter2/physics145.htm

@@ -55,8 +55,8 @@ a{
 	margin: 0;
 	padding: 0;
 	display:block;
-	height:50%;
-	max-height:50%;
+	height:40%;
+	max-height:40%;
 	text-align: center;
 	font-size:24;
 	font-style: italic;
@@ -65,12 +65,22 @@ a{
 	margin: 0;
 	padding: 0;
 	display:block;
-	height:50%;
-	max-height:50%;
+	height:40%;
+	max-height:40%;
 	font-style: italic;
 	text-align: center;
 	font-size:24;
 	background:#6da;}
+	#answerboxC{
+		margin: 0;
+		padding: 0;
+		display:block;
+		height:20%;
+		max-height:20%;
+		font-style: italic;
+		text-align: center;
+		font-size:24;
+		background:#a6d;}
 </style>
 <script>
 var i = 0;
@@ -84,6 +94,7 @@ function question(){
 	document.getElementById("question").innerHTML = questions[0];
 	document.getElementById("answerA").innerHTML = answersA[0];
 	document.getElementById("answerB").innerHTML = answersB[0];
+	document.getElementById("answerC").innerHTML = "Wstecz";
 	i = 0;
 	answers = [];
 }
@@ -144,6 +155,18 @@ function answerB(){
 	else if(begun==0)question();
 }
 
+function back(){
+	if(begun==1)
+	{
+		if(i>0)i--;
+		answers.pop()
+		document.getElementById("question").innerHTML = questions[i];
+		document.getElementById("answerA").innerHTML = answersA[i];
+		document.getElementById("answerB").innerHTML = answersB[i];
+	}
+	else if(begun==0)question();
+}
+
 function results(){
 		begun = 2;
     var form = document.createElement("form");
@@ -175,6 +198,11 @@ function results(){
         <a href='javascript:void(0);'>
 		    <div id="answerboxB" onClick="javascript: answerB();">
 			    <div id="answerB" class="answerboxred"></div>
+		    </div>
+        </a>
+        <a href='javascript:void(0);'>
+		    <div id="answerboxC" onClick="javascript: back();">
+			    <div id="answerC" class="answerboxback"></div>
 		    </div>
         </a>
 	</div>

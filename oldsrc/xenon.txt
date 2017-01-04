@@ -1,0 +1,47 @@
+
+
+Efekty:
+  spadek mocy
+  nieodpalalność
+  niestabilność
+
+Źródła:
+
+http://hyperphysics.phy-astr.gsu.edu/hbase/NucEne/xenon.html
+https://ansn.iaea.org/Common/documents/Training/TRIGA%20Reactors%20(Safety%20and%20Technology)/chapter2/physics145.htm
+http://www.nuceng.ca/ep6p3/class/Module3D_XenonJun21.pdf
+https://canteach.candu.org/Content%20Library/20030101.pdf
+en.wikipedia.org
+
+1. Zatrucie reaktora
+  Obniżenie wydajności reaktora - definicja zatrucia ksenonem
+2. Hamowacze neutronów?
+
+  The most important neutron absorber is 10B as 10B4C in control rods, or boric acid as a coolant water additive in PWRs. Other important neutron absorbers that are used in nuclear reactors are xenon, cadmium, hafnium, gadolinium, cobalt, samarium, titanium, dysprosium, erbium, europium, molybdenum and ytterbium;[2] all of which usually consist of mixtures of various isotopes—some of which are excellent neutron-absorbers. These also occur in combinations such as Mo2B5, hafnium diboride, titanium diboride, dysprosium titanate and gadolinium titanate.
+  uclear waste storage
+  Because of its excellent corrosion resistance, titanium containers have been studied for the long-term storage of nuclear waste. Containers lasting more than 100,000 years are possible with manufacturing conditions that minimize material defects.[93] A titanium "drip shield" could also be installed over containers of other types to enhance their longevity.[94]
+  Cadmium is used in the control rods of nuclear reactors, acting as a very effective "neutron poison" to control neutron flux in nuclear fission.[34] When cadmium rods are inserted in the core of a nuclear reactor, cadmium absorbs neutrons preventing them from creating additional fission events, thus controlling the amount of reactivity. The pressurized water reactor designed by Westinghouse Electric Company uses an alloy consisting of 80% silver, 15% indium, and 5% cadmium.[34]
+
+3. Dlaczego zatrucie ksenonem a nie samarem?
+  Przekroje czynne ksenonu i samaru:
+    ksenon-135 = 2-3 miliona barnów
+    samar-149 = 75 tysięcy barnów
+      (nieradioaktywny)
+    samar-151 = 15 tysięcy barnów
+    uran-235 na reakcję = 500 barnów
+    naturalny uran - 7,58 barna
+4. Z czego powstaje ksenon-135? - reakcja
+  Bezpośrednio
+  Z jodu 135
+  Z telluru 135
+5. Wypalanie ksenonu
+6. Wzory na bilans ze strony:
+  http://www.nuceng.ca/ep6p3/class/Module3D_XenonJun21.pdf
+7. Balans podczas normalnego działania reaktora - plot
+  Balans w CANDU jest obniżony(citation needed)
+8. Restartowalność reaktora po zatruciu ksenonem
+  ilustracja: http://www.nuceng.ca/ep6p3/class/Module3D_XenonJun21.pdf
+9. Oscylacje ksenonowe
+10. Wpływ na reaktywność
+  (w jednostkach mk (milli-k - mili współczynnik reaktywności) - dollar jest mniejszy)
+  stosunek czasu wypalania do czasu rozpadu decyduje o wpływie na reaktywność

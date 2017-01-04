@@ -1,94 +1,77 @@
 #!env/bin/python
 import flask
-from loadclfs import loadclfs
+import json
+import reporting
+import loader
+import os
+import copy
+
+TESTS = "static/tests.json"
+
 app = flask.Flask(__name__)
-clf = loadclfs()
+with open(TESTS,"r") as f:
+    tests = json.load(f)
 
-jobs = []
-with open('static/jobs','r') as f:
-    for line in f:
-        jobs.append(line.strip())
+SCOPE = reporting.initialize(tests)
 
-def MBTI(t):
-    return ''.join(['E' if t[0] > 0 else ('I' if t[0] < 0 else "(EI)") ,
-                ' S' if t[1] > 0 else (' N' if t[1] < 0 else " (SN)"),
-                ' T' if t[2] > 0 else (' F' if t[2] < 0 else " (TF)"),
-                ' J' if t[3] > 0 else (' P' if t[3] < 0 else " (JP)")])
-
-def JSfy_list(l):
-    return "[\"{}\"]".format('","'.join([x.encode('utf-8') for x in l])).decode('utf-8')
-
-@app.route('/quiz')
-def main():
-    questions=[]
-    with open('static/quiz','r') as f:
-        for line in f:
-            q,a,b=map(lambda x:x.strip(),line.split(';'))
-            questions.append((q,a,b))
-    q,a,b=map(lambda x:list(x),zip(*questions))
-    q,a,b=map(lambda x:list(x),zip(*questions))
-    q = map(lambda x:x.decode('utf-8'),q)
-    a = map(lambda x:x.decode('utf-8'),a)
-    b = map(lambda x:x.decode('utf-8'),b)
-    for i in q:
-        print i
-    data = "var questions=" + JSfy_list(q) + "\nvar answersA=" + JSfy_list(a) + "\nvar answersB=" + JSfy_list(b)
-    return flask.render_template('quiz.html',data=data,target='/results')
-
-@app.route('/save',methods=['POST'])
-def save():
-    ans = flask.request.form['vector'].replace('A','0').replace('B','1')
-    job = flask.request.form['job']
-    job = str(jobs.index(job))
-    line = ';'.join([job,ans])
-    with open('static/tests','aw') as f:
-        f.write(line+'\n')
-    with open('static/logtests','aw') as f:
-        f.write(line+'\n')
-    questions=[]
-    with open('static/quiz','r') as f:
-        for line in f:
-            q,a,b=map(lambda x:x.strip(),line.split(';'))
-            questions.append((q,a,b))
-    q,a,b=map(lambda x:list(x),zip(*questions))
-    q = map(unicode,q)
-    a = map(unicode,a)
-    b = map(unicode,b)
-    data = "var questions=" + JSfy_list(q) + "\nvar answersA=" + JSfy_list(a) + "\nvar answersB=" + JSfy_list(b)
-    return flask.render_template('quiz.html',data=data,target='/pick')
-
-@app.route('/learn')
-def learn():
-    questions=[]
-    with open('static/quiz','r') as f:
-        for line in f:
-            q,a,b=map(lambda x:x.strip(),line.split(';'))
-            questions.append((q,a,b))
-    q,a,b=map(lambda x:list(x),zip(*questions))
-    data = "var questions=" + JSfy_list(q) + "\nvar answersA=" + JSfy_list(a) + "\nvar answersB=" + JSfy_list(b)
-    return flask.render_template('quiz.html',data=data,target='/pick')
-
-@app.route('/pick',methods=['POST'])
-def pick():
-    ans = flask.request.form['vector']
-    return flask.render_template('pick.html',jobs=jobs,vector=ans)
+############################
+#responder views
 
 @app.route('/')
 def index():
-    return flask.render_template('main.html')
+    return flask.render_template('main.html',
+        tests=[x for x in enumerate(map(lambda i:i["name"],tests))])
 
-@app.route('/results',methods=['POST'])
-def results():
-    ans = flask.request.form['vector']
-    ans = ans.replace('A','0').replace('B','1')
-    ans = eval(ans)
-    prediction = map(lambda x:{'job':x.predict([ans]),'model':x.name},clf)
-    print(prediction)
-    prediction = map(lambda x:{'job':jobs[x['job']] if type(x['job'])!=tuple else MBTI(x['job']),'model':x['model']},prediction)
-    line = prediction + list(ans)
-    with open('static/logresults','aw') as f:
-        f.write(str(line)+'\n')
-    return flask.render_template('result.html',prediction=prediction)
+@app.route('/quiz/<testid>')
+def quiz(testid):
+    with open('static/quiz.json','r') as f:
+        return flask.render_template('quiz.html',quizJSON=f.read(),testid=testid)
+
+@app.route('/meta/<testid>',methods=['post'])
+def meta(testid):
+    return flask.render_template('pick.html',vector=flask.request.form["vector"],
+        inputs=tests[int(testid)]['additional'],testid=testid)
+
+@app.route('/results/<testid>',methods=['post'])
+def result(testid):
+    vector = json.loads('[{}]'.format(flask.request.form['vector']))
+    for add in tests[int(testid)]['additional']:
+        vector.append({'id':add,'answer':flask.request.form[add]})
+    vector = json.dumps(vector)
+    loader.dump_test_data(int(testid),vector)
+    reports = [reporting.query_report(report,vector) for report in tests[int(testid)]['reports']]
+    return flask.render_template('result.html',testid=testid,vector=vector,
+        reports=reports,accuracy=tests[int(testid)]['accuracy'])
+    #ocena zgodnosci musi byc
+
+@app.route('/rank/<testid>',methods=['post'])
+def rank(testid):
+    oldvector = flask.request.form['vector']
+    vector = json.loads(oldvector)
+    vector['accuracy'] = flask.request.form['accuracy']
+    vector = json.dumps(vector)
+    loader.update_test_data(int(testid),oldvector,vector)
+    return flask.render_template('added.html')
+
+##########################
+#administrator views
+
+@app.route('/report/<testid>')
+def reports(testid):
+    filename = tests[int(testid)]['logfile']
+    reports = [reporting.query_batch(report,filename,copy.deepcopy(SCOPE)) for report in tests[int(testid)]['batch']]
+    return flask.render_template('report.html',testid=testid,reports=reports)
+
+@app.route('/console/<testid>')
+def interactive(testid):
+    return flask.render_template('console.html',testid=testid)
+
+@app.route('/query/<testid>',methods=['post'])
+def query(testid):
+    q = flask.request.form['query']
+    print q
+    filename = tests[int(testid)]['logfile']
+    return reporting.query_batch(json.loads(q),filename)
 
 if __name__=="__main__":
     app.run('0.0.0.0',port=80)

@@ -1,0 +1,210 @@
+<html><head>
+<meta charset='utf-8'>
+<style>
+body{
+	margin: 0;
+	padding: 0;
+	margin-top: 1em;
+	background: #7ce;
+	font-family:"Open Sans",sans;
+	height:90vh;}
+#sp{
+display: block;
+width: 100%;
+height:10%;
+}
+#maindiv{
+	margin: 0 auto;
+	padding:0;
+	width:50em;
+	height:30em;
+	background:#eee;
+	border: 0;
+	border-radius: 5px;}
+#questionbox{
+	margin: 0.5em 0 -0.5em 0.5em;
+	padding: 0;
+	width: 24em;
+	background: #47a;
+	font-size: 2em;
+	font-weight: bold;
+	display: inline-block;
+	height:6em;
+	border: 0;
+	border-radius:5px;}
+#question{
+	text-align: center;
+	display:block;
+	margin: 0;
+	padding: 0;}
+a{
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	color:#000;}
+#answerbox{
+	margin: 0;
+	padding: 0;
+	display: block;
+	position: relative;
+	top: 10%;
+	width:95%;
+	left:2.5%;
+	height:40%;}
+#answerboxA{
+	margin: 0;
+	padding: 0;
+	display:block;
+	height:40%;
+	max-height:40%;
+	text-align: center;
+	font-size:24;
+	font-style: italic;
+	background:#da6;}
+#answerboxB{
+	margin: 0;
+	padding: 0;
+	display:block;
+	height:40%;
+	max-height:40%;
+	font-style: italic;
+	text-align: center;
+	font-size:24;
+	background:#6da;}
+	#answerboxC{
+		margin: 0;
+		padding: 0;
+		display:block;
+		height:20%;
+		max-height:20%;
+		font-style: italic;
+		text-align: center;
+		font-size:24;
+		background:#a6d;}
+</style>
+<script>
+var i = 0;
+var answers = []
+var begun=0;
+
+{{data|safe}}
+
+function question(){
+	begun = 1;
+	document.getElementById("question").innerHTML = questions[0];
+	document.getElementById("answerA").innerHTML = answersA[0];
+	document.getElementById("answerB").innerHTML = answersB[0];
+	document.getElementById("answerC").innerHTML = "Wstecz";
+	i = 0;
+	answers = [];
+}
+
+function indexOfMax(arr) {
+    if (arr.length == 0) {
+        return -1;
+    }
+    var max = arr[0];
+    var maxIndex = 0;
+
+    for (var l = 1;  l< arr.length; l++) {
+        if (arr[l] > max) {
+            maxIndex = l;
+            max = arr[l];
+        }
+    }
+    return maxIndex;
+}
+
+function answerA(){
+	if(begun==1)
+	{
+		i++;
+		answers.push('A')
+		if (i >= questions.length){
+			results();
+			document.getElementById("question").innerHTML = "Przetwarzanie...";
+			document.getElementById("answerA").innerHTML = "";
+			document.getElementById("answerB").innerHTML = "";
+		}
+		else {
+			document.getElementById("question").innerHTML = questions[i];
+			document.getElementById("answerA").innerHTML = answersA[i];
+			document.getElementById("answerB").innerHTML = answersB[i];
+		}
+	}
+	else if(begun==0)question();
+}
+
+function answerB(){
+	if(begun==1)
+	{
+		i++;
+		answers.push('B')
+		if (i >= questions.length){
+			results();
+			document.getElementById("question").innerHTML = "Przetwarzanie...";
+			document.getElementById("answerA").innerHTML = "";
+			document.getElementById("answerB").innerHTML = "";
+		}
+		else {
+			document.getElementById("question").innerHTML = questions[i];
+			document.getElementById("answerA").innerHTML = answersA[i];
+			document.getElementById("answerB").innerHTML = answersB[i];
+		}
+	}
+	else if(begun==0)question();
+}
+
+function back(){
+	if(begun==1)
+	{
+		if(i>0)i--;
+		answers.pop()
+		document.getElementById("question").innerHTML = questions[i];
+		document.getElementById("answerA").innerHTML = answersA[i];
+		document.getElementById("answerB").innerHTML = answersB[i];
+	}
+	else if(begun==0)question();
+}
+
+function results(){
+		begun = 2;
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "{{target|safe}}");
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "vector");
+            hiddenField.setAttribute("value", answers);
+            form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+}
+
+</script>
+</head>
+
+<body>
+<div id="maindiv">
+	<div id="questionbox" onClick="javascript: question();">
+		<div id="question"  onClick="javascript: question();">Naciśnij, by rozpocząć</div>
+	</div>
+	<div id="answerbox">
+        <a href='javascript:void(0);'>
+		    <div id="answerboxA" onClick="javascript: answerA();">
+			    <div id="answerA" class="answerboxgreen"></div>
+		    </div>
+        </a>
+        <a href='javascript:void(0);'>
+		    <div id="answerboxB" onClick="javascript: answerB();">
+			    <div id="answerB" class="answerboxred"></div>
+		    </div>
+        </a>
+        <a href='javascript:void(0);'>
+		    <div id="answerboxC" onClick="javascript: back();">
+			    <div id="answerC" class="answerboxback"></div>
+		    </div>
+        </a>
+	</div>
+</div>
+</body></html>

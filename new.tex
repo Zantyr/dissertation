@@ -1,3 +1,5 @@
+%%Nagłówek pliku, konfiguracja stron
+
 \documentclass[12pt,a4paper,oneside]{report} %default 10pt
 \usepackage[utf8]{inputenc}
 \usepackage{geometry} % to change the page dimensions
@@ -54,6 +56,14 @@
 \title{System doradztwa zawodowego z wykorzystaniem metod sztucznej inteligencji - szkic}
 \author{Paweł Tomasik}
 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Praca właściwa
+
 \begin{document}
 \maketitle
 %\begin{abstract}
@@ -67,10 +77,56 @@ Praca przedstawia system do przeprowadzania testów doradztwa zawodowego z wykor
 
 \tableofcontents
 
-\chapter{Temat pracy}
 
-\chapter{Klasyfikatory i klasteryzacja - rodzaje algorytmów i porównanie}
-\section{Czym jest problem klasyfikacji i klasteryzacji}
+
+
+
+
+\chapter{Testy osobowości jako problem analizy danych}
+
+Kwestionariusze są jedną z najbardziej rozpowszechnionych metod badań społecznych. Z punktu widzenia statystyki stanowią one próbki danych (jakich)...
+
+Na znamienną rolę analityki w badaniach społecznych wskazuje istnienie takich platform jak \cite{surveymonkey}, które automatyzują podstawowe testy statystyczne i umożliwiają integrację z zewnętrznymi narzędziami statystycznymi.
+
+Ponadto ... rosnąca rola data miningu i ogólnego data science we współczesnym świecie
+
+Rosnąca moc obliczeniowa
+
+
+
+Czym jest analiza danych i EDA?
+Jakie są ich zagadnienia?
+Testy osobowości jako źródła danych
+
+Techniki EDA
+Problem klasyfikacji
+...inne techniki EDA...
+
+
+\section{Techniki eksploracyjnej analizy danych}
+
+Eksploracyjna analiza danych (EDA) stanowi etap przygotowawczy do budowy modelu na danych. Celem EDA jest sformułowanie i wstępne zweryfikowanie przez analityka założeń dotyczących danego problemu na podstawie trendów pojawiających się w próbce. EDA jest wykonywana jako etap poprzedzający confirmatory data analysis. EDA jest też szeroko stosowana jako podstawa do budowania systemów Business Intelligence.
+
+\cite{hseltman}
+
+Wykorzystanie technik EDA zależy od rodzaju dostępnych danych oraz od oczekiwanego rodzaju wniosków.
+
+Dane ze wszelkiego rodzaju ankiet spełniają
+
+\subsection{Wykresy surowych danych}
+Histogramy, wykresy prawdopodobieństwa, wykresy Youdena, scatter plot
+Bihistogramy do wizualizacji porównawczej dla dwóch modeli klasyfikujących
+\emph{http://www.itl.nist.gov/div898/handbook/eda/section3/eda3.htm}
+
+\subsection{Przetworzone}
+star plot for cathegories(groups)
+box plot for
+skew
+kurtosis
+
+Five number summaries (mean/median, min, max, q1, q3)
+
+\section{Klasyfikacja i klasteryzacja}
 
 Zarówno problem klasyfikacji i klasteryzacji definiuje się w podobny sposób: istotą problemu jest przydzielenie każdego elementu ze skończonego zbioru \emph{obiektów} do jednej lub kilku grup zwanych \emph{klasami}. Różnica między dwoma pojęciami leży w sposobie uczenia algorytmu: klasteryzacja wykorzystuje sprzężenie zwrotne co do poprawnej klasyfikacji - jest więc przykładem algorytmu uczenia maszynowego \emph{nadzorowanego}. Algorytmy klasteryzacyjne natomiast próbują same dokonać wytworzenia wzorca klas - należą do algorytmów uczenia \emph{nienadzorowanego}.\par
 
@@ -88,131 +144,118 @@ Drugim elementem, poza metryką, definiującym kształt klasy jest \emph{norma}.
 
 Uzbrojeni w definicję podobieństwa i sposób jego obliczenia, jesteśmy w stanie w miarę dobrze ocenić poprawność działania algorytmów. Ważnym elementem różnych rozwiązań jest też sposób klasyfikacji: dzieli się ją na \emph{ostrą}, \emph{rozmytą} i \emph{posybilistyczną}. Klasyfikacja ostra przyporządkowuje obiekt do jednej i tylko jednej klasy. Klasyfikacja rozmyta wiąże obiekt z róznymi klasami z różną siłą, przy czym suma współczynników określających przynależność dla danego obiektu jest zawsze równa jedności. Klasifykacja posybilistyczna różni się od poprzedniej zniesieniem ograniczenia sumy.\par
 
-\section{State-of-the-art metod sztucznej inteligencji}
-Badania w zakresie sztucznej inteligencji, trwające od lat 60. XX wieku, wytworzyły dużą liczbę technik komputerowych opartych na zasadach \emph{soft computing}. \emph{Wstawić tutaj klasyfikację technik sztucznej inteligencji!}\par
 
-Klasyfikacja:
-    sieci perceptronowe
-    sieci kohonena
-    klasyfikatory maksymalnoodległościowe
-    klasyfikatory statystyczne (naiwny model bayesowski)
-Klasteryzacja:
-    hard c-means
-    fuzzy c-means
-    Gustafsona-Kessela
-    Fuzzy Maximum Likelihood Estimates
 
-W tej pracy zostaną wykorzystane po dwie metody klasyfikacji i klasteryzacji. Zostaną one opisane poniżej
 
-\subsection{Naiwny model bayesowski}
-Naiwny model bayesowski opiera się na
-\subsection{SVM}
-\subsection{Algorytm k-średnich}
-\subsection{Sieci Kohonena}
+\chapter{Teoria wykorzystanych technik EDA}
 
-\section{Ocena jakości grupowania}
-Kryteria jakości grupowania:
-    a) wskaźniki rozmycia macierzy podziału
-    b) wskaźnik Fukuyamy-Sugeno
-    c) wskaźnik Xie-Bieni
-\section{Sieć neuronowa}
-Sieć neuronowa jest najczęściej wykorzystywaną techniką sztucznej inteligencji. Ze względu na bardzo prostą zasadę działania, dorobiła się ona dziesiątek modyfikacji, uwzględniając różne sposoby łączenia, uczenia i działania neuronów.
-\subsection{Sieci Kohonena}
-\subsection{Overfitting}
 \section{Binarny klasyfikator bayesowski}
+
+
+
+
 \section{Klasyfikator maksymalnoogległościowy}
 Klasyfikatory maksymalnoodległościowe zostały wynalezione przez Vapnika. Opierają się one na wyznaczeniu granicy między zestawmi danych w taki sposób, aby zachować możliwie dużą odległość najbliższych punktów od granicy. Inna nazwa tej metody, \emph{maszyna wektorów wspierających}, oddaje sposób w jaki zostaje to wykonane. Wybiera się $n$ punktów:\par
     ... opis działania metody...\par
 Istotne do poprawnego wykorzystania SVM jest wykonanie kilku kroków \cite{chih-wei}. Po pierwsze, należy przygotować i znormalizować dane. Drugim etapem jest wybór rodzaju funkcji jądra. Standardowo rozróżnia się cztery jej rodzaje: liniowe, wielomianowe, RBF i sigmoidalne. Następnie, należy ocenić odpowiednio \emph{ten parametr jądra}. Zgodnie z badaniami samego autora tej metody, musi być on równy wymiarowi $VC$ (\emph{Vapnika-Chernocośtam}) dla zbioru danych. Wymiar VC definiuje się jako ...... . Wraz z oceną tego parametru należy jeszcze znaleźć współczynnik błędu. \par
 \section{Metoda k średnich}
-\chapter{Badania zawodowe i psychologiczne}
+
+
+
+
+
+
+\chapter{Wykorzystane zestawy danych}
+
+\section{Testy psychologiczne}
+
 Wykonano powierzchowny przegląd literatury z zakresu psychometrii w Bibliotece Uniwersytetu Gdańskiego, co zaowocowało przede wszystkim wiedzą z zakresu statystyki testów i podziałem. Następnie skorzystano z Internetu w celu znalezienia gotowych testów. Do implementacji programu wybrano dwa modele psychologiczne. Model Hollanda jest używany jako główny model do określenia skłonności zawodowych, natomiast MBTI jest najczęściej implementowanym modelem osobowości w ogóle. Spośród kilku list pytań wybrano pięćdziesiąt - trzydzieści z nich dotyczy model Hollanda, dwadzieścia zaś modelu Myers-Briggs. Pytania te powstały w większości w wyniku kompozycji dwóch pytań typu \emph{tak-nie}, przy czym dobrano odpowiedzi tak, by przetestować wszystkie cechy równomiernie. Część pytań poddano redakcji kierując się wskazówkami do modelu.
-\section{Model Hollanda (ten z sześcioma opcjami)}
+
+\subsection{Model Hollanda (ten z sześcioma opcjami)}
+
 Source: http://www.truity.com/test/holland-code-career-test
 Model ten opracowany przez ...Hollanda... w roku ... . Klasyfikuje on ludzi na sześć głównych klas, a bardziej szczegółowo, szereguje funkcje zawodowe ludzi według ich preferencji. Te sześć funkcji zestawionych jest w przeciwstawne pary:\par
 Artystyczny - Konwencjonalny\par
 Realistyczny - Spoleczny\par
 Badawczy - Przedsiebiorczy\par
 Zawody są przydzielone do jednej lub kilku z tych klas według umiejętności, których wymagają, mogą one należeć także do klas przeciwstawnych, jeżeli obydwie umiejętności są potrzebne - nie wykluczają się one wzajemnie.\par
-\section{Model MBTI (z szesnastoma klasami)}
+
+\subsection{Model MBTI (z szesnastoma klasami)}
+
 Model MBTI klasyfikuje ludzi na szesnaście kategorii według ich preferencji w funkcjach poznawczych. Ludzie są opisani jako klasy będące kombinacją czterech spektrów cech:\par
 Introwersja - ekstrawersja\par
 Poznanie - intuicja\par
 Rozumowanie - uczuciowość\par
 Postrzeganie - osądzanie\par
-\section{Lista badanych zawodów}
 
-\chapter{Wybór cech wejściowych}
-\section{Problem ograniczenia ilości pytań}
-Ograniczenie ilości pytań w modelu bierze się z dwóch przyczyn. Pierwszą z nich jest wygoda użytkownika - z założenia osoba biorąca udział w teście zawodowym nie jest skłonna wypełniać bardzo długich kwestionariuszy.
+\section{Przetwarzanie modeli}
 
-Druga cecha związana jest z dopasowaniem modeli do duzych zestawów danych. \emph{Curse of dimensionality} jest pojęciem związanym z uczeniem maszynowym i ogólnie pojętą analityką, opisujące postępujące rozrzedzenie danych w miarę wzrostu ich wymiarowości. (czy jest to prawda - źródła poddają w wątpliwość)
-\section{Okrojenie modeli psychologicznych}
-Ze względu na
-\section{Dostosowanie pytań dodatkowych (data mining)}
-\section{Walidacja krzyżowa}
-\chapter{Implementacja i zbieranie danych}
-Python jest językiem szeroko wykorzystywanym w środowiskach naukowych, głównie ze względu na połączenie prostoty przy silnie rozwiniętych bibliotekach matematycznych. Z tego powodu istnieje dość duży ekosystem modułów SI opartych o pakiet numpy. Jedna z list jest dostępna pod adresem \cite{pythonwiki}. W pracy skorzystano między innymi z modułów zamieszczonych na tamtej liscie. Wykorzystane moduły zlistowano w tabeli \ref{table:modules}.\par
+\subsection{Redukcja wymiarowości}
 
-\begin{table}
-\centering
-\begin{tabular}{|l|l|}
-\toprule
-klasyfikator NN & FANN \ref{fann}\\
-    klasyfikator na sieci Kohonena & FANN\\
-    SVM & libSVM via PyBrain \ref{pybrain}\\
-    naiwny model bayesowski & sklearn \\
-    Klasyfikator skupiskowy & ??? \\
-    hard c-means &  \\
-    fuzzy c-means & \\
-    Gustafsona-Kessela & \\
-    Fuzzy Maximum Likelihood Estimates & \\
-\bottomrule
-\end{tabular}
-\label{table:modules}
-\caption{Moduły wykorzystane w pracy}
-\end{table}
+Jednym z celów zastosowania EDA do tej aplikacji jest zredukowanie ilości pytań dla każdego z testów. Ograniczenie ilości pytań w modelu bierze się z dwóch przyczyn. Pierwszą z nich jest wygoda użytkownika - z założenia osoba biorąca udział w teście zawodowym nie jest skłonna wypełniać bardzo długich kwestionariuszy.
 
-Do implementacji komunikacji z użytkownikiem wykorzystano pakiet \emph{Flask}. Jest to prosty serwer HTTP w wykorzystaniem języka do uzupełniania dokumentów HTML, zwanego \emph{Jinja2}. Aplikacja klienta została wykonana przy pomocy Javascriptu, bez wykorzystania zewnętrznych bibliotek.\par
+Druga cecha związana jest z dopasowaniem modeli do dużych zestawów danych. \emph{Curse of dimensionality} jest pojęciem związanym z uczeniem maszynowym i ogólnie pojętą analityką, opisujące postępujące rozrzedzenie danych w miarę wzrostu ich wymiarowości. (czy jest to prawda - źródła poddają w wątpliwość)
+
+\subsection{Walidacja krzyżowa}
+
+
+
+
+
+
+\chapter{Implementacja}
+
+W ramach pracy zbudowany został system pozwalający przeprowadzać testy na podstawie kwestionariuszy, przeprowadzać klasyfikację respondentów na podstawie odpowiedzi i analizować zebrane dane. Aplikacja została napisana w języku Python, który jest szeroko wykorzystywany w środowiskach analitycznych. Wykorzystano wersję języka o numerze 2.7.
+
+Front-end aplikacji, który stanowi także jej szkielet, napisano przy pomocy pakietu \emph{Flask}. Jest to open-source'owy lekki serwer HTTP, wykorzystujący język pomocniczy \emph{Jinja2} do generacji dokumentów HTML przy pomocy danych z aplikacji. Mechanizm ten użyty został do wstrzykiwania danych testu do prostej aplikacji sieciowej opartej o \emph{Javascript}. Użytkownik może wybrać test na stronie głównej, można też udostępniać testy jedynie przy pomocy statycznych linków.
+
+Test generowany przez aplikację może zawierać pytania o charakterze binarnym, jak i przy użyciu skali \emph{likert}. Podczas przebiegu testu ukazywane jest tylko jedno pytanie na raz, co pozwala skupić się na odpowiedzi. Wyniki są zbierane dopiero w przypadku ukończenia testu. Po zakończonym teście użytkownik jest przekierowywany na stronę, na której może udostępnić dodatkowe informacje w celach analityki. Po przejściu tego etapu wyświetlany jest raport z testu.
+
+Generacja raportów oparta jest o pakiety \emph{pandas} oraz \emph{matplotlib}. Użycie tych dwóch bibliotek pozwala na używanie najpowszechniejszych metod analityki na zestawach danych, włącznie z generowaniem wykresów. Struktura raportów oparta jest o definicje w plikach konfiguracyjnych poszczególnych testów(o których później). Zawierają one definicje raportów zbudowane przy użyciu struktury przypominającej struktury języka LISP, używające składni JSON.
+
+Metody klasyfikacji oraz uczenia maszynowego pochodzą z biblioteki \emph{sklearn}. Są one udostępniane jako dyrektywy do języka konfiguracyjnego. Istnieje możliwość nauczenia klasyfikatorów w trakcie uruchamiania aplikacji, jak i ich dynamiczne zastępowanie nowymi w trakcie działania aplikacji. Wykorzystane techniki obejmują: klasifykator Bayesowski, metodę k-średnich
+
+Aplikacja udostępnia widok, który generuje raporty dla całego zestawu danych. Raporty te mogą korzystać z danych wzorcowych jak i zebranych podczas testowania. Funkcja ta ma na celu umożliwienie przeprowadzenia analizy danych, zarówno wstępnej jak i weryfikacyjnej, która z kolei umożliwi dopracowanie modelu.
+
+Front-end udostępnia także widok interaktywny do budowania raportów z danych bez wcześniejszego definiowania ich. Użyty jest ten sam język, co w plikach konfiguracji raportów. Pozwala to na sprawdzanie hipotez bez konieczności rebootowania aplikacji.
+
+\section{Pliki konfiguracyjne}
+
+Pliki konfiguracyjne do programu oparte są o standard JSON. Pozwala to na łatwe wbudowanie złożonych ustawień takich jak sekwencje wykonywanych operacji podczas generowania odpowiedzi na test czy precyzowanie pytań o różnej strukturze.
+
+Głównym plikiem konfiguracyjnym jest \texttt{static/tests.json}. W nim zawarte są informacje dotyczące: zestawu pytań, lokalizacji logów i danych odniesienia, dodatkowych parametrów testu oraz metod generacji raportów. Kompletną listę dyrektyw zestawiono w tabeli \texttt{reporting-lang}. Drugim typem plików konfiguracyjnych są pliki linkowane przez poszczególne testy. Struktura takiego pliku to lista obiektów przedstawiających pytania do testów.
+
+Schemy tych dwóch rodzajów plików przedstawione są w tabelach \ref{tests-schema} i \ref{questions-schema}
+
+\section{Instalacja i uruchomienie}
 
 Całość programu zaopatrzono w skrypty instalacyjne do generacji niezaleźnego środowiska pythona \emph{virtualenv}. Ze względu na trudności związane z domyślną lokalizacją biblioteki \emph{libsvm}, która jest związana z zewnętrznym plikiem wykonywalnym napisanym w C, postanowiono uruchamiać ten program poprzez powłokę systemu i komunikować się przy pomocy plików tymczasowych. Aplikację udostępniono na chmurze Amazona pod adresem IP \emph{54.93.169.189}(stan na 30 listopada 2016r.). Kod źródłowy wraz z tekstem tej pracy i notatkami udostępniono poprzez serwis github: \emph{https://github.com/Zantyr/dissertation}\par
 
-\section{Moduł inteligentny}
-Poszczególne techniki klasyfikacji dla porządku zaimplementowano w osobnych plikach. Głównym modułem jest plik \emph{loadclfs.py}, który ładuje, trenuje i udostępnia reszcie programu modele do klasyfikacji.
-
-\section{Moduł respondenta}
-
-\section{Moduł uczenia wsadowego}
-Aplikację można uczyć na dwa sposoby. Pierwszym jest bezpośrednia modyfikacja pliku \emph{static/tests}, który jest wykorzystywany do uczenia modeli przy każdorazowym uruchomieniu aplikacji. Drugą metodą jest skorzystanie z widoku \emph{/learn}, który zawiera quiz analogiczny do normalnego, zakończonego jednak ręcznym dodawaniem oczekiwanych rezultatów.
-\section{Moduł prezentacji danych}
-
-\section{Aplikacja systemu do zadanego problemu}
-\section{Schemat}
-\chapter{Wyniki}
+\chapter{Wyniki analiz i przedstawienie działania aplikacji}
 \section{Porównanie trafności klasyfikatorów}
 \section{Wnioski wyciągnięte z badań}
+
+
+
+
+
 \chapter{Kod źródłowy}
 Poniżej wypisano wszystkie pliki używane w aplikacji do jej konstrukcji. Aplikacja działa pod systemami \emph{Linux Mint} oraz \emph{Linux Ubuntu}, aczkolwiek powinna działać na każdym systemie bazowanym na dystrybucji \emph{Debian}. Wszystkie pliki wykorzystują kodowanie UTF-8.
 \section{Wsadowy skrypt instalacyjny (Unix)}
-\lstinputlisting[breaklines]{src/install.sh}
-\lstinputlisting[breaklines]{src/run.sh}
-\section{Kod źródłowy modułu inteligentnego}
-\lstinputlisting[breaklines]{src/loadclfs.py}
-\lstinputlisting[breaklines]{src/kmeans.py}
-\lstinputlisting[breaklines]{src/naivebayes.py}
-\lstinputlisting[breaklines]{src/svmclass.py}
-\lstinputlisting[breaklines]{src/selectors.py}
-\lstinputlisting[breaklines]{src/scoring.py}
+%\lstinputlisting[breaklines]{src/install.sh}
+%\lstinputlisting[breaklines]{src/run.sh}
 \section{Kod serwera i udostępniane widoki}
-\lstinputlisting[breaklines]{src/main.py}
-\lstinputlisting[breaklines]{src/templates/quiz.html}
-\lstinputlisting[breaklines]{src/templates/result.html}
-\lstinputlisting[breaklines]{src/templates/main.html}
-\lstinputlisting[breaklines]{src/templates/pick.html}
+%\lstinputlisting[breaklines]{src/main.py}
+%\lstinputlisting[breaklines]{src/templates/added.html}
+%\lstinputlisting[breaklines]{src/templates/console.html}
+%\lstinputlisting[breaklines]{src/templates/main.html}
+%\lstinputlisting[breaklines]{src/templates/pick.html}
+%\lstinputlisting[breaklines]{src/templates/quiz.html}
+%\lstinputlisting[breaklines]{src/templates/report.html}
+%\lstinputlisting[breaklines]{src/templates/result.html}
+\section{Kod modułów analitycznych}
 \section{Pozostałe pliki}
-\lstinputlisting[breaklines]{src/static/quiz}
-\lstinputlisting[breaklines]{src/static/tests}
-\lstinputlisting[breaklines]{src/static/jobs}
+
 \begin{thebibliography}{9}
 \bibitem{cichosz} Paweł Cichosz, \emph{Systemy uczące się}
 \bibitem{flasinski} Mariusz Flasiński, \emph{Wstęp do sztucznej inteligencji}
@@ -233,5 +276,6 @@ Poniżej wypisano wszystkie pliki używane w aplikacji do jej konstrukcji. Aplik
 \bibitem{MBTI1} \emph{http://www.humanmetrics.com/cgi-win/jtypes2.asp}
 \bibitem{MBTI2} \emph{Another Myers-Briggs: http://jupiter-34.appspot.com/}
 \bibitem{raw-data} \emph{http://personality-testing.info/_rawdata/}
+\bibitem{hseltman} \emph{Experimental Design and Analysis, http://www.stat.cmu.edu/~hseltman/309/Book/Book.pdf}
 \end{thebibliography}
 \end{document}

@@ -1,0 +1,19 @@
+[{
+	"id": 0,
+	"type": "dual",
+	"text": "Test Question",
+	"answerA": "Test Answer",
+	"answerB": "Yet another test answer"
+}, {
+	"id": 1,
+	"type": "likert",
+	"text": "This is a likert scale question",
+	"scale": 5,
+  "scaleLabels":[
+    "Hate",
+    "Dislike",
+    "Neutral",
+    "Like",
+    "Love"
+  ]
+}]

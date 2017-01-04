@@ -71,140 +71,122 @@ a{
 	text-align: center;
 	font-size:24;
 	background:#6da;}
-	#answerboxC{
-		margin: 0;
-		padding: 0;
-		display:block;
-		height:20%;
-		max-height:20%;
-		font-style: italic;
-		text-align: center;
-		font-size:24;
-		background:#a6d;}
+#answerboxC{
+	margin: 0;
+	padding: 0;
+	display:block;
+	height:20%;
+	max-height:20%;
+	font-style: italic;
+	text-align: center;
+	font-size:24;
+	background:#a6d;}
+#likertbox{
+	margin: 0.5em;
+	padding: 0.5;
+	display:inline-block;
+	height:40%;
+	max-height:40%;
+	font-style: italic;
+	text-align: center;
+	font-size:24;
+	background:#6da;
+}
 </style>
-<script>
-var i = 0;
-var answers = []
-var begun=0;
-
-{{data|safe}}
-
-function question(){
-	begun = 1;
-	document.getElementById("question").innerHTML = questions[0];
-	document.getElementById("answerA").innerHTML = answersA[0];
-	document.getElementById("answerB").innerHTML = answersB[0];
-	document.getElementById("answerC").innerHTML = "Wstecz";
-	i = 0;
-	answers = [];
-}
-
-function indexOfMax(arr) {
-    if (arr.length == 0) {
-        return -1;
-    }
-    var max = arr[0];
-    var maxIndex = 0;
-
-    for (var l = 1;  l< arr.length; l++) {
-        if (arr[l] > max) {
-            maxIndex = l;
-            max = arr[l];
-        }
-    }
-    return maxIndex;
-}
-
-function answerA(){
-	if(begun==1)
-	{
-		i++;
-		answers.push('A')
-		if (i >= questions.length){
-			results();
-			document.getElementById("question").innerHTML = "Przetwarzanie...";
-			document.getElementById("answerA").innerHTML = "";
-			document.getElementById("answerB").innerHTML = "";
-		}
-		else {
-			document.getElementById("question").innerHTML = questions[i];
-			document.getElementById("answerA").innerHTML = answersA[i];
-			document.getElementById("answerB").innerHTML = answersB[i];
-		}
-	}
-	else if(begun==0)question();
-}
-
-function answerB(){
-	if(begun==1)
-	{
-		i++;
-		answers.push('B')
-		if (i >= questions.length){
-			results();
-			document.getElementById("question").innerHTML = "Przetwarzanie...";
-			document.getElementById("answerA").innerHTML = "";
-			document.getElementById("answerB").innerHTML = "";
-		}
-		else {
-			document.getElementById("question").innerHTML = questions[i];
-			document.getElementById("answerA").innerHTML = answersA[i];
-			document.getElementById("answerB").innerHTML = answersB[i];
-		}
-	}
-	else if(begun==0)question();
-}
-
-function back(){
-	if(begun==1)
-	{
-		if(i>0)i--;
-		answers.pop()
-		document.getElementById("question").innerHTML = questions[i];
-		document.getElementById("answerA").innerHTML = answersA[i];
-		document.getElementById("answerB").innerHTML = answersB[i];
-	}
-	else if(begun==0)question();
-}
-
-function results(){
-		begun = 2;
-    var form = document.createElement("form");
-    form.setAttribute("method", "post");
-    form.setAttribute("action", "{{target|safe}}");
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", "vector");
-            hiddenField.setAttribute("value", answers);
-            form.appendChild(hiddenField);
-    document.body.appendChild(form);
-    form.submit();
-}
-
-</script>
 </head>
-
 <body>
 <div id="maindiv">
 	<div id="questionbox" onClick="javascript: question();">
 		<div id="question"  onClick="javascript: question();">Naciśnij, by rozpocząć</div>
 	</div>
 	<div id="answerbox">
-        <a href='javascript:void(0);'>
-		    <div id="answerboxA" onClick="javascript: answerA();">
-			    <div id="answerA" class="answerboxgreen"></div>
-		    </div>
-        </a>
-        <a href='javascript:void(0);'>
-		    <div id="answerboxB" onClick="javascript: answerB();">
-			    <div id="answerB" class="answerboxred"></div>
-		    </div>
-        </a>
-        <a href='javascript:void(0);'>
-		    <div id="answerboxC" onClick="javascript: back();">
-			    <div id="answerC" class="answerboxback"></div>
-		    </div>
-        </a>
 	</div>
 </div>
-</body></html>
+</body>
+<script>
+var i = 0;
+var answers = []
+var begun=0;
+var questionbox = document.getElementById("question");
+var	answerbox = document.getElementById("answerbox");
+var questions = {{quizJSON|safe}};
+
+function generateQuestion(question){
+	var questionInnerContainer = document.createElement("div");
+	if(question.type=='dual'){
+		var questionAnswerA = document.createElement("a");
+		var questionAnswerABox = document.createElement("div");
+		questionAnswerABox.innerHTML = question.answerA;
+		questionAnswerABox.id = "answerboxA";
+		questionAnswerA.onclick = function(){answer(question.id,0)};
+		questionAnswerA.href = "javascript:void(0);";
+		var questionAnswerB = document.createElement("a");
+		var questionAnswerBBox = document.createElement("div");
+		questionAnswerBBox.innerHTML = question.answerB;
+		questionAnswerBBox.id = "answerboxB";
+		questionAnswerB.onclick = function(){answer(question.id,1)};
+		questionAnswerB.href = "javascript:void(0);";
+		questionAnswerA.appendChild(questionAnswerABox);
+		questionAnswerB.appendChild(questionAnswerBBox);
+		questionInnerContainer.appendChild(questionAnswerA);
+		questionInnerContainer.appendChild(questionAnswerB);
+	}
+	if(question.type=='likert'){
+		for(var x = 0;x<question.scale;x++){
+				var questionAnswer = document.createElement("a");
+				var questionAnswerBox = document.createElement("div");
+				questionAnswerBox.innerHTML = question.scaleLabels[x];
+				questionAnswer.id = "likertbox";
+				questionAnswer.href = "javascript:void(0);";
+				questionAnswer.style = "width:"+(80/question.scale)+"%;";
+				questionAnswer.onclick = function(){answer(question.id,x)};
+				questionAnswer.appendChild(questionAnswerBox);
+				questionInnerContainer.appendChild(questionAnswer);
+				questionInnerContainer.style="margin-left:auto;margin-right:auto;";
+		}
+	}
+	answerbox.innerHTML="";
+	answerbox.appendChild(questionInnerContainer);
+}
+
+function question(){
+	questionbox.innerHTML = questions[0].text;
+	generateQuestion(questions[0]);
+	i = 0;
+	answers = [];
+}
+
+function answer(id,ans){
+	answers.push({'id':id,'answer':ans});
+	i++;
+	if(i>=questions.length)
+	{
+		questionbox.innerHTML = "Proszę czekać...";
+		answerbox.innerHTML = "";
+		results();
+	}
+	questionbox.innerHTML = questions[i].text;
+	generateQuestion(questions[i]);
+}
+
+function back(){
+	if(i>0)i--;
+	answers.pop();
+	questionbox.innerHTML = questions[i].text;
+	generateQuestion(questions[i]);
+}
+
+function results(){
+  var form = document.createElement("form");
+  form.setAttribute("method", "post");
+  form.setAttribute("action", "/meta/{{testid}}");
+  var hiddenField = document.createElement("input");
+  hiddenField.setAttribute("type", "hidden");
+  hiddenField.setAttribute("name", "vector");
+  hiddenField.setAttribute("value", answers.map(JSON.stringify));
+  form.appendChild(hiddenField);
+  document.body.appendChild(form);
+  form.submit();
+}
+</script>
+</html>

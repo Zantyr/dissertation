@@ -43,9 +43,17 @@ def vertical_table(df):
 def mapping(df,*strings):
     for s in strings:
         columnName,expression = [x.strip() for x in s.split('=',1)]
-        expression = re.sub("([A-Za-z][A-Za-z0-9]*)","df.\\1",expression)
+        dfColumns = [x for x in df.columns]
+        for i in list(set(re.findall("([A-Za-z][A-Za-z0-9]*)",expression))):
+            if i in dfColumns:
+                expression = expression.replace(i,"df."+i)
         df[columnName]=eval(expression,{"df":df})
     return df
+
+def pythoneval(expr,*scope):
+    #link with evaluator
+    scope = dict(["$"+(str(x),y) for x,y in enumerate(scope)])
+    return eval(expr)
 
 functions = {
     'log':lambda x,*formats: print(x.format(*formats)) or "",
@@ -67,6 +75,7 @@ functions = {
     'map':mapping,
     'fit':fit,
     'star':radar_plot,
+    'mean':lambda df:df.mean(),
 }
 
 class Evaluator(object):
@@ -105,4 +114,4 @@ def query_batch(query,testfilename,scope):
     try:
         return eval(query)
     except Exception as e:
-        return "<b>EXCEPTION</b>".format(escape(str(e.msg)))
+        return "<b>EXCEPTION: </b>{}".format(escape(e.message))

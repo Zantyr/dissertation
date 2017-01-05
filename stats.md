@@ -11,3 +11,8 @@ inferential stats
 
 (statistical significance, block randomisation, )
 slice and dice
+
+
+
+
+Data cleansing and sanitation (mam w pliku z danymi gościa co ma 1000 lat i int32 lat xD

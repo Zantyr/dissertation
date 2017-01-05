@@ -82,60 +82,152 @@ Praca przedstawia system do przeprowadzania testów doradztwa zawodowego z wykor
 
 
 
+
+
+
+
+
 \chapter{Testy osobowości jako problem analizy danych}
 
-Kwestionariusze są jedną z najbardziej rozpowszechnionych metod badań społecznych. Z punktu widzenia statystyki stanowią one próbki danych (jakich)...
+Kwestionariusze są jedną z najbardziej rozpowszechnionych metod badań społecznych. Swoją popularność zawdzięczają przede wszystkim prostocie ich analizy - dane mają najczęściej charakter liczbowy, podlegający mniej lub bardziej, w zależności od metody, narzędziom statystyki.\par
 
-Na znamienną rolę analityki w badaniach społecznych wskazuje istnienie takich platform jak \cite{surveymonkey}, które automatyzują podstawowe testy statystyczne i umożliwiają integrację z zewnętrznymi narzędziami statystycznymi.
+Na znamienną rolę analityki w badaniach społecznych wskazuje istnienie takich platform jak \emph{Survey Monkey} \cite{surveymonkey}, które automatyzują podstawowe testy statystyczne i umożliwiają integrację z zewnętrznymi narzędziami statystycznymi. Natomiast prace takie jak \cite{test-postaw-milosnych} pokazują, że metody sztucznej inteligencji pozwalają udoskonalać metody psychometryczne.\par
 
-Ponadto ... rosnąca rola data miningu i ogólnego data science we współczesnym świecie
+Data mining jest nieodłączną częścią procesów przemysłowych związanymi z systemami \emph{Business Intelligence} i \emph{Big Data}. \emph{CRISP-DM} stanowi przemysłowy standard wykorzystywania danych. Jego iteracyjna formuła jest dobrym punktem wyjścia do omówienia procesów związanych z danymi: ich zbieranie, zrozumienie, oczyszczanie, modelowanie i walidację.\par
 
-Rosnąca moc obliczeniowa
+Celem pracy jest zbudowanie systemu do iteracyjnej budowy i udoskonalania kwestionariuszy i testów osobowości na podstawie odpowiedzi do testu opartego o model RIASEC. W szczególności została wykonana analiza tych danych w celu przygotowania ich do modelowania, zbudowanie systemu do przeprowadzania testów wraz z uzyciem metod klasyfikacji i klasteryzacji oraz udostępnianiem danych do analizy oraz weryfikacja skuteczności użytych klasyfikatorów we wzajemnym porównaniu i w porównaniu do metryki testu.\par
 
 
 
-Czym jest analiza danych i EDA?
-Jakie są ich zagadnienia?
-Testy osobowości jako źródła danych
 
-Techniki EDA
-Problem klasyfikacji
-...inne techniki EDA...
 
+
+
+
+
+
+\chapter{Zarys analizy danych}
+
+Analiza danych 
+.Natomiast \emph{data mining} jest pojęciem z pogranicza uczenia maszynowego i statystyki. Jest ono różnie definiowanie przez autorów, zjednując je mniej lub bardziej z analizą danych. Niezależnie od definicji, celem obu tych dyscyplin jest odkrywanie wiedzy z danych, przechodzenie od szczegółu do ogółu. Sama definicja wskazuje na indukcyjny charakter wnioskowań wypływający z analiz - powstające modele generalizują dane.
+
+Proces analizy składa się z kilku etapów, często nachodzących na siebie i powtarzających się. Poprawna analiza danych musi składać się ze zrozumienia analizowanej próbki, wstępnego przygotowania jej, modelowania i walidacji modelu. 
 
 \section{Techniki eksploracyjnej analizy danych}
 
-Eksploracyjna analiza danych (EDA) stanowi etap przygotowawczy do budowy modelu na danych. Celem EDA jest sformułowanie i wstępne zweryfikowanie przez analityka założeń dotyczących danego problemu na podstawie trendów pojawiających się w próbce. EDA jest wykonywana jako etap poprzedzający confirmatory data analysis. EDA jest też szeroko stosowana jako podstawa do budowania systemów Business Intelligence.
+Eksploracyjna analiza danych (EDA) stanowi etap przygotowawczy do budowy modelu na danych. Celem EDA jest sformułowanie i wstępne zweryfikowanie przez analityka założeń dotyczących danego problemu na podstawie trendów pojawiających się w próbce. EDA jest wykonywana jako etap poprzedzający confirmatory data analysis. EDA jest też szeroko stosowana jako podstawa do budowania systemów Business Intelligence.\cite{hseltman} \par 
 
-\cite{hseltman}
+Wykorzystanie technik EDA zależy od rodzaju dostępnych danych oraz od oczekiwanego rodzaju wniosków. Przede wszystkim należy wyróżnić podział na metody \emph{numeryczne} i \emph{wizualne}. Te pierwsze stanowią nieparametryczne metody statystyczne. W szczególności jednak używane są techniki graficzne, pozwalające w łatwy sposób zobrazować kluczowe cechu zestawu danych: trendy, rozrzuty, odstępstwa, rozkłady etc. Techniki różnią się też w zależności od rodzaju danych i wymiarowości, w której operują.\par
 
-Wykorzystanie technik EDA zależy od rodzaju dostępnych danych oraz od oczekiwanego rodzaju wniosków.
+Przed przejściem do omówienia poszczególnych technik należy zwrócić uwagę na rodzaje danych. Wyróżnia się trzy kluczowe kategorie danych: nominalne, porządkowe i numeryczne. Dane nominalne podlegają jedynie operacji równości i ich analiza jest najbardziej uproszczona. Dla danych porządkowych definiowalne są także relacje nierówności. Dane numeryczne pozwalają na dokładnie określenie odległości między punktami, przy czym dane takie dzieli się na interwałowe i ?? w zależności od tego, czy da się określić punkt zerowy. (citation needed)\par
 
-Dane ze wszelkiego rodzaju ankiet spełniają
+\subsection{Metody numeryczne}
 
-\subsection{Wykresy surowych danych}
+Metody opisujące dane nominalne różnią się od metod ilościowych. Przede wszystkim dla danych nominalnych lub porządkowych nie można określić rozkładu prawdopodobieństwa. Miarą \emph{lokacji} jest w tym przypadku mediana lub moda. \emph{Mediana} jest środkową wartością dla uporządkowanego szeregu pomiarów. \emph{Moda} lub \emph{dominanta} to wartość najczęściej w zbiorze występująca. \emph{Pierwszy i trzeci kwartyl} to punkty leżące odpowiednio w 1/4 i 3/4 uporządkowanego szeregu. Miarami \emph{rozrzutu} są \emph{rozstęp} i \emph{rozstęp ćwiartkowy}, zdefiniowane jako różnice odpowiednio skrajnych wartości i wartości kwartyli. \par
+
+\emph{Miary dla danych numerycznych}\par
+
+Średnia
+Średnia ważona
+Mediana
+Ważona mediana
+Ranga
+Order
+Kwantyle
+Wariancja
+Wariancja ważona
+Odchylenie standardowe
+Median Absolute Deviation
+Zasięg międzykwartylowy
+Współczynnik dyspersji kwartyli
+Wykrywanie outlierów
+Mode
+Weighted mode
+
+
+
+
+
+
+
+Testy significance
+p-value
+p-value dredging
+Współczynniki korelacji
+Chi^2 test
+ANOVA
+
+\subsection{Metody wizualne}
+
+Wykresy surowych danych:
 Histogramy, wykresy prawdopodobieństwa, wykresy Youdena, scatter plot
 Bihistogramy do wizualizacji porównawczej dla dwóch modeli klasyfikujących
 \emph{http://www.itl.nist.gov/div898/handbook/eda/section3/eda3.htm}
 
-\subsection{Przetworzone}
+Przetworzone dane:
 star plot for cathegories(groups)
 box plot for
-skew
-kurtosis
 
-Five number summaries (mean/median, min, max, q1, q3)
 
-\section{Klasyfikacja i klasteryzacja}
 
-Zarówno problem klasyfikacji i klasteryzacji definiuje się w podobny sposób: istotą problemu jest przydzielenie każdego elementu ze skończonego zbioru \emph{obiektów} do jednej lub kilku grup zwanych \emph{klasami}. Różnica między dwoma pojęciami leży w sposobie uczenia algorytmu: klasteryzacja wykorzystuje sprzężenie zwrotne co do poprawnej klasyfikacji - jest więc przykładem algorytmu uczenia maszynowego \emph{nadzorowanego}. Algorytmy klasteryzacyjne natomiast próbują same dokonać wytworzenia wzorca klas - należą do algorytmów uczenia \emph{nienadzorowanego}.\par
 
-Aby podział na klasy był satysfakcjonujący, musi spełniać dwa kryteria. Po pierwsze, elementy wewnątrz klasy muszą być mozliwie do siebie podobne. Po drugie, elementy z różnych klas muszą różnić się od siebie o ile jest to tylko możliwe.\par
+
+\section{Wstępne przetwarzanie danych}
+
+Modele statystyczne wykorzystywane w analityce w większości przypadków nie są przygotowane by radzić sobie z niepoprawnymi lub niekompletnymi danymi. Z tego powodu po zrozumieniu próbki wykonuje się etap oczyszczania i przygotowania danych. 
+
+Wykrycie elementów odstających ...
+... kwartyle
+
+\subsection{Redukcja wymiarowości}
+
+Jednym z celów zastosowania EDA do tej aplikacji jest zredukowanie ilości pytań dla każdego z testów. Ograniczenie ilości pytań w modelu bierze się z dwóch przyczyn. Pierwszą z nich jest wygoda użytkownika - z założenia osoba biorąca udział w teście zawodowym nie jest skłonna wypełniać bardzo długich kwestionariuszy.
+
+Druga cecha związana jest z dopasowaniem modeli do dużych zestawów danych. \emph{Curse of dimensionality} jest pojęciem związanym z uczeniem maszynowym i ogólnie pojętą analityką, opisujące postępujące rozrzedzenie danych w miarę wzrostu ich wymiarowości. (czy jest to prawda - źródła poddają w wątpliwość)
+
+\subsection{Nadmierne dopasowanie}
+
+Zjawisko nadmiernego dopasowania, czy też overfittingu jest czynnikiem nakładającym górną granicę na ilość próbek dostarczanych do modelu. Dla dziedziny $X$ hipoteza $h$ jest nadmiernie dopasowana, gdy istnieje hipoteza h' o większym błędzie próbki a mniejszym rzeczywistym.
+
+Nadmiernie dopasowana hipoteza oddaje przekłamania na danych. Ponadto, hipotezy zbyt dopasowane są porównywalne do interpolacji zaszumionych danych - po prostu zniekształcają obraz rzeczywistości. innymi słowy - bardziej trafne mogą być hipotezy niespójne na danych wejściowych.
+
+
+
+
+
+
+
+\section{Uczenie maszynowe}
+
+Uczenie maszynowe stanowi jeden z ostatnich trendów technologicznych. Jest też identyfikowany przez Gartnera jako jedna z najbardziej przecenianych technologii w obecnej nauce \ref{gartner}.
+
+\begin{figure}
+\caption{\emph{Hype cycle} Gartnera, rok 2016}
+\centering
+\includegraphics[width=0.5\textwidth]{gartner.png}
+\label{gartner}
+\end{figure}
+
+\emph{Uczenie maszynowe jako część nauki o danych}
+
+"Uczeniem się systemu jest każda autonomiczna zmiana w systemie zachodząca na podstawie doświadczeń, która prowadzi do poprawy jakości jego działania"\cite{cichosz}. Podstawowym celem uczenia maszynowego jest przeprowadzenie \emph{wnioskowania}. Wnioskowanie w rachunku zdań potraktować jako trójkę $ P \and W \rightarrow K $, co oznacza, że przesłanki oraz wiedza implikują konkluzję. Wnioskowanie dzieli się na indukcyjne i dedukcyjne. 
+
+Wnioskowanie indukcyjne stanowią metody wyciągające ogół ze szczegółu, generalizujące dane do postaci wiedzy. Przykładem jest formowanie reguł podziału na grupy w oparciu o zestaw danych treningowych. Wnioskowanie dedukcyjne stanowi zaaplikowanie wiedzy do określonej sytuacji - w tym wypadku byłoby to użycie tych reguł do nowych danych.
+
+W niniejszej pracy przedstawione są dwa z trzech zasadniczych problemów data miningu: klasyfikacja oraz klasteryzacja. Zarówno problem klasyfikacji i klasteryzacji definiuje się w podobny sposób: istotą problemu jest przydzielenie każdego elementu ze skończonego zbioru \emph{obiektów} do jednej lub kilku grup zwanych \emph{kategoriami}. 
+
+Klasyfikacja może być rozumiana jako uczenie pojęć. Mając zestaw par dane-oczekiwany wynik, możemy określić tę metodę jako \emph{uczenie z nadzorem}. Celem algorytmu klasyfikujacego jest znalezienie takiej hipotezy, która najlepiej opisuje zależność między przesłanką a konkluzją. W konkretnych zastosowaniach przesłanką jest najczęściej zbiór cech danego obiektu, konkluzją zaś przynależność jego do pewnej klasy obiektów, stąd też nazwa problemu.
+
+Grupowanie(clustering) to zadanie tworzenia pojęć bez uprzedniej wiedzy, co klasyfikuje je jako problem \emph{uczenia bez nadzoru}. Możliwe jest rozbicie problemu na dwa zadania: podział na grupy i naukę pojęć. Zazwyczaj realizuje to jedna metoda (kmeans na przykład), jednak można te dwa zadania rozdzielić - wtedy algorytm grupujący generuje dane do algorytmu klasyfikującego.
+
+Aby podział na kategorie był satysfakcjonujący, musi spełniać dwa kryteria. Po pierwsze, elementy wewnątrz kategorii muszą być mozliwie do siebie podobne. Po drugie, elementy z różnych kategorii muszą różnić się od siebie o ile jest to tylko możliwe.\par
 
 Aby możliwe było opisanie problemu, potrzebna jest formalne zdefiniowanie zarówno cech, jak i podobieństwa. W praktyce cechy można definiować dwojako: jako wartości binarne lub rzeczywiste (znormalzowane do jedności, lub nie). W ten sposób opis danego obiektu przyjmuje postać wektora cech (ang. \emph{features}). W takiej reprezentacji miarą podobieństwa, lub bardziej niepodobieństwa, jest odległość między tymi dwoma wektorami. Formalnie podobieństwo $s$ definiuje się jako:\par
-    \begin{equation}
-    tu-wzor
-    \end{equation}
+
+\begin{equation}
+tu-wzor
+\end{equation}
+
 Ważnym pojęciem do zmierzenia podobieństwa między dwoma obiektami jest pojęcie \emph{metryki}. Metryka jest funkcją, która przyjmując dwa wektory zwraca odległość między nimi. O ile pojęcie odległości pojmowane intuicyjnie jest jednoznaczne, jednak dla celów rozróżnienia obiektów, które są wektorami w przestrzeni o bardzo wielu wymiarach, odpowiednio dobrana metryka pozwala na lepsze dopasowanie modelu klasy do rzeczywistego rozkładu cech wśród jej członków.\par
 
 Najważniejsze dwie metryki to metryka euklidesowa, oraz metryka Manhattan. Są one rozszerzeniem ogólnej metryki Minkowskiego, podanej we wzorze (?). Szczególnym przypadkiem metryki typu Manhattan jest metryka Hamminga, która dla ciągów binarnych jest analogiem sumą bitów jedynkowych funkcji XOR. \par
@@ -144,59 +236,117 @@ Drugim elementem, poza metryką, definiującym kształt klasy jest \emph{norma}.
 
 Uzbrojeni w definicję podobieństwa i sposób jego obliczenia, jesteśmy w stanie w miarę dobrze ocenić poprawność działania algorytmów. Ważnym elementem różnych rozwiązań jest też sposób klasyfikacji: dzieli się ją na \emph{ostrą}, \emph{rozmytą} i \emph{posybilistyczną}. Klasyfikacja ostra przyporządkowuje obiekt do jednej i tylko jednej klasy. Klasyfikacja rozmyta wiąże obiekt z róznymi klasami z różną siłą, przy czym suma współczynników określających przynależność dla danego obiektu jest zawsze równa jedności. Klasifykacja posybilistyczna różni się od poprzedniej zniesieniem ograniczenia sumy.\par
 
+\subsection{Naiwny klasyfikator bayesowski}
 
+Jedna z prostszych metod klasyfikacji opiera się na definicji prawdopodobieństwa warunkowego, zwanej także regułą Bayesa. Stanowi ona związek między prawdopodobieństwami dwóch zmiennych oraz prawdopodobieństwami implikacji jednej zmiennej z drugiej i vice versa. Pozwala ona obliczać prawdopodobieństwo implikacji odwrotnej do implikacji podanej w danych. Reguła ma następującą postać:
 
+\begin{equation}
+P(C|\vec{x}) = \frac{P(\vec{x}|C)P(C)}{P(\vec{x})}
+\end{equation}
 
-\chapter{Teoria wykorzystanych technik EDA}
+Prawdopodobieństwo złożonej zmiennej $\vec{x}$ jest równe iloczynowi prawdopodobieństw jego składowych, jak pokazano we wzorze \ref{pp-zlozone}. Analogicznie można otrzymać prawdopodobieństwo złożonej implikacji \ref{pp-implikacji} (citation needed). Obydwa wzory funkcjonują na założeniu \emph{niezależności} zmiennych, mianowicie prawdopodobieństwo jednej zmiennej nie jest zależne od żadnej innej. \ref{niezaleznosc}. "Naiwność" klasyfikatora wynika właśnie z założenia niezależności zmiennych, co nie zawsze jest prawdą. Uwzględnienie zależności zmiennych pozwala tworzyć kaskadowe modele zwane sieciami bayesowskimi.\cite{dm-cichosz} Nie są one jednak częścią tej pracy.\par
 
-\section{Binarny klasyfikator bayesowski}
+\begin{equation}
+P(\vec{x}) = \prod{P(x_i)}
+\end{equation}
+\label{pp-zlozone}
 
+\begin{equation}
+??
+\end{equation}
+\label{pp-implikacji}
 
+\begin{equation}
+??
+\end{equation}
+\label{niezaleznosc}
 
+Naiwny klasifykator bayesowski dla danego wektora wejściowego $\vec{x}$ testuje prawdopodobieństwo każdej z hipotez $P(C_j|\vec{x}) | C_j \in C$, gdzie C to zbiór zdarzeń elementarnych polegających na przynależności elementu do jednej z kategorii. W przypadku klasyfikacji ostrej $\sum_{C_j \in C} P(C_j) = 1 $. Za prawdopodobieństwa zdarzeń elementarnych wchodzących w skład reguły Bayesa przyjmuje się prawdopodobieństwa wystąpienia danych zdarzeń w próbce uczącej. \par
 
-\section{Klasyfikator maksymalnoogległościowy}
+Ze względu na fakt, iż dla nie występującego w próbce uczącej wektora $P(\vec{x}) = 0$ oraz fakt, że $P(\vec{x})=const$ dla każdego $C_j$ człon pomija się, uzywając do klasyfikacji miary proporcjonalnej do prawdopodobieństwa. Następnie jako wynik klasyfikacji przyjmuje się zdarzenie, które osiąga najwyższą miarę.\par
+
+\emph{Wady i zalety Kl.B}
+Wady:
+mała akceptowalna ilość hipotez(klasyfikator bierze pod uwagę wszystkie hipotezy i nimi operuje)
+nieuwzględnienie uporządkowania kategorii (a więc trzeba wstępnie wyznaczyć pojęcia)
+Zalety:
+O(n)
+
+\emph{a priori i a posteriori}
+
+\subsection{Klasyfikator maksymalnoogległościowy}
+
 Klasyfikatory maksymalnoodległościowe zostały wynalezione przez Vapnika. Opierają się one na wyznaczeniu granicy między zestawmi danych w taki sposób, aby zachować możliwie dużą odległość najbliższych punktów od granicy. Inna nazwa tej metody, \emph{maszyna wektorów wspierających}, oddaje sposób w jaki zostaje to wykonane. Wybiera się $n$ punktów:\par
-    ... opis działania metody...\par
-Istotne do poprawnego wykorzystania SVM jest wykonanie kilku kroków \cite{chih-wei}. Po pierwsze, należy przygotować i znormalizować dane. Drugim etapem jest wybór rodzaju funkcji jądra. Standardowo rozróżnia się cztery jej rodzaje: liniowe, wielomianowe, RBF i sigmoidalne. Następnie, należy ocenić odpowiednio \emph{ten parametr jądra}. Zgodnie z badaniami samego autora tej metody, musi być on równy wymiarowi $VC$ (\emph{Vapnika-Chernocośtam}) dla zbioru danych. Wymiar VC definiuje się jako ...... . Wraz z oceną tego parametru należy jeszcze znaleźć współczynnik błędu. \par
-\section{Metoda k średnich}
+... opis działania metody...\par
+Istotne do poprawnego wykorzystania SVM jest wykonanie kilku kroków \cite{chih-wei}. Po pierwsze, należy przygotować i znormalizować dane. Drugim etapem jest wybór rodzaju funkcji jądra. Standardowo rozróżnia się cztery jej rodzaje: liniowe, wielomianowe, RBF i sigmoidalne. Następnie, należy ocenić odpowiednio \emph{ten parametr jądra}. Zgodnie z badaniami samego autora tej metody, musi być on równy wymiarowi $VC$ (\emph{Vapnika-Chernocośtam}) dla zbioru danych. Wymiar VC definiuje się w sposób podany we wzorze \ref{wymiar-vc}. Wraz z oceną tego parametru należy jeszcze znaleźć współczynnik błędu. \par
+
+\begin{equation}
+VC(x) = max(d) => d różnych przykładów w dziedzinie X podzielone na wszystkie 2^d możliwych sposobów (dla binarnego zaklasyfikowania)
+\end{equation}
+\label{wymiar-vc}
+
+\subsection{Metoda k średnich}
+
+Metoda k-średnich stanowi niewątpliwie jeden z najprostszych algorytmów klasyfikujących. Jej działanie opiera się na iteracyjnym grupowaniu i klasyfikowaniu elementów. Jego działanie najlepiej przedstawione jest na rysunku \ref{kmeans-png}. Cykl poprawiania średnich trwa aż ich zmiana będzie mniejsza od progu.
+
+\begin{figure}
+\caption{\emph{Hype cycle} Gartnera, rok 2016}
+\centering
+\includegraphics[width=0.5\textwidth]{kmeans.png}
+\label{kmeans-png}
+\end{figure}
+
+O ile algorytm jest bardzo prosty w implementacji, o tyle posiada szereg wad: po pierwsze, liczba kategorii musi być odgórnie znana. Po drugie, algorytm działa w miarę dobrze jedynie dla danych o wyraźnie zarysowanych granicach. Kolejną sprawą, którą należy mieć na uwadze jest NP-złożoność, co sprawia, że algorytm staje się niewygodny dla duzych zestawów danych.
+
+
+
+
+\section{Walidacja}
+
+
+
+\subsection{Walidacja krzyżowa}
+
+Błąd próbki:
+$    e_P^c(h) = \frac{| \{ x \in P | h(x) != c(x) \} |}{|P|} $
+Liczba pomyłek:
+$        r_P^c(h) = | \{ x \in P | h(x) != c(x) \} | $
+Błąd rzeczywisty:
+$    e_\Omega^c (h) = Pr_{x \in \Omega}(h(x) != c(x))$ gdzie Omega to rozkład prawdopodobieństa
+Możemy przypisać $\Omega$ jako jednorodnemu rozkładowi spośród próbki danych weryfikacyjnych
+            
+            
 
 
 
 
 
+\chapter{Opis wykorzystanego kwestionariusza}
 
-\chapter{Wykorzystane zestawy danych}
+Do zrealizowania systemu wybrano ogólnodostępny zestaw danych psychologicznych, pobrany ze strony internetowej \ref{raw_data}. Dane zawierają wyniki testu przeprowadzonego w Internecie wraz z metryczką demograficzną. Test składa się z 48 pytań w pięciostopniowej skali Likerta.
 
-\section{Testy psychologiczne}
+\section{Model Hollanda}
 
-Wykonano powierzchowny przegląd literatury z zakresu psychometrii w Bibliotece Uniwersytetu Gdańskiego, co zaowocowało przede wszystkim wiedzą z zakresu statystyki testów i podziałem. Następnie skorzystano z Internetu w celu znalezienia gotowych testów. Do implementacji programu wybrano dwa modele psychologiczne. Model Hollanda jest używany jako główny model do określenia skłonności zawodowych, natomiast MBTI jest najczęściej implementowanym modelem osobowości w ogóle. Spośród kilku list pytań wybrano pięćdziesiąt - trzydzieści z nich dotyczy model Hollanda, dwadzieścia zaś modelu Myers-Briggs. Pytania te powstały w większości w wyniku kompozycji dwóch pytań typu \emph{tak-nie}, przy czym dobrano odpowiedzi tak, by przetestować wszystkie cechy równomiernie. Część pytań poddano redakcji kierując się wskazówkami do modelu.
-
-\subsection{Model Hollanda (ten z sześcioma opcjami)}
-
-Source: http://www.truity.com/test/holland-code-career-test
-Model ten opracowany przez ...Hollanda... w roku ... . Klasyfikuje on ludzi na sześć głównych klas, a bardziej szczegółowo, szereguje funkcje zawodowe ludzi według ich preferencji. Te sześć funkcji zestawionych jest w przeciwstawne pary:\par
+Model ten opracowany przez John'a Hollanda w roku 1959. \cite{holland-source} Klasyfikuje on ludzi na sześć głównych klas, a bardziej szczegółowo, szereguje funkcje zawodowe ludzi według ich preferencji. Te sześć funkcji zestawionych jest w przeciwstawne pary:\par
 Artystyczny - Konwencjonalny\par
 Realistyczny - Spoleczny\par
 Badawczy - Przedsiebiorczy\par
 Zawody są przydzielone do jednej lub kilku z tych klas według umiejętności, których wymagają, mogą one należeć także do klas przeciwstawnych, jeżeli obydwie umiejętności są potrzebne - nie wykluczają się one wzajemnie.\par
 
-\subsection{Model MBTI (z szesnastoma klasami)}
+\emph{identity,diversity and other - base on the citation}
 
-Model MBTI klasyfikuje ludzi na szesnaście kategorii według ich preferencji w funkcjach poznawczych. Ludzie są opisani jako klasy będące kombinacją czterech spektrów cech:\par
-Introwersja - ekstrawersja\par
-Poznanie - intuicja\par
-Rozumowanie - uczuciowość\par
-Postrzeganie - osądzanie\par
+\section{Skala Likerta}
 
-\section{Przetwarzanie modeli}
+Skala Likerta jest techniką psychometryczną używaną w celu zmierzenia stopnia zgodności respondenta z danym poglądem lub podejściem. Skala ta najczęściej jest jednowymiarowa. Składa się z małej ilości odpowiedzi przedstawiąjach symetrycznie ułożone punkty na osi \emph{zgodność}-\emph{niezgodność}, w nieparzystej ilości(zazwyczaj 5). \cite{bertram}
 
-\subsection{Redukcja wymiarowości}
+Założenie, że punkty przedstawiają równoodległe natężenia cechy, pozwala traktować skalę jako źródło danych interwałowych. Dane interwałowe oddają różnice między różnymi poziomami danej cechy, nie określają jednak jej absolutnej wartości (punktu zerowego)  \cite{bertram}
 
-Jednym z celów zastosowania EDA do tej aplikacji jest zredukowanie ilości pytań dla każdego z testów. Ograniczenie ilości pytań w modelu bierze się z dwóch przyczyn. Pierwszą z nich jest wygoda użytkownika - z założenia osoba biorąca udział w teście zawodowym nie jest skłonna wypełniać bardzo długich kwestionariuszy.
+Analiza wyników testu opartego na tej skali zależy od sposobu ujęcia odpowiedzi. Jeżeli analizujemy pojedyńcze zdania, danych nie można traktować jako danych interwałowych i stosuje się wtedy techniki nieparametryczne. Natomiast wziąwszy zestawy odpowiedzi opisujące poszczególną cechę, można potraktować tę technikę jako metodę ilościową i stosować metody statystyki parametrycznej. \cite{joe} Z tego też powodu skala Likerta zwana jest także techniką sumacyjną
 
-Druga cecha związana jest z dopasowaniem modeli do dużych zestawów danych. \emph{Curse of dimensionality} jest pojęciem związanym z uczeniem maszynowym i ogólnie pojętą analityką, opisujące postępujące rozrzedzenie danych w miarę wzrostu ich wymiarowości. (czy jest to prawda - źródła poddają w wątpliwość)
+\emph{Jak potraktować skalę Likerta}
 
-\subsection{Walidacja krzyżowa}
+
+
 
 
 
@@ -229,11 +379,27 @@ Schemy tych dwóch rodzajów plików przedstawione są w tabelach \ref{tests-sch
 
 \section{Instalacja i uruchomienie}
 
-Całość programu zaopatrzono w skrypty instalacyjne do generacji niezaleźnego środowiska pythona \emph{virtualenv}. Ze względu na trudności związane z domyślną lokalizacją biblioteki \emph{libsvm}, która jest związana z zewnętrznym plikiem wykonywalnym napisanym w C, postanowiono uruchamiać ten program poprzez powłokę systemu i komunikować się przy pomocy plików tymczasowych. Aplikację udostępniono na chmurze Amazona pod adresem IP \emph{54.93.169.189}(stan na 30 listopada 2016r.). Kod źródłowy wraz z tekstem tej pracy i notatkami udostępniono poprzez serwis github: \emph{https://github.com/Zantyr/dissertation}\par
+Całość programu zaopatrzono w skrypty instalacyjne do generacji niezależnego środowiska Pythona \emph{virtualenv}. Ze względu na trudności związane z domyślną lokalizacją biblioteki \emph{libsvm}, która jest związana z zewnętrznym plikiem wykonywalnym napisanym w C, postanowiono uruchamiać ten program poprzez powłokę systemu i komunikować się przy pomocy plików tymczasowych. Aplikację udostępniono na chmurze Amazona pod adresem IP \emph{54.93.169.189}(stan na 30 listopada 2016r.). Kod źródłowy wraz z tekstem tej pracy i notatkami udostępniono poprzez serwis github: \emph{https://github.com/Zantyr/dissertation}\par
+
+
+
+
+
+
+
+
+
 
 \chapter{Wyniki analiz i przedstawienie działania aplikacji}
+\section{Wyniki EDA}
 \section{Porównanie trafności klasyfikatorów}
 \section{Wnioski wyciągnięte z badań}
+
+
+
+
+
+
 
 
 
@@ -257,25 +423,14 @@ Poniżej wypisano wszystkie pliki używane w aplikacji do jej konstrukcji. Aplik
 \section{Pozostałe pliki}
 
 \begin{thebibliography}{9}
+\bibitem{test-postaw-milosnych} Roguski K. \emph{Zastosowanie sztucznych sieci neuronowych w psychologicznej analizie osobowości na przykładzie metod psychometrycznych. Praca dyplomowa magisterska}, Wydział Elektryczny Politechniki Warszawskiej, Warszawa 2004
 \bibitem{cichosz} Paweł Cichosz, \emph{Systemy uczące się}
+\bibitem{dm-cichosz} Paweł Cichosz, \emph{Data Mining Algorithms}
 \bibitem{flasinski} Mariusz Flasiński, \emph{Wstęp do sztucznej inteligencji}
-\bibitem{rutkowski} Leszek Rutkowski, \emph{Metody i techniki sztucznej inteligencji}, Warszawa 2005, PWN, rozdziały 6, 8, 10
-\bibitem{szczepaniak} Piotr S. Szczepaniak \emph{Obliczenia inteligentne, szybkie przekształcenia i klasyfikatory}, Warszawa 2004, Akademicka Oficyna Wydawnicza EXIT
-\bibitem{wojcik} Waldemar Wójcik et alii, \emph{Sztuczna inteligencja i metody optymalizacji - od teorii do praktyki}, Lublin 2008, Polskie Towarzystwo Informatyczne
-\bibitem{parol} Mirosław Parol, Paweł Piotrowski et alii, \emph{Sztuczna inteligencja w praktyce - Laboratorium}, ćwiczenie 3
-\bibitem{malina} Witold Malina, Maciej Smiatacz, \emph{Rozpoznawanie obrazów}, Warszawa 2010, akademicka Oficyna Wydawnicza EXIT
-\bibitem{podolak} Igor T. Podolak, \emph{Klasyfikator Hierarchiczny z nakładającymi się grupami klas}, Kraków 2012, Wydawnictwo Uniwersytetu Jagiellońskiego
-\bibitem{hastie} Trevor Hastie, Robert Tibshirani, Jerome Friedman, \emph{The Elements of Statistical Learning}, Springer, druga edycja
-\bibitem{pythonwiki} \emph{https://wiki.python.org/moin/PythonForArtificialIntelligence}
-\bibitem{stanford} \emph{http://cs.stanford.edu/people/eroberts/courses/soco/projects/2000-01/neural-networks/Sources/index.html}
-\bibitem{chih-wei}Chih-Wei Hsu, Chih-Chung Chang, Chih-Jen Lin, \emph{A Practical Guide to Support Vector Classication}, Last updated: May 19, 2016
-\bibitem{fann} \emph{http://leenissen.dk/fann/wp/}
-\bibitem{simpleai} \emph{https://github.com/simpleai-team/simpleai}
-\bibitem{pybrain} \emph{http://pybrain.org/pages/features}
-\bibitem{curse-of-dimensionality} \emph{http://37steps.com/2349/curse-of-dimensionality/}
-\bibitem{MBTI1} \emph{http://www.humanmetrics.com/cgi-win/jtypes2.asp}
-\bibitem{MBTI2} \emph{Another Myers-Briggs: http://jupiter-34.appspot.com/}
 \bibitem{raw-data} \emph{http://personality-testing.info/_rawdata/}
 \bibitem{hseltman} \emph{Experimental Design and Analysis, http://www.stat.cmu.edu/~hseltman/309/Book/Book.pdf}
+\bibitem{bertram} Bertram Dane, \emph{Likert Scales} http://poincare.matf.bg.ac.rs/~kristina/topic-dane-likert.pdf
+\bibitem{joe}   https://www.joe.org/joe/2012april/pdf/JOE_v50_2tt2.pdf
+\bibitem{holland-source} http://www.counseling.org/docs/david-kaplan's-files/nauta.pdf?sfvrsn=2
 \end{thebibliography}
 \end{document}

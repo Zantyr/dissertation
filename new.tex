@@ -108,8 +108,7 @@ Celem pracy jest zbudowanie systemu do iteracyjnej budowy i udoskonalania kwesti
 
 \chapter{Zarys analizy danych}
 
-Analiza danych 
-.Natomiast \emph{data mining} jest pojęciem z pogranicza uczenia maszynowego i statystyki. Jest ono różnie definiowanie przez autorów, zjednując je mniej lub bardziej z analizą danych. Niezależnie od definicji, celem obu tych dyscyplin jest odkrywanie wiedzy z danych, przechodzenie od szczegółu do ogółu. Sama definicja wskazuje na indukcyjny charakter wnioskowań wypływający z analiz - powstające modele generalizują dane.
+Analiza danych jest dziedziną zajmującą się procesem wyciągania użytecznej informacji z danych poprzez ich transformację i modelowanie. Natomiast \emph{data mining} jest pojęciem z pogranicza uczenia maszynowego i statystyki. Jest ono różnie definiowanie przez autorów, zjednując je mniej lub bardziej z analizą danych. Niezależnie od definicji, celem obu tych dyscyplin jest odkrywanie wiedzy z danych, przechodzenie od szczegółu do ogółu. Przedstawione definicje wskazują na indukcyjny charakter wnioskowań wypływający z analiz - powstające modele generalizują dane.
 
 Proces analizy składa się z kilku etapów, często nachodzących na siebie i powtarzających się. Poprawna analiza danych musi składać się ze zrozumienia analizowanej próbki, wstępnego przygotowania jej, modelowania i walidacji modelu. 
 
@@ -119,77 +118,64 @@ Eksploracyjna analiza danych (EDA) stanowi etap przygotowawczy do budowy modelu 
 
 Wykorzystanie technik EDA zależy od rodzaju dostępnych danych oraz od oczekiwanego rodzaju wniosków. Przede wszystkim należy wyróżnić podział na metody \emph{numeryczne} i \emph{wizualne}. Te pierwsze stanowią nieparametryczne metody statystyczne. W szczególności jednak używane są techniki graficzne, pozwalające w łatwy sposób zobrazować kluczowe cechu zestawu danych: trendy, rozrzuty, odstępstwa, rozkłady etc. Techniki różnią się też w zależności od rodzaju danych i wymiarowości, w której operują.\par
 
-Przed przejściem do omówienia poszczególnych technik należy zwrócić uwagę na rodzaje danych. Wyróżnia się trzy kluczowe kategorie danych: nominalne, porządkowe i numeryczne. Dane nominalne podlegają jedynie operacji równości i ich analiza jest najbardziej uproszczona. Dla danych porządkowych definiowalne są także relacje nierówności. Dane numeryczne pozwalają na dokładnie określenie odległości między punktami, przy czym dane takie dzieli się na interwałowe i ?? w zależności od tego, czy da się określić punkt zerowy. (citation needed)\par
+Przed przejściem do omówienia poszczególnych technik należy zwrócić uwagę na rodzaje danych. Zgodnie ze \cite{stanisz-1}, wyróznia się cztery \emph{skale} danych: nominalna, porządkowa, równomierna i ilorazowa.. Dane nominalne podlegają jedynie operacji równości i ich analiza jest najbardziej uproszczona. Dla danych porządkowych definiowalne są także relacje nierówności. Dane równomierne i ilorazowe pozwalają na dokładnie określenie odległości między punktami, przy czym dla skali ilorazowej da się określić punkt zerowy. (citation needed)\par
 
 \subsection{Metody numeryczne}
 
-Metody opisujące dane nominalne różnią się od metod ilościowych. Przede wszystkim dla danych nominalnych lub porządkowych nie można określić rozkładu prawdopodobieństwa. Miarą \emph{lokacji} jest w tym przypadku mediana lub moda. \emph{Mediana} jest środkową wartością dla uporządkowanego szeregu pomiarów. \emph{Moda} lub \emph{dominanta} to wartość najczęściej w zbiorze występująca. \emph{Pierwszy i trzeci kwartyl} to punkty leżące odpowiednio w 1/4 i 3/4 uporządkowanego szeregu. Miarami \emph{rozrzutu} są \emph{rozstęp} i \emph{rozstęp ćwiartkowy}, zdefiniowane jako różnice odpowiednio skrajnych wartości i wartości kwartyli. \par
+Podstawą do analizy danych jest zestawienie próbki w postaci szeregu. W przypadku uszeregowania danych względem jakiejś zmiennej mówi się o szeregu szczegółowym. W opisanym zastosowaniu o wiele bardziej interesujący jest szereg rozdzielczy, który grupuje dane na klasy i zlicza ilośc wystąpień w danej klasie. Jest to szczególnie przydatne w przedstawianiu wyników klasteryzacji zbioru danych. \par
 
-\emph{Miary dla danych numerycznych}\par
+Podstawą dla statystyki są cztery wielkości, które opisują daną próbkę. Dane można opisywać wielkościami opisującymi centrowanie(lokację), zmienność, asymetrię i koncentrację. \cite{stanisz-1} Metody opisujące dane nominalne różnią się od metod ilościowych. Przede wszystkim dla danych nominalnych lub porządkowych nie można określić rozkładu prawdopodobieństwa. Miary tych wielkości dla dwu rodzajów danych zestawiono w tabeli \ref{miary-statystyczne} 
 
-Średnia
-Średnia ważona
-Mediana
-Ważona mediana
-Ranga
-Order
-Kwantyle
-Wariancja
-Wariancja ważona
-Odchylenie standardowe
-Median Absolute Deviation
-Zasięg międzykwartylowy
-Współczynnik dyspersji kwartyli
-Wykrywanie outlierów
-Mode
-Weighted mode
+\begin{table}
+\begin{tabular}
+Wielkość & Miara porządkowa & Miara równomierna  \\
+Wyśrodkowanie & Mediana, mediana ważona, moda & Średnia, średnia ważona \\
+Zmienność & Rozstęp, rozstęp międzykwartylowy & Wariancja, wariancja ważonam odchylenie standardowe \\
+Asymetria &  & współczynnik skośności \\
+koncentracja &  & kurtoza \\
+\end{tabular}
+\caption{Zestawienie wielkości opisujących próbkę}
+\label{miary-statystyczne}
+\end{table}
 
-
-
-
-
-
-
-Testy significance
-p-value
-p-value dredging
-Współczynniki korelacji
-Chi^2 test
-ANOVA
+Miarą \emph{lokacji} jest w tym przypadku mediana lub moda. \emph{Mediana} jest środkową wartością dla uporządkowanego szeregu pomiarów. \emph{Moda} lub \emph{dominanta} to wartość najczęściej w zbiorze występująca. \emph{Pierwszy i trzeci kwartyl} to punkty leżące odpowiednio w 1/4 i 3/4 uporządkowanego szeregu. Miarami \emph{rozrzutu} są \emph{rozstęp} i \emph{rozstęp ćwiartkowy}, zdefiniowane jako różnice odpowiednio skrajnych wartości i wartości kwartyli. \par
 
 \subsection{Metody wizualne}
 
-Wykresy surowych danych:
-Histogramy, wykresy prawdopodobieństwa, wykresy Youdena, scatter plot
-Bihistogramy do wizualizacji porównawczej dla dwóch modeli klasyfikujących
-\emph{http://www.itl.nist.gov/div898/handbook/eda/section3/eda3.htm}
+Zgodnie z \cite{nist} metody wizualne stanowią wyróżnik eksploracyjnej analizy danych nad statystycznym podejściem do formułowania hipotez. W istocie metody wizualne w o wiele większym stopniu polegają na intuicji analityka niż na systematycznym podejściu. Rozmaite techniki wykreślania danych przedstawiono na zestawieniach takich jak \cite{visual-literacy} czy \cite{viz-catalogue}. Opisane zostaną tutaj tylko techniki wykorzystane w realizacji projektu. \par
 
-Przetworzone dane:
-star plot for cathegories(groups)
-box plot for
+Wykresy dla nieprzetworzonych danych (\emph{raw data}) to między innymi histogramy i bihistogramy, wykresy typu \emph{box and whiskers} czy wykresy bąbelkowe. Pierwsze dwa stosowane są do ukazania podstawowych danych o częstotliwościach występowania cechy w próbce, a ostatni do zestawiania dwóch cech. \par
 
-
-
-
+Wykresy dla danych przetworzonych to wykresy biegunowe lub gwiazdowe (\emph{polar chart, star plot}), które pozwalają zestawić wszystkie cechy danej kategorii na jednym obrazie, a ich złożenie pozwala porównać między soba poszczególne kategorie. \par
 
 \section{Wstępne przetwarzanie danych}
 
-Modele statystyczne wykorzystywane w analityce w większości przypadków nie są przygotowane by radzić sobie z niepoprawnymi lub niekompletnymi danymi. Z tego powodu po zrozumieniu próbki wykonuje się etap oczyszczania i przygotowania danych. 
+Modele statystyczne wykorzystywane w analityce w większości przypadków nie są przygotowane by radzić sobie z niepoprawnymi lub niekompletnymi danymi. Z tego powodu po zrozumieniu próbki wykonuje się etap oczyszczania i przygotowania danych. \par
 
-Wykrycie elementów odstających ...
-... kwartyle
+\subsection{Usunięcie elementów odstających}
+
+Jednym z zadań EDA jest \emph{wykrywanie obserwacji odstających}. Ma ono na celu wyeliminowanie elementów, które znacznie różnią się od przeciętnego pomiaru w wyniku bądź to błędu pomiaru, celowego zniekształcenia lub rzeczywiście nietypowych indywiduów. O ile wyeliminowanie ostatnich może prowadzić do błędu klasyfikatora, o tyle w większości przypadków właśnie pozostawienie anomalii, jak się te pomiary czasem nazywa, powoduje większe obniżenie jakości modelu. \cite{dudek} \par
 
 \subsection{Redukcja wymiarowości}
 
-Jednym z celów zastosowania EDA do tej aplikacji jest zredukowanie ilości pytań dla każdego z testów. Ograniczenie ilości pytań w modelu bierze się z dwóch przyczyn. Pierwszą z nich jest wygoda użytkownika - z założenia osoba biorąca udział w teście zawodowym nie jest skłonna wypełniać bardzo długich kwestionariuszy.
+Jednym z celów zastosowania EDA do tej aplikacji jest zredukowanie ilości pytań dla każdego z testów. Ograniczenie ilości pytań w modelu bierze się z dwóch przyczyn. Pierwszą z nich jest wygoda użytkownika - z założenia osoba biorąca udział w teście zawodowym nie jest skłonna wypełniać bardzo długich kwestionariuszy.\par
 
-Druga cecha związana jest z dopasowaniem modeli do dużych zestawów danych. \emph{Curse of dimensionality} jest pojęciem związanym z uczeniem maszynowym i ogólnie pojętą analityką, opisujące postępujące rozrzedzenie danych w miarę wzrostu ich wymiarowości. (czy jest to prawda - źródła poddają w wątpliwość)
+Druga cecha związana jest z dopasowaniem modeli do dużych zestawów danych. \emph{Curse of dimensionality} jest pojęciem związanym z uczeniem maszynowym i ogólnie pojętą analityką, opisujące postępujące rozrzedzenie danych w miarę wzrostu ich wymiarowości. (czy jest to prawda - źródła poddają w wątpliwość)\par
 
 \subsection{Nadmierne dopasowanie}
 
-Zjawisko nadmiernego dopasowania, czy też overfittingu jest czynnikiem nakładającym górną granicę na ilość próbek dostarczanych do modelu. Dla dziedziny $X$ hipoteza $h$ jest nadmiernie dopasowana, gdy istnieje hipoteza h' o większym błędzie próbki a mniejszym rzeczywistym.
+Zjawisko nadmiernego dopasowania, czy też overfittingu jest czynnikiem nakładającym górną granicę na ilość próbek dostarczanych do modelu. Dla dziedziny $X$ hipoteza $h$ jest nadmiernie dopasowana, gdy istnieje hipoteza h' o większym błędzie próbki a mniejszym rzeczywistym.\par
 
-Nadmiernie dopasowana hipoteza oddaje przekłamania na danych. Ponadto, hipotezy zbyt dopasowane są porównywalne do interpolacji zaszumionych danych - po prostu zniekształcają obraz rzeczywistości. innymi słowy - bardziej trafne mogą być hipotezy niespójne na danych wejściowych.
+Nadmiernie dopasowana hipoteza oddaje przekłamania na danych. Ponadto, hipotezy zbyt dopasowane są porównywalne do interpolacji zaszumionych danych - po prostu zniekształcają obraz rzeczywistości. innymi słowy - bardziej trafne mogą być hipotezy niespójne na danych wejściowych.\par
+
+
+
+
+
+
+
+
+
 
 
 
@@ -199,7 +185,7 @@ Nadmiernie dopasowana hipoteza oddaje przekłamania na danych. Ponadto, hipotezy
 
 \section{Uczenie maszynowe}
 
-Uczenie maszynowe stanowi jeden z ostatnich trendów technologicznych. Jest też identyfikowany przez Gartnera jako jedna z najbardziej przecenianych technologii w obecnej nauce \ref{gartner}.
+Uczenie maszynowe (\emph{machine learning}) stanowi jeden z ostatnich trendów technologicznych. Jest też identyfikowany przez Gartnera jako jedna z najbardziej przecenianych technologii w obecnej nauce \ref{gartner}. Bądź co bądź, odpowiednio wykorzystane techniki ML są z powodzeniem stosowane w takich technologiach jak modelowanie zużycia energii, rozpoznawanie emocji, identyfikacja obiektów na zdjęciach, systemy \emph{speech-to-text} i wiele innych. Wystarczy przyjrzeć się najnowszym dokonaniom firm takich jak Amazon, Microsoft aby przekonać się, że powstała szeroka gama usług opartych o \emph{soft computing}, z uczeniem maszynowym na czele. \par
 
 \begin{figure}
 \caption{\emph{Hype cycle} Gartnera, rok 2016}
@@ -208,17 +194,17 @@ Uczenie maszynowe stanowi jeden z ostatnich trendów technologicznych. Jest też
 \label{gartner}
 \end{figure}
 
-\emph{Uczenie maszynowe jako część nauki o danych}
+Z punktu widzenia analizy danych, uczenie maszynowe jest sposobem na budowę modelu na danych. W istocie klasyfikatory typu bayesowskiego są niczym innym jak praktycznym zastosowaniem reguł prawdopodobieństwa. Zaletą uczenia maszynowego jet automatyczne budowanie hipotezy na danych w przeciwieństwie do klasycznego wnioskowania statystycznego, które wymaga od analityka postawienia hipotez do weryfikacji. \par
 
-"Uczeniem się systemu jest każda autonomiczna zmiana w systemie zachodząca na podstawie doświadczeń, która prowadzi do poprawy jakości jego działania"\cite{cichosz}. Podstawowym celem uczenia maszynowego jest przeprowadzenie \emph{wnioskowania}. Wnioskowanie w rachunku zdań potraktować jako trójkę $ P \and W \rightarrow K $, co oznacza, że przesłanki oraz wiedza implikują konkluzję. Wnioskowanie dzieli się na indukcyjne i dedukcyjne. 
+"Uczeniem się systemu jest każda autonomiczna zmiana w systemie zachodząca na podstawie doświadczeń, która prowadzi do poprawy jakości jego działania"\cite{cichosz}. Podstawowym celem uczenia maszynowego jest przeprowadzenie \emph{wnioskowania}. Wnioskowanie w rachunku zdań potraktować jako trójkę $ P \and W \rightarrow K $, co oznacza, że przesłanki oraz wiedza implikują konkluzję. Wnioskowanie dzieli się na indukcyjne i dedukcyjne. \par
 
-Wnioskowanie indukcyjne stanowią metody wyciągające ogół ze szczegółu, generalizujące dane do postaci wiedzy. Przykładem jest formowanie reguł podziału na grupy w oparciu o zestaw danych treningowych. Wnioskowanie dedukcyjne stanowi zaaplikowanie wiedzy do określonej sytuacji - w tym wypadku byłoby to użycie tych reguł do nowych danych.
+Wnioskowanie indukcyjne stanowią metody wyciągające ogół ze szczegółu, generalizujące dane do postaci wiedzy. Przykładem jest formowanie reguł podziału na grupy w oparciu o zestaw danych treningowych. Wnioskowanie dedukcyjne stanowi zaaplikowanie wiedzy do określonej sytuacji - w tym wypadku byłoby to użycie tych reguł do nowych danych. \par
 
-W niniejszej pracy przedstawione są dwa z trzech zasadniczych problemów data miningu: klasyfikacja oraz klasteryzacja. Zarówno problem klasyfikacji i klasteryzacji definiuje się w podobny sposób: istotą problemu jest przydzielenie każdego elementu ze skończonego zbioru \emph{obiektów} do jednej lub kilku grup zwanych \emph{kategoriami}. 
+W niniejszej pracy przedstawione są dwa z trzech zasadniczych problemów data miningu: klasyfikacja oraz klasteryzacja. Zarówno problem klasyfikacji i klasteryzacji definiuje się w podobny sposób: istotą problemu jest przydzielenie każdego elementu ze skończonego zbioru \emph{obiektów} do jednej lub kilku grup zwanych \emph{kategoriami}. \par
 
-Klasyfikacja może być rozumiana jako uczenie pojęć. Mając zestaw par dane-oczekiwany wynik, możemy określić tę metodę jako \emph{uczenie z nadzorem}. Celem algorytmu klasyfikujacego jest znalezienie takiej hipotezy, która najlepiej opisuje zależność między przesłanką a konkluzją. W konkretnych zastosowaniach przesłanką jest najczęściej zbiór cech danego obiektu, konkluzją zaś przynależność jego do pewnej klasy obiektów, stąd też nazwa problemu.
+Klasyfikacja może być rozumiana jako uczenie pojęć. Mając zestaw par dane-oczekiwany wynik, możemy określić tę metodę jako \emph{uczenie z nadzorem}. Celem algorytmu klasyfikujacego jest znalezienie takiej hipotezy, która najlepiej opisuje zależność między przesłanką a konkluzją. W konkretnych zastosowaniach przesłanką jest najczęściej zbiór cech danego obiektu, konkluzją zaś przynależność jego do pewnej klasy obiektów, stąd też nazwa problemu. \par
 
-Grupowanie(clustering) to zadanie tworzenia pojęć bez uprzedniej wiedzy, co klasyfikuje je jako problem \emph{uczenia bez nadzoru}. Możliwe jest rozbicie problemu na dwa zadania: podział na grupy i naukę pojęć. Zazwyczaj realizuje to jedna metoda (kmeans na przykład), jednak można te dwa zadania rozdzielić - wtedy algorytm grupujący generuje dane do algorytmu klasyfikującego.
+Grupowanie(clustering) to zadanie tworzenia pojęć bez uprzedniej wiedzy, co klasyfikuje je jako problem \emph{uczenia bez nadzoru}. Możliwe jest rozbicie problemu na dwa zadania: podział na grupy i naukę pojęć. Zazwyczaj realizuje to jedna metoda (kmeans na przykład), jednak można te dwa zadania rozdzielić - wtedy algorytm grupujący generuje dane do algorytmu klasyfikującego.\par
 
 Aby podział na kategorie był satysfakcjonujący, musi spełniać dwa kryteria. Po pierwsze, elementy wewnątrz kategorii muszą być mozliwie do siebie podobne. Po drugie, elementy z różnych kategorii muszą różnić się od siebie o ile jest to tylko możliwe.\par
 
@@ -432,5 +418,9 @@ Poniżej wypisano wszystkie pliki używane w aplikacji do jej konstrukcji. Aplik
 \bibitem{bertram} Bertram Dane, \emph{Likert Scales} http://poincare.matf.bg.ac.rs/~kristina/topic-dane-likert.pdf
 \bibitem{joe}   https://www.joe.org/joe/2012april/pdf/JOE_v50_2tt2.pdf
 \bibitem{holland-source} http://www.counseling.org/docs/david-kaplan's-files/nauta.pdf?sfvrsn=2
+\bibitem{dudek} \emph{http://www.gdudek.el.pcz.pl/files/SUS/SUS_wyklad15.pdf}
+\bibitem{nist} \emph{http://www.itl.nist.gov/div898/handbook/eda/section3/eda3.htm}
+\bibitem{visual-literacy} \emph{http://www.visual-literacy.org/periodic_table/periodic_table.html}
+\bibitem{viz-catalogue} \emph{http://www.datavizcatalogue.com/}
 \end{thebibliography}
 \end{document}

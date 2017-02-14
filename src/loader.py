@@ -14,7 +14,7 @@ def loader(filename,separator='\t',nan='-1'):
         rows = [x for x in f.read().split('\n') if x]
     rows = [x.split(separator) for x in rows]
     colnames = rows[0]
-    data = filter(lambda x:nan not in x[:-3],rows[1:])
+    data = filter(lambda x:nan not in x,rows[1:]) #ignore all malformed inputs
     data = [[try_to_numerify(x) for x in row] for row in data]
     return pd.DataFrame(data,columns=colnames)
 

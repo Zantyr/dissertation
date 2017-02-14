@@ -4,7 +4,7 @@ import pandas
 import matplotlib.pyplot as plt
 import os
 from werkzeug.utils import escape
-from loadclfs import kmeans,fit
+from loadclfs import kmeans,fit,predict
 import re
 
 def bar_plot(df,title=None):
@@ -56,7 +56,7 @@ def pythoneval(expr,*scope):
     return eval(expr)
 
 functions = {
-    'log':lambda x,*formats: print(x.format(*formats)) or "",
+    'log':lambda x,*formats: print(str(x).format(*formats)) or "",
     'rem':lambda *x:"",
     'print':lambda x,*formats:escape(str(x).format(*formats)).replace("\n","<br>\n").replace(" ","&nbsp;"),
     'safePrint':lambda x,*formats:x.format(*formats),
@@ -76,6 +76,8 @@ functions = {
     'fit':fit,
     'star':radar_plot,
     'mean':lambda df:df.mean(),
+    'load':lambda x:loader.loader(x,separator=','),
+    'predict':predict,
 }
 
 class Evaluator(object):
@@ -83,10 +85,10 @@ class Evaluator(object):
         self.vector=vector
         self.scope = scope if scope!=None else {}
     def __call__(self,item):
+        #print(self.scope.keys())
         if type(item)==list:
             if item[0][0] == "$":
                 self.scope[str(item[0])] = self(item[1])
-                return ""
             elif item[0] == "":
                 return self(item[2]) if self(item[1]) else self(item[3])
             else:
@@ -104,14 +106,17 @@ def initialize(tests):
         [query_batch(report,test['logfile'],scope) for report in test['initialize']]
     return scope
 
-def query_report(query,vector):
-    eval = Evaluator(vector)
+def query_report(query,vector,scope):
+    print(vector)
+    eval = Evaluator(vector,scope)
     return eval(query)
 
 def query_batch(query,testfilename,scope):
     data = loader.load(testfilename)
     eval = Evaluator(data,scope)
-    try:
+    return eval(query)
+    try: 
         return eval(query)
     except Exception as e:
+        print("EXCEPTION: {}".format(escape(e.message)))
         return "<b>EXCEPTION: </b>{}".format(escape(e.message))

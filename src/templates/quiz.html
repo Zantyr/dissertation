@@ -139,7 +139,9 @@ function generateQuestion(question){
 				questionAnswer.id = "likertbox";
 				questionAnswer.href = "javascript:void(0);";
 				questionAnswer.style = "width:"+(80/question.scale)+"%;";
-				questionAnswer.onclick = function(){answer(question.id,x)};
+				questionAnswer.onclick = function(id){
+                                    var innerId = id;
+                                    return function(){answer(question.id,innerId)}}(x+1);//closure
 				questionAnswer.appendChild(questionAnswerBox);
 				questionInnerContainer.appendChild(questionAnswer);
 				questionInnerContainer.style="margin-left:auto;margin-right:auto;";
@@ -157,6 +159,7 @@ function question(){
 }
 
 function answer(id,ans){
+	console.log(answers);
 	answers.push({'id':id,'answer':ans});
 	i++;
 	if(i>=questions.length)

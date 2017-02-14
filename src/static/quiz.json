@@ -1,19 +1,338 @@
-[{
-	"id": 0,
-	"type": "dual",
-	"text": "Test Question",
-	"answerA": "Test Answer",
-	"answerB": "Yet another test answer"
-}, {
-	"id": 1,
-	"type": "likert",
-	"text": "This is a likert scale question",
-	"scale": 5,
-  "scaleLabels":[
-    "Hate",
-    "Dislike",
-    "Neutral",
-    "Like",
-    "Love"
-  ]
-}]
+[
+ {
+     "id": 0,
+     "type": "likert",
+     "text": "Test the quality of parts before shipment",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 1,
+     "type": "likert",
+     "text": "Lay brick or tile",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 2,
+     "type": "likert",
+     "text": "Work on an offshore oil-drilling rig",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 3,
+     "type": "likert",
+     "text": "Assemble electronic parts",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 4,
+     "type": "likert",
+     "text": "Operate a grinding machine in a factory",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 5,
+     "type": "likert",
+     "text": "Fix a broken faucet",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 6,
+     "type": "likert",
+     "text": "Assemble products in a factory",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 7,
+     "type": "likert",
+     "text": "Install flooring in houses",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 8,
+     "type": "likert",
+     "text": "Study the structure of the human body",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 9,
+     "type": "likert",
+     "text": "Study animal behavior",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 10,
+     "type": "likert",
+     "text": "Do research on plants or animals",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 11,
+     "type": "likert",
+     "text": "Develop a new medical treatment or procedure",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 12,
+     "type": "likert",
+     "text": "Conduct biological research",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 13,
+     "type": "likert",
+     "text": "Study whales and other types of marine life",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 14,
+     "type": "likert",
+     "text": "Work in a biology lab",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 15,
+     "type": "likert",
+     "text": "Make a map of the bottom of an ocean",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 16,
+     "type": "likert",
+     "text": "Conduct a musical choir",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 17,
+     "type": "likert",
+     "text": "Direct a play",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 18,
+     "type": "likert",
+     "text": "Design artwork for magazines",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 19,
+     "type": "likert",
+     "text": "Write a song",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 20,
+     "type": "likert",
+     "text": "Write books or plays",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 21,
+     "type": "likert",
+     "text": "Play a musical instrument",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 22,
+     "type": "likert",
+     "text": "Perform stunts for a movie or television show",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 23,
+     "type": "likert",
+     "text": "Design sets for plays",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 24,
+     "type": "likert",
+     "text": "Give career guidance to people",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 25,
+     "type": "likert",
+     "text": "Do volunteer work at a non-profit organization",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 26,
+     "type": "likert",
+     "text": "Help people who have problems with drugs or alcohol",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 27,
+     "type": "likert",
+     "text": "Teach an individual an exercise routine",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 28,
+     "type": "likert",
+     "text": "Help people with family-related problems",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 29,
+     "type": "likert",
+     "text": "Supervise the activities of children at a camp",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 30,
+     "type": "likert",
+     "text": "Teach children how to read",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 31,
+     "type": "likert",
+     "text": "Help elderly people with their daily activities",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 32,
+     "type": "likert",
+     "text": "Sell restaurant franchises to individuals",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 33,
+     "type": "likert",
+     "text": "Sell merchandise at a department store",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 34,
+     "type": "likert",
+     "text": "Manage the operations of a hotel",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 35,
+     "type": "likert",
+     "text": "Operate a beauty salon or barber shop",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 36,
+     "type": "likert",
+     "text": "Manage a department within a large company",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 37,
+     "type": "likert",
+     "text": "Manage a clothing store",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 38,
+     "type": "likert",
+     "text": "Sell houses",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 39,
+     "type": "likert",
+     "text": "Run a toy store",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 40,
+     "type": "likert",
+     "text": "Generate the monthly payroll checks for an office",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 41,
+     "type": "likert",
+     "text": "Inventory supplies using a hand-held computer",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 42,
+     "type": "likert",
+     "text": "Use a computer program to generate customer bills",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 43,
+     "type": "likert",
+     "text": "Maintain employee records",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 44,
+     "type": "likert",
+     "text": "Compute and record statistical and other numerical data",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 45,
+     "type": "likert",
+     "text": "Operate a calculator",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 46,
+     "type": "likert",
+     "text": "Handle customers' bank transactions",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         },
+ {
+     "id": 47,
+     "type": "likert",
+     "text": "Keep shipping and receiving records",
+     "scale": 5,
+     "scaleLabels":["Hate","Dislike","Neutral","Like","Love"]
+         }
+ ]

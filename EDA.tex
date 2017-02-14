@@ -275,316 +275,999 @@
     
 
     
-    \paragraph{First look at the data}\label{first-look-at-the-data}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
+        \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k+kn}{import} \PY{n}{print\PYZus{}function}
+\end{Verbatim}
 
-Data was slightly modified (``age'' and ``gender'' labels were reversed)
+    \section{EDA}\label{eda}
+
+The goal of this EDA is to extract a datasource required to fit the
+classifier in the application. Also, different classifying methods will
+be described. In this chapter the output and taken steps will be cutted
+to absolute minimum, as the full EDA output could easily take tens of
+pages.
+
+\subsection{Load and describe the
+dataset}\label{load-and-describe-the-dataset}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.cluster} \PY{k+kn}{import} \PY{n}{KMeans}
-         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
-         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
-         
-         \PY{k}{def} \PY{n+nf}{try\PYZus{}to\PYZus{}numerify}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-             \PY{k}{try}\PY{p}{:}
-                 \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}
-             \PY{k}{except}\PY{p}{:}
-                 \PY{k}{try}\PY{p}{:}
-                     \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{p}{)}
-                 \PY{k}{except}\PY{p}{:}
-                     \PY{k}{return} \PY{n}{x}
-         
-         \PY{k}{def} \PY{n+nf}{loader}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{n}{separator}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{nan}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
-             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
-                 \PY{n}{rows} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{f}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{if} \PY{n}{x}\PY{p}{]}
-             \PY{n}{rows} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{separator}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{rows}\PY{p}{]}
-             \PY{n}{colnames} \PY{o}{=} \PY{n}{rows}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-             \PY{n}{data} \PY{o}{=} \PY{n}{rows}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
-             \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{try\PYZus{}to\PYZus{}numerify}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{row}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{data}\PY{p}{]}
-             \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{n}{colnames}\PY{p}{)}
-         
-         \PY{n}{df} \PY{o}{=} \PY{n}{loader}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{src/static/qviz.tsv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.cluster} \PY{k+kn}{import} \PY{n}{KMeans}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        
+        \PY{k}{def} \PY{n+nf}{try\PYZus{}to\PYZus{}numerify}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{try}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{k}{except}\PY{p}{:}
+                \PY{k}{try}\PY{p}{:}
+                    \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                \PY{k}{except}\PY{p}{:}
+                    \PY{k}{return} \PY{n}{x}
+        
+        \PY{k}{def} \PY{n+nf}{loader}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{n}{separator}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{nan}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                \PY{n}{rows} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{f}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{if} \PY{n}{x}\PY{p}{]}
+            \PY{n}{rows} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{separator}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{rows}\PY{p}{]}
+            \PY{n}{colnames} \PY{o}{=} \PY{n}{rows}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{data} \PY{o}{=} \PY{n}{rows}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+            \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{try\PYZus{}to\PYZus{}numerify}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{row}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{data}\PY{p}{]}
+            \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{n}{colnames}\PY{p}{)}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{loader}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{src/static/qviz.tsv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}11}]:}                  count           mean           std  min   25\%    50\%    75\%  \textbackslash{}
-         implementation  8855.0       1.759232  4.275738e-01  1.0   2.0    2.0    2.0   
-         R1              8855.0       2.419537  1.296048e+00 -1.0   1.0    2.0    3.0   
-         R2              8855.0       2.158780  1.242859e+00 -1.0   1.0    2.0    3.0   
-         R3              8855.0       1.769170  1.174141e+00 -1.0   1.0    1.0    2.0   
-         R4              8855.0       2.256014  1.328759e+00 -1.0   1.0    2.0    3.0   
-         R5              8855.0       1.664370  1.057555e+00 -1.0   1.0    1.0    2.0   
-         R6              8855.0       2.321062  1.322437e+00 -1.0   1.0    2.0    3.0   
-         R7              8855.0       1.897798  1.139695e+00 -1.0   1.0    2.0    3.0   
-         R8              8855.0       1.957990  1.177704e+00 -1.0   1.0    2.0    3.0   
-         I1              8855.0       3.431959  1.313977e+00 -1.0   3.0    4.0    4.0   
-         I2              8855.0       3.340034  1.353290e+00 -1.0   2.0    4.0    4.0   
-         I3              8855.0       3.083004  1.411175e+00 -1.0   2.0    3.0    4.0   
-         I4              8855.0       2.927273  1.406091e+00 -1.0   2.0    3.0    4.0   
-         I5              8855.0       2.873744  1.407443e+00 -1.0   2.0    3.0    4.0   
-         I6              8855.0       2.995144  1.397778e+00 -1.0   2.0    3.0    4.0   
-         I7              8855.0       2.714512  1.376424e+00 -1.0   1.0    3.0    4.0   
-         I8              8855.0       2.611632  1.422074e+00 -1.0   1.0    3.0    4.0   
-         A1              8855.0       2.505025  1.390191e+00 -1.0   1.0    2.0    4.0   
-         A2              8855.0       2.811067  1.438873e+00 -1.0   1.0    3.0    4.0   
-         A3              8855.0       3.061773  1.439512e+00 -1.0   2.0    3.0    4.0   
-         A4              8855.0       3.025635  1.458452e+00 -1.0   2.0    3.0    4.0   
-         A5              8855.0       3.226765  1.500571e+00 -1.0   2.0    4.0    5.0   
-         A6              8855.0       3.298250  1.444060e+00 -1.0   2.0    4.0    5.0   
-         A7              8855.0       2.687973  1.468088e+00 -1.0   1.0    3.0    4.0   
-         A8              8855.0       2.883230  1.428724e+00 -1.0   2.0    3.0    4.0   
-         S1              8855.0       3.341728  1.354490e+00 -1.0   2.0    4.0    4.0   
-         S2              8855.0       3.452513  1.262381e+00 -1.0   3.0    4.0    4.0   
-         S3              8855.0       3.012309  1.389872e+00 -1.0   2.0    3.0    4.0   
-         S4              8855.0       2.951892  1.369894e+00 -1.0   2.0    3.0    4.0   
-         S5              8855.0       3.302315  1.386619e+00 -1.0   2.0    4.0    4.0   
-         S6              8855.0       2.839187  1.394307e+00 -1.0   2.0    3.0    4.0   
-         S7              8855.0       3.120949  1.355387e+00 -1.0   2.0    3.0    4.0   
-         S8              8855.0       2.560926  1.311660e+00 -1.0   1.0    3.0    4.0   
-         E1              8855.0       1.994128  1.169684e+00 -1.0   1.0    2.0    3.0   
-         E2              8855.0       2.194466  1.178986e+00 -1.0   1.0    2.0    3.0   
-         E3              8855.0       2.694636  1.316791e+00 -1.0   2.0    3.0    4.0   
-         E4              8855.0       2.202597  1.237932e+00 -1.0   1.0    2.0    3.0   
-         E5              8855.0       2.840429  1.381062e+00 -1.0   2.0    3.0    4.0   
-         E6              8855.0       2.454207  1.282239e+00 -1.0   1.0    2.0    3.0   
-         E7              8855.0       2.284585  1.270366e+00 -1.0   1.0    2.0    3.0   
-         E8              8855.0       2.636138  1.353644e+00 -1.0   1.0    3.0    4.0   
-         C1              8855.0       2.103331  1.225273e+00 -1.0   1.0    2.0    3.0   
-         C2              8855.0       2.296104  1.233411e+00 -1.0   1.0    2.0    3.0   
-         C3              8855.0       2.267984  1.273839e+00 -1.0   1.0    2.0    3.0   
-         C4              8855.0       2.292942  1.246006e+00 -1.0   1.0    2.0    3.0   
-         C5              8855.0       2.478035  1.367004e+00 -1.0   1.0    2.0    4.0   
-         C6              8855.0       2.636364  1.289875e+00 -1.0   1.0    3.0    4.0   
-         C7              8855.0       2.064032  1.174839e+00 -1.0   1.0    2.0    3.0   
-         C8              8855.0       2.132016  1.194761e+00 -1.0   1.0    2.0    3.0   
-         accuracy        8855.0  242581.983512  2.282105e+07 -1.0  23.0   85.0   95.0   
-         elapse          8855.0     371.139808  5.994368e+03 -1.0  84.0  160.0  230.0   
-         fromsearch      8855.0       0.424732  4.943301e-01  0.0   0.0    0.0    1.0   
-         gender          8855.0      -0.396386  1.103554e+00 -1.0  -1.0   -1.0   -1.0   
-         age             8855.0       6.891587  1.546857e+01 -1.0  -1.0   -1.0   -1.0   
-         
-                                  max  
-         implementation  2.000000e+00  
-         R1              5.000000e+00  
-         R2              5.000000e+00  
-         R3              5.000000e+00  
-         R4              5.000000e+00  
-         R5              5.000000e+00  
-         R6              5.000000e+00  
-         R7              5.000000e+00  
-         R8              5.000000e+00  
-         I1              5.000000e+00  
-         I2              5.000000e+00  
-         I3              5.000000e+00  
-         I4              5.000000e+00  
-         I5              5.000000e+00  
-         I6              5.000000e+00  
-         I7              5.000000e+00  
-         I8              5.000000e+00  
-         A1              5.000000e+00  
-         A2              5.000000e+00  
-         A3              5.000000e+00  
-         A4              5.000000e+00  
-         A5              5.000000e+00  
-         A6              5.000000e+00  
-         A7              5.000000e+00  
-         A8              5.000000e+00  
-         S1              5.000000e+00  
-         S2              5.000000e+00  
-         S3              5.000000e+00  
-         S4              5.000000e+00  
-         S5              5.000000e+00  
-         S6              5.000000e+00  
-         S7              5.000000e+00  
-         S8              5.000000e+00  
-         E1              5.000000e+00  
-         E2              5.000000e+00  
-         E3              5.000000e+00  
-         E4              5.000000e+00  
-         E5              5.000000e+00  
-         E6              5.000000e+00  
-         E7              5.000000e+00  
-         E8              5.000000e+00  
-         C1              5.000000e+00  
-         C2              5.000000e+00  
-         C3              5.000000e+00  
-         C4              5.000000e+00  
-         C5              5.000000e+00  
-         C6              5.000000e+00  
-         C7              5.000000e+00  
-         C8              5.000000e+00  
-         accuracy        2.147484e+09  
-         elapse          5.092960e+05  
-         fromsearch      1.000000e+00  
-         gender          3.000000e+00  
-         age             1.000000e+02  
+{\color{outcolor}Out[{\color{outcolor}3}]:}                  count       mean          std  min   25\%    50\%    75\%  \textbackslash{}
+        implementation  8855.0       1.76         0.43  1.0   2.0    2.0    2.0   
+        R1              8855.0       2.42         1.30 -1.0   1.0    2.0    3.0   
+        R2              8855.0       2.16         1.24 -1.0   1.0    2.0    3.0   
+        R3              8855.0       1.77         1.17 -1.0   1.0    1.0    2.0   
+        R4              8855.0       2.26         1.33 -1.0   1.0    2.0    3.0   
+        R5              8855.0       1.66         1.06 -1.0   1.0    1.0    2.0   
+        R6              8855.0       2.32         1.32 -1.0   1.0    2.0    3.0   
+        R7              8855.0       1.90         1.14 -1.0   1.0    2.0    3.0   
+        R8              8855.0       1.96         1.18 -1.0   1.0    2.0    3.0   
+        I1              8855.0       3.43         1.31 -1.0   3.0    4.0    4.0   
+        I2              8855.0       3.34         1.35 -1.0   2.0    4.0    4.0   
+        I3              8855.0       3.08         1.41 -1.0   2.0    3.0    4.0   
+        I4              8855.0       2.93         1.41 -1.0   2.0    3.0    4.0   
+        I5              8855.0       2.87         1.41 -1.0   2.0    3.0    4.0   
+        I6              8855.0       3.00         1.40 -1.0   2.0    3.0    4.0   
+        I7              8855.0       2.71         1.38 -1.0   1.0    3.0    4.0   
+        I8              8855.0       2.61         1.42 -1.0   1.0    3.0    4.0   
+        A1              8855.0       2.51         1.39 -1.0   1.0    2.0    4.0   
+        A2              8855.0       2.81         1.44 -1.0   1.0    3.0    4.0   
+        A3              8855.0       3.06         1.44 -1.0   2.0    3.0    4.0   
+        A4              8855.0       3.03         1.46 -1.0   2.0    3.0    4.0   
+        A5              8855.0       3.23         1.50 -1.0   2.0    4.0    5.0   
+        A6              8855.0       3.30         1.44 -1.0   2.0    4.0    5.0   
+        A7              8855.0       2.69         1.47 -1.0   1.0    3.0    4.0   
+        A8              8855.0       2.88         1.43 -1.0   2.0    3.0    4.0   
+        S1              8855.0       3.34         1.35 -1.0   2.0    4.0    4.0   
+        S2              8855.0       3.45         1.26 -1.0   3.0    4.0    4.0   
+        S3              8855.0       3.01         1.39 -1.0   2.0    3.0    4.0   
+        S4              8855.0       2.95         1.37 -1.0   2.0    3.0    4.0   
+        S5              8855.0       3.30         1.39 -1.0   2.0    4.0    4.0   
+        S6              8855.0       2.84         1.39 -1.0   2.0    3.0    4.0   
+        S7              8855.0       3.12         1.36 -1.0   2.0    3.0    4.0   
+        S8              8855.0       2.56         1.31 -1.0   1.0    3.0    4.0   
+        E1              8855.0       1.99         1.17 -1.0   1.0    2.0    3.0   
+        E2              8855.0       2.19         1.18 -1.0   1.0    2.0    3.0   
+        E3              8855.0       2.69         1.32 -1.0   2.0    3.0    4.0   
+        E4              8855.0       2.20         1.24 -1.0   1.0    2.0    3.0   
+        E5              8855.0       2.84         1.38 -1.0   2.0    3.0    4.0   
+        E6              8855.0       2.45         1.28 -1.0   1.0    2.0    3.0   
+        E7              8855.0       2.28         1.27 -1.0   1.0    2.0    3.0   
+        E8              8855.0       2.64         1.35 -1.0   1.0    3.0    4.0   
+        C1              8855.0       2.10         1.23 -1.0   1.0    2.0    3.0   
+        C2              8855.0       2.30         1.23 -1.0   1.0    2.0    3.0   
+        C3              8855.0       2.27         1.27 -1.0   1.0    2.0    3.0   
+        C4              8855.0       2.29         1.25 -1.0   1.0    2.0    3.0   
+        C5              8855.0       2.48         1.37 -1.0   1.0    2.0    4.0   
+        C6              8855.0       2.64         1.29 -1.0   1.0    3.0    4.0   
+        C7              8855.0       2.06         1.17 -1.0   1.0    2.0    3.0   
+        C8              8855.0       2.13         1.19 -1.0   1.0    2.0    3.0   
+        accuracy        8855.0  242581.98  22821047.21 -1.0  23.0   85.0   95.0   
+        elapse          8855.0     371.14      5994.37 -1.0  84.0  160.0  230.0   
+        fromsearch      8855.0       0.42         0.49  0.0   0.0    0.0    1.0   
+        gender          8855.0      -0.40         1.10 -1.0  -1.0   -1.0   -1.0   
+        age             8855.0       6.89        15.47 -1.0  -1.0   -1.0   -1.0   
+        
+                                 max  
+        implementation  2.000000e+00  
+        R1              5.000000e+00  
+        R2              5.000000e+00  
+        R3              5.000000e+00  
+        R4              5.000000e+00  
+        R5              5.000000e+00  
+        R6              5.000000e+00  
+        R7              5.000000e+00  
+        R8              5.000000e+00  
+        I1              5.000000e+00  
+        I2              5.000000e+00  
+        I3              5.000000e+00  
+        I4              5.000000e+00  
+        I5              5.000000e+00  
+        I6              5.000000e+00  
+        I7              5.000000e+00  
+        I8              5.000000e+00  
+        A1              5.000000e+00  
+        A2              5.000000e+00  
+        A3              5.000000e+00  
+        A4              5.000000e+00  
+        A5              5.000000e+00  
+        A6              5.000000e+00  
+        A7              5.000000e+00  
+        A8              5.000000e+00  
+        S1              5.000000e+00  
+        S2              5.000000e+00  
+        S3              5.000000e+00  
+        S4              5.000000e+00  
+        S5              5.000000e+00  
+        S6              5.000000e+00  
+        S7              5.000000e+00  
+        S8              5.000000e+00  
+        E1              5.000000e+00  
+        E2              5.000000e+00  
+        E3              5.000000e+00  
+        E4              5.000000e+00  
+        E5              5.000000e+00  
+        E6              5.000000e+00  
+        E7              5.000000e+00  
+        E8              5.000000e+00  
+        C1              5.000000e+00  
+        C2              5.000000e+00  
+        C3              5.000000e+00  
+        C4              5.000000e+00  
+        C5              5.000000e+00  
+        C6              5.000000e+00  
+        C7              5.000000e+00  
+        C8              5.000000e+00  
+        accuracy        2.147484e+09  
+        elapse          5.092960e+05  
+        fromsearch      1.000000e+00  
+        gender          3.000000e+00  
+        age             1.000000e+02  
 \end{Verbatim}
         
-    As we can see, there is an issue with accuracy. Implementation column
-seems needless. Gender and age seem almost empty.
+    There are several problems with the dataset: * accuracy and elapse have
+exceptionally high deviation * implementation column is pointless for
+the research * gender and age have very low mean(while for gender it
+shouldn't be calculated, it means, there's a lot of -1 values, which
+indicated lack of answer) * each question has at least one empty answer
+(marked as -1)
 
-Let's create data sets: * one containing the data with age and gender *
-one with aggregated RIASEC measures and countries
+\subsection{Cleansing and division}\label{cleansing-and-division}
+
+The purpose of this action is to remove malformed entries. However,
+requiring empty `age' and `gender' columns (-1) would severely reduce
+amount of samples. For this reason, several datasets will be extracted,
+and each will serve as a basis for further investigation. At the very
+end, the conclusion will be drawn to create a final dataset.
+
+Datasets created: * one with aggregated RIASEC measures and countries *
+one containing the data with age and gender and disaggregated answers
+
+\subsubsection{Geographic distribution
+dataset}\label{geographic-distribution-dataset}
+
+For creating the training set, samples with possible similarity to
+Polish population would be desired. As the test was conducted on the
+Internet, many nations are included, however some may prevail. This
+research aims to cast light to that issue.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{dfag} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{age != \PYZhy{}1 and gender != \PYZhy{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}filter the malformed entries from each dataset}
         \PY{n}{riasec} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fromsearch}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{elapse}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{implementation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
-        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{R1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R8}\PY{p}{)}
-        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{I1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I8}\PY{p}{)}
-        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{A1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A8}\PY{p}{)}
-        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{S1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S8}\PY{p}{)}
-        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{E1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E8}\PY{p}{)}
-        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{C1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C8}\PY{p}{)}
-        \PY{n}{riasec} \PY{o}{=} \PY{n}{riasec}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
-        \PY{n}{riasec}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{val} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RIASEC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+            \PY{n}{riasec} \PY{o}{=} \PY{n}{riasec}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}0\PYZcb{}\PYZgt{}0 and \PYZob{}0\PYZcb{}\PYZlt{}6}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{val}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}construct the dataset}
+        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{R1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{R8}\PY{p}{)}
+        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{I1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{I8}\PY{p}{)}
+        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{A1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{A8}\PY{p}{)}
+        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{S1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{S8}\PY{p}{)}
+        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{E1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{E8}\PY{p}{)}
+        \PY{n}{riasec}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{C1} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C2} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C3} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C4} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C5} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C6} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C7} \PY{o}{+} \PY{n}{riasec}\PY{o}{.}\PY{n}{C8}\PY{p}{)}
+        \PY{n}{riasec} \PY{o}{=} \PY{n}{riasec}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{riasec}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}2}]:}             Rclass       Iclass       Aclass       Sclass       Eclass  \textbackslash{}
-        count  8855.000000  8855.000000  8855.000000  8855.000000  8855.000000   
-        mean     16.444720    23.977301    23.499718    24.581818    19.301186   
-        std       7.086629     8.282103     8.092654     7.513248     6.857728   
-        min      -8.000000    -8.000000    -8.000000    -8.000000    -8.000000   
-        25\%      10.000000    18.000000    18.000000    19.000000    14.000000   
-        50\%      15.000000    24.000000    24.000000    25.000000    19.000000   
-        75\%      21.000000    30.000000    30.000000    30.000000    24.000000   
-        max      40.000000    40.000000    40.000000    40.000000    40.000000   
+{\color{outcolor}Out[{\color{outcolor}7}]:}              R        I        A        S        E        C
+        count  7543.00  7543.00  7543.00  7543.00  7543.00  7543.00
+        mean     16.70    24.30    23.89    24.79    19.58    18.53
+        std       6.95     8.09     7.86     7.33     6.68     7.52
+        min       8.00     8.00     8.00     8.00     8.00     8.00
+        25\%      11.00    18.00    18.00    20.00    15.00    12.00
+        50\%      16.00    25.00    24.00    25.00    19.00    18.00
+        75\%      21.00    31.00    30.00    30.00    24.00    24.00
+        max      40.00    40.00    40.00    40.00    40.00    40.00
+\end{Verbatim}
         
-                    Cclass  
-        count  8855.000000  
-        mean     18.270807  
-        std       7.616697  
-        min      -8.000000  
-        25\%      12.000000  
-        50\%      17.000000  
-        75\%      24.000000  
-        max      40.000000  
+    Let's group those records per country to see, what is the geographical
+distribution of respondents. Also, classifying those countries may be
+useful.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{newriasec} \PY{o}{=} \PY{n}{riasec}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{newriasec}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{u\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{u\PYZsq{}}\PY{l+s+s1}{statistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{newriasec} \PY{o}{=} \PY{n}{newriasec}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{statistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{pivot}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{statistic}\PY{l+s+s1}{\PYZsq{}}
+                                                            \PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+        \PY{n}{newriasec}\PY{p}{[}\PY{l+s+s1}{u\PYZsq{}}\PY{l+s+s1}{Strength}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{newriasec}\PY{o}{.}\PY{n}{xs}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{level}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{statistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{newriasec}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}                 A              C              E              I              R  \textbackslash{}
+        statistic   count   mean   count   mean   count   mean   count   mean   count   
+        country                                                                         
+        US         4601.0  23.52  4601.0  18.40  4601.0  19.12  4601.0  24.26  4601.0   
+        CA          524.0  23.64   524.0  18.99   524.0  19.42   524.0  24.06   524.0   
+        GB          416.0  24.23   416.0  17.22   416.0  18.77   416.0  24.74   416.0   
+        AU          287.0  23.59   287.0  18.76   287.0  19.66   287.0  25.00   287.0   
+        MY          234.0  24.46   234.0  20.89   234.0  22.49   234.0  23.25   234.0   
+        SG          107.0  23.39   107.0  19.21   107.0  22.84   107.0  23.39   107.0   
+        IN           94.0  26.57    94.0  20.01    94.0  22.53    94.0  25.43    94.0   
+        NZ           86.0  24.73    86.0  19.52    86.0  19.31    86.0  24.79    86.0   
+        NL           65.0  26.25    65.0  15.29    65.0  19.82    65.0  24.37    65.0   
+        DE           64.0  25.09    64.0  17.73    64.0  18.88    64.0  25.41    64.0   
+        HK           62.0  25.98    62.0  19.65    62.0  23.48    62.0  24.02    62.0   
+        IE           51.0  23.71    51.0  20.22    51.0  22.02    51.0  22.82    51.0   
+        PH           44.0  25.80    44.0  21.55    44.0  23.75    44.0  24.07    44.0   
+        ZA           40.0  24.20    40.0  15.98    40.0  17.75    40.0  25.92    40.0   
+        FR           34.0  27.21    34.0  18.18    34.0  20.15    34.0  25.74    34.0   
+        IT           34.0  27.35    34.0  18.09    34.0  21.50    34.0  26.06    34.0   
+        OM           33.0  22.55    33.0  23.30    33.0  24.94    33.0  22.27    33.0   
+        ES           31.0  26.52    31.0  17.71    31.0  19.55    31.0  26.84    31.0   
+        ID           31.0  29.87    31.0  23.45    31.0  24.39    31.0  25.19    31.0   
+        SE           31.0  21.42    31.0  18.29    31.0  17.94    31.0  22.35    31.0   
+        CH           29.0  26.52    29.0  18.83    29.0  19.52    29.0  24.17    29.0   
+        RO           27.0  24.85    27.0  18.30    27.0  20.41    27.0  23.56    27.0   
+        SI           27.0  21.96    27.0  20.33    27.0  20.11    27.0  26.70    27.0   
+        BE           26.0  26.69    26.0  14.65    26.0  18.73    26.0  24.38    26.0   
+        BR           22.0  25.59    22.0  14.68    22.0  17.05    22.0  25.41    22.0   
+        CN           21.0  26.10    21.0  14.86    21.0  21.90    21.0  23.67    21.0   
+        PL           21.0  24.10    21.0  22.10    21.0  21.38    21.0  26.00    21.0   
+        GR           20.0  25.10    20.0  18.15    20.0  20.05    20.0  25.00    20.0   
+        FI           19.0  20.84    19.0  19.26    19.0  17.79    19.0  26.11    19.0   
+        TH           19.0  23.37    19.0  23.16    19.0  25.21    19.0  19.89    19.0   
+        TR           19.0  29.11    19.0  17.58    19.0  22.26    19.0  29.05    19.0   
+        NO           16.0  23.25    16.0  17.44    16.0  18.25    16.0  26.50    16.0   
+        CZ           16.0  28.19    16.0  18.75    16.0  21.94    16.0  23.56    16.0   
+        EG           16.0  24.06    16.0  19.12    16.0  23.38    16.0  22.44    16.0   
+        MX           15.0  25.67    15.0  20.53    15.0  21.60    15.0  26.67    15.0   
+        KR           15.0  25.13    15.0  16.33    15.0  19.40    15.0  28.13    15.0   
+        JP           13.0  21.23    13.0  16.00    13.0  18.54    13.0  24.31    13.0   
+        PT           13.0  26.00    13.0  18.92    13.0  18.69    13.0  28.15    13.0   
+        DK           13.0  24.69    13.0  13.31    13.0  15.85    13.0  23.54    13.0   
+        AE           13.0  25.31    13.0  16.31    13.0  19.23    13.0  27.31    13.0   
+        IL           12.0  25.17    12.0  16.08    12.0  17.33    12.0  25.58    12.0   
+        HR           11.0  26.18    11.0  20.18    11.0  20.00    11.0  27.18    11.0   
+        LB           11.0  22.55    11.0  20.64    11.0  20.82    11.0  25.18    11.0   
+        AT           11.0  23.55    11.0  21.09    11.0  20.36    11.0  21.73    11.0   
+        SA           10.0  20.70    10.0  20.30    10.0  20.00    10.0  23.40    10.0   
+        JM           10.0  25.70    10.0  18.80    10.0  21.50    10.0  24.10    10.0   
+        PK            9.0  25.89     9.0  17.67     9.0  19.78     9.0  24.44     9.0   
+        IR            9.0  28.00     9.0  18.33     9.0  22.89     9.0  23.33     9.0   
+        VN            8.0  27.25     8.0  17.38     8.0  21.38     8.0  22.38     8.0   
+        CO            8.0  25.12     8.0  15.75     8.0  19.25     8.0  25.00     8.0   
+        
+                               S        Strength  
+        statistic   mean   count   mean           
+        country                                   
+        US         16.56  4601.0  25.08        S  
+        CA         16.65   524.0  23.71        I  
+        GB         16.32   416.0  23.25        I  
+        AU         16.23   287.0  23.88        I  
+        MY         17.66   234.0  26.45        S  
+        SG         16.99   107.0  25.12        S  
+        IN         18.74    94.0  26.24        A  
+        NZ         16.70    86.0  24.74        I  
+        NL         14.80    65.0  25.82        A  
+        DE         16.34    64.0  24.75        I  
+        HK         17.15    62.0  26.39        S  
+        IE         16.86    51.0  25.98        S  
+        PH         18.86    44.0  25.18        A  
+        ZA         17.12    40.0  22.30        I  
+        FR         16.62    34.0  24.18        A  
+        IT         16.74    34.0  24.26        A  
+        OM         21.97    33.0  28.27        S  
+        ES         15.35    31.0  26.10        I  
+        ID         21.23    31.0  29.06        A  
+        SE         16.90    31.0  19.52        I  
+        CH         17.24    29.0  23.41        A  
+        RO         16.07    27.0  22.89        A  
+        SI         20.30    27.0  21.59        I  
+        BE         13.42    26.0  25.46        A  
+        BR         16.36    22.0  18.95        A  
+        CN         16.90    21.0  26.05        A  
+        PL         17.76    21.0  21.05        I  
+        GR         17.25    20.0  23.90        A  
+        FI         17.11    19.0  19.00        I  
+        TH         18.11    19.0  26.21        S  
+        TR         19.84    19.0  28.47        A  
+        NO         17.38    16.0  24.44        I  
+        CZ         16.62    16.0  23.88        A  
+        EG         19.25    16.0  24.81        S  
+        MX         18.47    15.0  23.00        I  
+        KR         19.67    15.0  24.87        I  
+        JP         18.23    13.0  24.08        I  
+        PT         17.23    13.0  20.92        I  
+        DK         15.08    13.0  23.38        A  
+        AE         18.85    13.0  26.38        I  
+        IL         18.58    12.0  26.58        S  
+        HR         18.09    11.0  24.45        I  
+        LB         17.82    11.0  24.91        I  
+        AT         15.55    11.0  24.27        S  
+        SA         19.00    10.0  25.20        S  
+        JM         13.20    10.0  26.70        S  
+        PK         17.78     9.0  28.78        S  
+        IR         19.22     9.0  23.11        A  
+        VN         14.88     8.0  25.25        A  
+        CO         17.50     8.0  22.12        A  
+\end{Verbatim}
+        
+    Let's take into account data from Europe only.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}TO ANALYZE: abbrevs of country names}
+        \PY{n}{euro} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CZ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{VA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{dfeu} \PY{o}{=} \PY{n}{newriasec}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{euro}\PY{p}{]}
+        \PY{n}{dfeu} \PY{o}{=} \PY{n}{dfeu}\PY{p}{[}\PY{n}{dfeu}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{}filtering out NaNs (non\PYZhy{}existent records)}
+        \PY{n}{dfeu}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}                A                 C                 E                 I  \textbackslash{}
+        statistic  count       mean  count       mean  count       mean  count   
+        country                                                                  
+        GB         416.0  24.230769  416.0  17.221154  416.0  18.766827  416.0   
+        NL          65.0  26.246154   65.0  15.292308   65.0  19.815385   65.0   
+        DE          64.0  25.093750   64.0  17.734375   64.0  18.875000   64.0   
+        IE          51.0  23.705882   51.0  20.215686   51.0  22.019608   51.0   
+        FR          34.0  27.205882   34.0  18.176471   34.0  20.147059   34.0   
+        IT          34.0  27.352941   34.0  18.088235   34.0  21.500000   34.0   
+        SE          31.0  21.419355   31.0  18.290323   31.0  17.935484   31.0   
+        ES          31.0  26.516129   31.0  17.709677   31.0  19.548387   31.0   
+        CH          29.0  26.517241   29.0  18.827586   29.0  19.517241   29.0   
+        SI          27.0  21.962963   27.0  20.333333   27.0  20.111111   27.0   
+        RO          27.0  24.851852   27.0  18.296296   27.0  20.407407   27.0   
+        BE          26.0  26.692308   26.0  14.653846   26.0  18.730769   26.0   
+        PL          21.0  24.095238   21.0  22.095238   21.0  21.380952   21.0   
+        GR          20.0  25.100000   20.0  18.150000   20.0  20.050000   20.0   
+        FI          19.0  20.842105   19.0  19.263158   19.0  17.789474   19.0   
+        TR          19.0  29.105263   19.0  17.578947   19.0  22.263158   19.0   
+        CZ          16.0  28.187500   16.0  18.750000   16.0  21.937500   16.0   
+        NO          16.0  23.250000   16.0  17.437500   16.0  18.250000   16.0   
+        PT          13.0  26.000000   13.0  18.923077   13.0  18.692308   13.0   
+        DK          13.0  24.692308   13.0  13.307692   13.0  15.846154   13.0   
+        HR          11.0  26.181818   11.0  20.181818   11.0  20.000000   11.0   
+        AT          11.0  23.545455   11.0  21.090909   11.0  20.363636   11.0   
+        BG           8.0  27.750000    8.0  17.125000    8.0  19.500000    8.0   
+        RU           7.0  22.571429    7.0  19.285714    7.0  23.000000    7.0   
+        SK           7.0  26.857143    7.0  19.000000    7.0  18.857143    7.0   
+        AL           6.0  22.833333    6.0  20.166667    6.0  20.333333    6.0   
+        HU           6.0  22.333333    6.0  21.000000    6.0  19.166667    6.0   
+        LT           5.0  25.800000    5.0  12.600000    5.0  20.000000    5.0   
+        EE           5.0  23.600000    5.0  22.200000    5.0  18.200000    5.0   
+        CY           5.0  21.400000    5.0  18.600000    5.0  20.200000    5.0   
+        MT           4.0  24.750000    4.0  10.750000    4.0  13.500000    4.0   
+        LU           3.0  21.333333    3.0  20.000000    3.0  19.000000    3.0   
+        BA           3.0  32.000000    3.0  19.666667    3.0  17.666667    3.0   
+        UA           3.0  17.666667    3.0  22.666667    3.0  20.333333    3.0   
+        LV           2.0  27.000000    2.0  16.500000    2.0  26.500000    2.0   
+        IS           2.0  25.000000    2.0  15.500000    2.0  11.500000    2.0   
+        BY           2.0  25.500000    2.0  16.500000    2.0  19.500000    2.0   
+        MK           1.0  32.000000    1.0  25.000000    1.0  22.000000    1.0   
+        
+                                  R                 S            Strength  
+        statistic       mean  count       mean  count       mean           
+        country                                                            
+        GB         24.737981  416.0  16.322115  416.0  23.250000        I  
+        NL         24.369231   65.0  14.800000   65.0  25.815385        A  
+        DE         25.406250   64.0  16.343750   64.0  24.750000        I  
+        IE         22.823529   51.0  16.862745   51.0  25.980392        S  
+        FR         25.735294   34.0  16.617647   34.0  24.176471        A  
+        IT         26.058824   34.0  16.735294   34.0  24.264706        A  
+        SE         22.354839   31.0  16.903226   31.0  19.516129        I  
+        ES         26.838710   31.0  15.354839   31.0  26.096774        I  
+        CH         24.172414   29.0  17.241379   29.0  23.413793        A  
+        SI         26.703704   27.0  20.296296   27.0  21.592593        I  
+        RO         23.555556   27.0  16.074074   27.0  22.888889        A  
+        BE         24.384615   26.0  13.423077   26.0  25.461538        A  
+        PL         26.000000   21.0  17.761905   21.0  21.047619        I  
+        GR         25.000000   20.0  17.250000   20.0  23.900000        A  
+        FI         26.105263   19.0  17.105263   19.0  19.000000        I  
+        TR         29.052632   19.0  19.842105   19.0  28.473684        A  
+        CZ         23.562500   16.0  16.625000   16.0  23.875000        A  
+        NO         26.500000   16.0  17.375000   16.0  24.437500        I  
+        PT         28.153846   13.0  17.230769   13.0  20.923077        I  
+        DK         23.538462   13.0  15.076923   13.0  23.384615        A  
+        HR         27.181818   11.0  18.090909   11.0  24.454545        I  
+        AT         21.727273   11.0  15.545455   11.0  24.272727        S  
+        BG         26.625000    8.0  17.375000    8.0  26.750000        A  
+        RU         18.428571    7.0  18.428571    7.0  16.285714        E  
+        SK         24.857143    7.0  18.000000    7.0  22.285714        A  
+        AL         27.500000    6.0  13.833333    6.0  19.666667        I  
+        HU         24.000000    6.0  13.000000    6.0  20.166667        I  
+        LT         18.600000    5.0  15.800000    5.0  21.400000        A  
+        EE         29.400000    5.0  17.400000    5.0  19.000000        I  
+        CY         18.400000    5.0  11.600000    5.0  20.000000        A  
+        MT         26.000000    4.0  12.250000    4.0  25.750000        I  
+        LU         20.333333    3.0  15.000000    3.0  22.000000        S  
+        BA         31.000000    3.0  21.666667    3.0  32.666667        S  
+        UA         27.333333    3.0  14.666667    3.0  21.666667        I  
+        LV         15.500000    2.0  15.500000    2.0  25.000000        A  
+        IS         25.500000    2.0  17.000000    2.0  16.500000        I  
+        BY         35.000000    2.0  13.500000    2.0  25.500000        I  
+        MK         26.000000    1.0  30.000000    1.0  27.000000        A  
+\end{Verbatim}
+        
+    Unfortunately, Polish respondent contribute to a statistically
+insignificant sample (sample size less than 30), which would not
+describe the population well. Moreover, samples of this order would
+produce inaccurate classifications. To tackle this, a dataset with
+countries similar to Poland may be created. Fortunately, Investigative
+is a common choice among european respondents. With the next dataset, we
+will delve into age and gender profiles of countries.
+
+\subsubsection{Age and gender dataset}\label{age-and-gender-dataset}
+
+First step into analysing age and gender relations within the group is
+to remove entries with garbled values. Since the amount of records
+without disclosed age is high, we will use both data with and without
+disclosed information, hence creating four datasets: for each
+combination of presence and absence of gender or age data. Age histogram
+will be plotted.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{with\PYZus{}age} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100 and not (gender \PYZgt{} 0 and gender \PYZlt{} 3)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{with\PYZus{}gender} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender \PYZgt{} 0 and gender \PYZlt{} 3 and not (age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100 and gender \PYZgt{} 0 and gender \PYZlt{} 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{unspecified} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{not (age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100) and not (gender \PYZgt{} 0 and gender \PYZlt{} 3)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{len}\PY{p}{,}\PY{p}{(}\PY{n}{with\PYZus{}age}\PY{p}{,}\PY{n}{with\PYZus{}gender}\PY{p}{,}\PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{p}{,}\PY{n}{unspecified}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} [18, 15, 2093, 6729]
 \end{Verbatim}
         
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{riasec}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{range}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{]}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
-            \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}8}]:}                  Aclass     Cclass     Eclass     Iclass     Rclass     Sclass
-        country                                                                       
-        A1      mean  33.500000  14.000000  22.000000  25.000000  21.000000  26.500000
-        A2      mean  35.000000  17.500000  18.000000  19.500000  18.500000  34.500000
-        AE      mean  24.785714  15.714286  19.357143  25.928571  18.071429  27.357143
-        AF      mean  24.000000   9.000000  25.000000  27.000000  10.000000  23.000000
-        AI      mean  12.000000  22.000000  19.000000  12.000000   8.000000  29.000000
-        AL      mean  22.833333  20.166667  20.333333  27.500000  13.833333  19.666667
-        AP      mean  26.666667  25.000000  23.833333  23.166667  21.333333  26.833333
-        AR      mean  26.000000  15.300000  19.800000  21.100000  15.100000  25.000000
-        AS      mean  23.000000  22.000000  22.000000  14.000000  21.000000  33.000000
-        AT      mean  24.000000  19.428571  20.142857  23.214286  16.214286  23.500000
-        AU      mean  23.316568  18.168639  19.310651  24.786982  16.023669  23.887574
-        AZ      mean  32.000000  12.000000  17.500000  28.000000  12.500000  26.500000
-        BA      mean  32.000000  19.666667  17.666667  31.000000  21.666667  32.666667
-        BD      mean  16.000000   8.000000  20.000000  10.000000  13.000000  10.000000
-        BE      mean  25.655172  14.172414  18.310345  24.068966  12.793103  25.379310
-        BG      mean  29.200000  16.500000  20.000000  27.500000  17.600000  26.300000
-        BH      mean  15.000000  20.500000  20.000000  16.500000  20.000000  25.500000
-        BM      mean  22.000000  12.000000  11.000000  28.000000  15.000000  14.000000
-        BN      mean  23.666667  26.666667  25.333333  32.666667  20.333333  26.333333
-        BO      mean  31.000000  11.000000  21.000000  13.000000  14.000000  23.000000
-        BR      mean  24.892857  15.107143  16.642857  24.714286  16.071429  18.500000
-        BS      mean  32.000000  18.000000  11.000000  19.000000  13.000000  30.000000
-        BY      mean  23.666667  17.333333  20.333333  33.333333  16.666667  23.666667
-        CA      mean  23.313115  18.595082  19.090164  23.962295  16.539344  23.724590
-        CH      mean  26.228571  18.542857  19.600000  23.514286  17.028571  23.314286
-        CL      mean  24.571429  17.285714  21.428571  25.000000  18.714286  25.428571
-        CN      mean  25.615385  15.076923  22.346154  23.000000  16.230769  25.653846
-        CO      mean  25.125000  15.750000  19.250000  25.000000  17.500000  22.125000
-        CR      mean  18.333333  18.166667  17.333333  24.333333  15.833333  17.833333
-        CV      mean  29.000000  32.000000  31.000000  11.000000  17.000000  35.000000
-        {\ldots}                 {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}
-        PK      mean  25.916667  17.250000  19.750000  22.416667  17.750000  27.500000
-        PL      mean  24.090909  21.909091  21.090909  26.000000  17.227273  20.818182
-        PR      mean  19.250000  12.000000  14.000000  24.000000  13.500000  21.500000
-        PS      mean  21.000000  13.000000  19.000000  17.000000  19.000000  22.000000
-        PT      mean  24.588235  18.941176  18.352941  26.705882  17.764706  20.117647
-        QA      mean  31.000000  13.000000  23.000000  34.000000  27.000000  30.000000
-        RO      mean  22.156250  16.843750  18.968750  22.093750  15.343750  21.093750
-        RS      mean  22.100000  14.100000  19.200000  26.900000  15.000000  21.300000
-        RU      mean  18.900000  16.700000  18.300000  14.800000  16.600000  13.300000
-        SA      mean  19.454545  20.000000  20.272727  22.181818  18.545455  24.909091
-        SE      mean  21.540541  18.216216  17.972973  22.810811  16.675676  19.756757
-        SG      mean  23.250000  19.298387  23.080645  23.129032  16.975806  25.475806
-        SI      mean  21.527778  20.000000  19.388889  26.222222  20.000000  21.555556
-        SK      mean  26.857143  19.000000  18.857143  24.857143  18.000000  22.285714
-        SL      mean  35.000000  23.000000  20.000000  27.000000  22.000000  31.000000
-        SV      mean  30.000000  15.000000  24.000000  29.000000  11.000000  32.000000
-        SY      mean  22.000000  22.000000  18.000000  16.000000  22.000000  18.000000
-        TH      mean  20.545455  20.772727  22.227273  17.954545  16.136364  23.227273
-        TJ      mean  16.000000   8.000000   8.000000  11.000000   8.000000  16.000000
-        TR      mean  28.545455  17.636364  22.227273  28.090909  18.500000  28.045455
-        TT      mean  20.090909  16.272727  18.545455  15.727273  13.090909  24.363636
-        TW      mean  24.666667  21.333333  23.666667  22.000000  18.333333  26.000000
-        TZ      mean  18.000000  18.000000  15.000000  21.500000  14.000000  21.000000
-        UA      mean  17.666667  22.666667  20.333333  27.333333  14.666667  21.666667
-        US      mean  23.140286  18.110596  18.833179  23.920022  16.265170  24.846168
-        UY      mean  24.333333  24.333333  17.333333  21.000000  18.000000  17.000000
-        VE      mean  30.285714  16.428571  23.000000  23.000000  19.285714  25.857143
-        VI      mean  21.000000  21.500000  20.000000  22.500000  23.000000  31.000000
-        VN      mean  25.363636  18.090909  20.636364  22.000000  16.181818  25.000000
-        ZA      mean  23.468085  15.574468  16.680851  25.446809  16.255319  21.553191
-        
-        [128 rows x 6 columns]
-\end{Verbatim}
-        
+    
+    \begin{verbatim}
+<matplotlib.figure.Figure at 0x7fe439080c90>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{EDA_files/EDA_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{EDA_files/EDA_11_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{EDA_files/EDA_11_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    For set with genders, we will group the dataset by them. For age,
+categories will be created, for range (10-100) for each 6 years. For
+each of those groups, we will create a spider plot to represent their
+profiles. Radar charts are not accessible by themselves, hence custom
+code has to be used. The code in the cell below is an example from
+matplotlib API and is used as is. Source:
+``http://matplotlib.org/examples/api/radar\_chart.html''
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{euro} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CZ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{VA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-        \PY{n}{dfeu} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{country in @euro}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{n}{dfeu}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age \PYZgt{} 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
-        \PY{n}{dfeu}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}12}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{======================================}
+         \PY{l+s+sd}{Radar chart (aka spider or star chart)}
+         \PY{l+s+sd}{======================================}
+         
+         \PY{l+s+sd}{This example creates a radar chart, also known as a spider or star chart [1]\PYZus{}.}
+         
+         \PY{l+s+sd}{Although this example allows a frame of either \PYZsq{}circle\PYZsq{} or \PYZsq{}polygon\PYZsq{}, polygon}
+         \PY{l+s+sd}{frames don\PYZsq{}t have proper gridlines (the lines are circles instead of polygons).}
+         \PY{l+s+sd}{It\PYZsq{}s possible to get a polygon grid by setting GRIDLINE\PYZus{}INTERPOLATION\PYZus{}STEPS in}
+         \PY{l+s+sd}{matplotlib.axis to the desired number of vertices, but the orientation of the}
+         \PY{l+s+sd}{polygon is not aligned with the radial axes.}
+         
+         \PY{l+s+sd}{.. [1] http://en.wikipedia.org/wiki/Radar\PYZus{}chart}
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+         
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib.path} \PY{k+kn}{import} \PY{n}{Path}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib.spines} \PY{k+kn}{import} \PY{n}{Spine}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib.projections.polar} \PY{k+kn}{import} \PY{n}{PolarAxes}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib.projections} \PY{k+kn}{import} \PY{n}{register\PYZus{}projection}
+         
+         
+         \PY{k}{def} \PY{n+nf}{radar\PYZus{}factory}\PY{p}{(}\PY{n}{num\PYZus{}vars}\PY{p}{,} \PY{n}{frame}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Create a radar chart with `num\PYZus{}vars` axes.}
+         
+         \PY{l+s+sd}{    This function creates a RadarAxes projection and registers it.}
+         
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    num\PYZus{}vars : int}
+         \PY{l+s+sd}{        Number of variables for radar chart.}
+         \PY{l+s+sd}{    frame : \PYZob{}\PYZsq{}circle\PYZsq{} | \PYZsq{}polygon\PYZsq{}\PYZcb{}}
+         \PY{l+s+sd}{        Shape of frame surrounding axes.}
+         
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} calculate evenly\PYZhy{}spaced axis angles}
+             \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{n}{num\PYZus{}vars}\PY{p}{,} \PY{n}{endpoint}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} rotate theta such that the first axis is at the top}
+             \PY{n}{theta} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{2}
+         
+             \PY{k}{def} \PY{n+nf}{draw\PYZus{}poly\PYZus{}patch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{verts} \PY{o}{=} \PY{n}{unit\PYZus{}poly\PYZus{}verts}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{plt}\PY{o}{.}\PY{n}{Polygon}\PY{p}{(}\PY{n}{verts}\PY{p}{,} \PY{n}{closed}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{draw\PYZus{}circle\PYZus{}patch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} unit circle centered on (0.5, 0.5)}
+                 \PY{k}{return} \PY{n}{plt}\PY{o}{.}\PY{n}{Circle}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+         
+             \PY{n}{patch\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polygon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{draw\PYZus{}poly\PYZus{}patch}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{draw\PYZus{}circle\PYZus{}patch}\PY{p}{\PYZcb{}}
+             \PY{k}{if} \PY{n}{frame} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{patch\PYZus{}dict}\PY{p}{:}
+                 \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown value for `frame`: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{frame}\PY{p}{)}
+         
+             \PY{k}{class} \PY{n+nc}{RadarAxes}\PY{p}{(}\PY{n}{PolarAxes}\PY{p}{)}\PY{p}{:}
+         
+                 \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radar}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{c+c1}{\PYZsh{} use 1 line segment to connect specified points}
+                 \PY{n}{RESOLUTION} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{c+c1}{\PYZsh{} define draw\PYZus{}frame method}
+                 \PY{n}{draw\PYZus{}patch} \PY{o}{=} \PY{n}{patch\PYZus{}dict}\PY{p}{[}\PY{n}{frame}\PY{p}{]}
+         
+                 \PY{k}{def} \PY{n+nf}{fill}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                     \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Override fill so that line is closed by default\PYZdq{}\PYZdq{}\PYZdq{}}
+                     \PY{n}{closed} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{closed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb+bp}{True}\PY{p}{)}
+                     \PY{k}{return} \PY{n+nb}{super}\PY{p}{(}\PY{n}{RadarAxes}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{n}{closed}\PY{o}{=}\PY{n}{closed}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+         
+                 \PY{k}{def} \PY{n+nf}{plot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                     \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Override plot so that line is closed by default\PYZdq{}\PYZdq{}\PYZdq{}}
+                     \PY{n}{lines} \PY{o}{=} \PY{n+nb}{super}\PY{p}{(}\PY{n}{RadarAxes}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+                     \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{lines}\PY{p}{:}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}close\PYZus{}line}\PY{p}{(}\PY{n}{line}\PY{p}{)}
+         
+                 \PY{k}{def} \PY{n+nf}{\PYZus{}close\PYZus{}line}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{line}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{get\PYZus{}data}\PY{p}{(}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{} FIXME: markers at x[0], y[0] get doubled\PYZhy{}up}
+                     \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{!=} \PY{n}{x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{p}{[}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                         \PY{n}{line}\PY{o}{.}\PY{n}{set\PYZus{}data}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+                 \PY{k}{def} \PY{n+nf}{set\PYZus{}varlabels}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{set\PYZus{}thetagrids}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{degrees}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+         
+                 \PY{k}{def} \PY{n+nf}{\PYZus{}gen\PYZus{}axes\PYZus{}patch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{draw\PYZus{}patch}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{k}{def} \PY{n+nf}{\PYZus{}gen\PYZus{}axes\PYZus{}spines}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{frame} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                         \PY{k}{return} \PY{n}{PolarAxes}\PY{o}{.}\PY{n}{\PYZus{}gen\PYZus{}axes\PYZus{}spines}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{} The following is a hack to get the spines (i.e. the axes frame)}
+                     \PY{c+c1}{\PYZsh{} to draw correctly for a polygon frame.}
+         
+                     \PY{c+c1}{\PYZsh{} spine\PYZus{}type must be \PYZsq{}left\PYZsq{}, \PYZsq{}right\PYZsq{}, \PYZsq{}top\PYZsq{}, \PYZsq{}bottom\PYZsq{}, or `circle`.}
+                     \PY{n}{spine\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}
+                     \PY{n}{verts} \PY{o}{=} \PY{n}{unit\PYZus{}poly\PYZus{}verts}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{} close off polygon by repeating first vertex}
+                     \PY{n}{verts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{verts}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{path} \PY{o}{=} \PY{n}{Path}\PY{p}{(}\PY{n}{verts}\PY{p}{)}
+         
+                     \PY{n}{spine} \PY{o}{=} \PY{n}{Spine}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{spine\PYZus{}type}\PY{p}{,} \PY{n}{path}\PY{p}{)}
+                     \PY{n}{spine}\PY{o}{.}\PY{n}{set\PYZus{}transform}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transAxes}\PY{p}{)}
+                     \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{spine}\PY{p}{\PYZcb{}}
+         
+             \PY{n}{register\PYZus{}projection}\PY{p}{(}\PY{n}{RadarAxes}\PY{p}{)}
+             \PY{k}{return} \PY{n}{theta}
+         
+         \PY{k}{def} \PY{n+nf}{unit\PYZus{}poly\PYZus{}verts}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return vertices of polygon for subplot axes.}
+         
+         \PY{l+s+sd}{    This polygon is circumscribed by a unit circle centered at (0.5, 0.5)}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{x0}\PY{p}{,} \PY{n}{y0}\PY{p}{,} \PY{n}{r} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{3}
+             \PY{n}{verts} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{r}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{o}{+} \PY{n}{x0}\PY{p}{,} \PY{n}{r}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{o}{+} \PY{n}{y0}\PY{p}{)} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{theta}\PY{p}{]}
+             \PY{k}{return} \PY{n}{verts}
 \end{Verbatim}
 
-            \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}4}]:}         implementation   R1   R2   R3   R4   R5   R6   R7   R8   I1 {\ldots}    C4  \textbackslash{}
-        gender                                                              {\ldots}         
-        -1                 895  895  895  895  895  895  895  895  895  895 {\ldots}   895   
-         1                 195  195  195  195  195  195  195  195  195  195 {\ldots}   195   
-         2                 140  140  140  140  140  140  140  140  140  140 {\ldots}   140   
-         3                   4    4    4    4    4    4    4    4    4    4 {\ldots}     4   
-        
-                 C5   C6   C7   C8  accuracy  elapse  country  fromsearch  age  
-        gender                                                                  
-        -1      895  895  895  895       895     895      895         895  895  
-         1      195  195  195  195       195     195      195         195  195  
-         2      140  140  140  140       140     140      140         140  140  
-         3        4    4    4    4         4       4        4           4    4  
-        
-        [4 rows x 54 columns]
-\end{Verbatim}
-        
+    In the cell below, a code for gneration of the data source is provided.
+Moreover, a example usage of the API above is listed (REMOVE IT LATER
+WHEN YOU'RE DONE)
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{riasec}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k+kn}{import} \PY{n}{pi}
+         
+         \PY{n}{theta} \PY{o}{=} \PY{n}{radar\PYZus{}factory}\PY{p}{(}\PY{l+m+mi}{48}\PY{p}{,} \PY{n}{frame}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polygon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{,} \PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                                  \PY{n}{subplot\PYZus{}kw}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.20}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{l+m+mf}{0.85}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}
+         \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ff0000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ff8800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ffff00}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}88ff00}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}00ff00}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}00ff88}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}00ffff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}0088ff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}0000ff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}8800ff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ff00ff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ff0088}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{dataset}\PY{p}{,} \PY{n}{ax} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{p}{[}\PY{n}{with\PYZus{}age}\PY{p}{,}\PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{p}{]}\PY{p}{,}\PY{n}{axes}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plottable} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RIASEC}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)} \PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plottable}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{plottable}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plottable} \PY{o}{=} \PY{n}{plottable}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+             \PY{n}{spoke\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{plottable}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{]} \PY{c+c1}{\PYZsh{}?? \PYZhy{} for sure?}
+         
+             \PY{k}{for} \PY{n}{idx}\PY{p}{,}\PY{n}{color} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{plottable}\PY{o}{.}\PY{n}{index}\PY{p}{]}\PY{p}{,}\PY{n}{colors}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{case\PYZus{}data} \PY{o}{=} \PY{n}{plottable}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{theta}\PY{p}{,}\PY{n}{case\PYZus{}data}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{)}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}varlabels}\PY{p}{(}\PY{n}{spoke\PYZus{}labels}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} add legend relative to top\PYZhy{}left plot}
+             \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}\PYZhy{}\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+m+mi}{6}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{l+m+mi}{15}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{plottable}\PY{o}{.}\PY{n}{index}\PY{p}{]}
+             \PY{n}{legend} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{95}\PY{p}{)}\PY{p}{,}
+                                \PY{n}{labelspacing}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{EDA_files/EDA_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Gender and age profile of respondents from Poland and Europe:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country == }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{PL}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}5}]:}           Rclass    Iclass    Aclass    Sclass    Eclass    Cclass
-        Rclass  1.000000  0.344531  0.131872  0.081295  0.258789  0.458567
-        Iclass  0.344531  1.000000  0.348474  0.191063  0.066871  0.118784
-        Aclass  0.131872  0.348474  1.000000  0.337216  0.262840 -0.044107
-        Sclass  0.081295  0.191063  0.337216  1.000000  0.435966  0.166866
-        Eclass  0.258789  0.066871  0.262840  0.435966  1.000000  0.457094
-        Cclass  0.458567  0.118784 -0.044107  0.166866  0.457094  1.000000
+{\color{outcolor}Out[{\color{outcolor}78}]:}       implementation  R1  R2  R3  R4  R5  R6  R7  R8  I1 {\ldots}   C5  C6  C7  C8  \textbackslash{}
+         532                2   4   1   3   4   2   2   3   1   4 {\ldots}    3   3   3   2   
+         610                2   4   3   3   3   2   4   3   3   3 {\ldots}    5   4   2   3   
+         667                2   2   1   1   1   1   1   1   1   3 {\ldots}    3   1   2   3   
+         1519               2   4   3   3   5   3   3   4   3   5 {\ldots}    3   3   1   1   
+         3704               2   4   1   2   3   2   3   3   2   5 {\ldots}    5   5   3   4   
+         4152               2   4   3   4   4   1   4   1   3   5 {\ldots}    3   3   2   2   
+         4184               2   2   2   3   3   2   3   3   4   2 {\ldots}    5   4   5   5   
+         4666               2   1   1   1   1   1   1   1   1   2 {\ldots}    2   2   2   1   
+         4730               2   1   1   1   1   1   1   1   1   5 {\ldots}    4   4   1   1   
+         5696               2   1   1   1   1   1   1   1   1   2 {\ldots}    3   3   3   3   
+         5916               2   1   1   1   1   1   1  -1   1   2 {\ldots}    4   2   2   1   
+         6634               2   3   4   5   4   2   4   4   4   4 {\ldots}    4   3   4   4   
+         7064               1   1   1   1   1   1   1   1   1   4 {\ldots}    1   1   1   1   
+         7546               1   5   1   1   1   1   1   1   1   5 {\ldots}    4   4   3   4   
+         7587               1   3   1   1   1   1   1   1   1   3 {\ldots}    5   3   5   3   
+         8453               1   1   4   3   2   1   4   1   1   4 {\ldots}    4   3   3   3   
+         8549               1   3   4   2   4   4   4   4   4   3 {\ldots}    1   1   1   1   
+         8553               1   1   1   1   2   1   2   2   1   1 {\ldots}    3   3   2   3   
+         8631               1   3   1   4   4   2   4   3   2   4 {\ldots}    5   5   4   3   
+         8632               1   5   4   5   5   5   4   5   4   4 {\ldots}    5   4   3   4   
+         8687               1   3   3   2   3   1   1   1   1   1 {\ldots}    5   3   3   3   
+         8696               1   1   1   1   1   1   2   1   1   4 {\ldots}    2   1   1   1   
+         
+               accuracy  elapse  country  fromsearch  gender  age  
+         532         85     194       PL           1      -1   -1  
+         610         50    2687       PL           0      -1   -1  
+         667        100     376       PL           0      -1   -1  
+         1519        80     130       PL           1      -1   -1  
+         3704       100     260       PL           0      -1   -1  
+         4152        80     161       PL           0      -1   -1  
+         4184       100     417       PL           0      -1   -1  
+         4666        96     537       PL           0      -1   -1  
+         4730        90     251       PL           1      -1   -1  
+         5696        95    1113       PL           1      -1   -1  
+         5916        90     258       PL           0      -1   -1  
+         6634        50     269       PL           0      -1   -1  
+         7064        -1      -1       PL           0       1   20  
+         7546        -1      -1       PL           0       2   29  
+         7587        -1      -1       PL           1       2   22  
+         8453        -1      -1       PL           0       2   28  
+         8549        -1      -1       PL           1       1   33  
+         8553        -1      -1       PL           0       2   17  
+         8631        -1      -1       PL           0       2   32  
+         8632        -1      -1       PL           0       1   23  
+         8687        -1      -1       PL           1       1   31  
+         8696        -1      -1       PL           1       1   36  
+         
+         [22 rows x 55 columns]
+\end{Verbatim}
+        
+    Sex and age information for Polish responders are limited, therefore we
+cannot build datasets that are similar to Polish in this case. As a rule
+of thumb, we can select datasets, that have balanced gender quotas.
+
+    \subsection{Preparing data for
+modeling}\label{preparing-data-for-modeling}
+
+    Choice of datasets: * random sample * european with the same preference
+as Poland * european with roughly equal gender distribution * random
+sample with feature selection * ranks rearranged with the clustering
+algorithm
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{copy} \PY{k+kn}{import} \PY{n}{deepcopy}
+         
+         \PY{k}{def} \PY{n+nf}{classify}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{R1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{I1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{A1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{S1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{E1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{C1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Strength}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RIASEC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{x}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{not} \PY{o+ow}{in} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RIASEC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{dc} \PY{o}{=} \PY{n}{classify}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Random sample}
+         \PY{k+kn}{import} \PY{n+nn}{numpy.random}
+         \PY{n}{randlist} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{dc}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{random\PYZus{}sample} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{n}{randlist}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}same\PYZus{}preference}
+         \PY{n}{indices} \PY{o}{=} \PY{n}{dfeu}\PY{p}{[}\PY{n}{dfeu}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Strength}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{same\PYZus{}preference} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country in @indices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}equal\PYZus{}genders}
+         \PY{n}{dgend} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n}{dc}\PY{p}{)}
+         \PY{n}{dgend}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dgend}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+m+mi}{2} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{dgend}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dgend}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+m+mi}{1} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{dgend} \PY{o}{=} \PY{n}{dgend}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.75 \PYZlt{} male/female \PYZlt{} 1.2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{indices}\PY{o}{=}\PY{n}{dgend}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{equal\PYZus{}genders} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country in @indices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Feature selection can be performed by picking questions with higher
+variance, however for ordered data the variance may not be used freely.
+Another approach is to use autocorrelation of the dataset to determine
+the redundant questions. Note that for those items non-linear
+correlation coefficients are applicable (Spearman?)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{stdf} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RIASEC}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         \PY{n}{top\PYZus{}features} \PY{o}{=} \PY{n}{stdf}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{30}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{dg} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n}{dc}\PY{p}{)}
+         \PY{n}{picked\PYZus{}features} \PY{o}{=} \PY{n}{dg}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{(}\PY{n}{top\PYZus{}features}\PY{o}{+}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Strength}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Top features: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{top\PYZus{}features}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Top features: A5, A7, A4, A6, A3, A2, A8, I8, I3, I5, I4, I6, S6, A1, S3, S5, E5, I7, S4, C5, S7, S1, E8, I2, R4, R6, E3, I1, S8, R1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.cluster} \PY{k+kn}{import} \PY{n}{KMeans}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RIASEC}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{clustered} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RIASEC}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{clustered}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Strength}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{clustered}\PY{p}{)}
+         \PY{n}{clustered}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}       R1  R2  R3  R4  R5  R6  R7  R8  I1  I2    {\ldots}     E8  C1  C2  C3  C4  \textbackslash{}
+         0      3   1   4   2   1   2   1   1   5   4    {\ldots}      4   1   1   1   1   
+         1      1   1   1   1   1   1   1   1   4   4    {\ldots}      1   1   1   1   1   
+         2      3   2   1   1   1   1   2   1   5   2    {\ldots}      2   4   3   2   3   
+         3      3   2   1   2   2   3   1   2   5   4    {\ldots}      2   2   4   3   2   
+         4     -1   2   3   2   3   2   1   3   5   2    {\ldots}      2   3   4   4   2   
+         5      3   1   3   4   3   4   3   3   3   4    {\ldots}      4   3   4   3   3   
+         6      1   1   1   1   1   1   1   1   2   3    {\ldots}      5   1   1   1   1   
+         7      1   1   1   1   1   1   1   1   1   2    {\ldots}      5   1   1   1   1   
+         8      4   4   3   4   3   4   3   4   2   2    {\ldots}      3   1   2   1   1   
+         9      5   5   1   4   2   5   5   4   5   5    {\ldots}      3   1   2   1   1   
+         10     4   2   2   1   1   4   1   4   5   5    {\ldots}      2   1   1   2   1   
+         11     4   4   2   4   3   3   3   2   3   4    {\ldots}      4   4   4   4   4   
+         12     3   4   1   4   1   4   4   2   2   4    {\ldots}      5   1   1   4   3   
+         13     4   2   4   4   3   4   4   3   4   2    {\ldots}      4   4   4   4   4   
+         14     1   1   4   4   1   1   1   1   5   4    {\ldots}      1   1   1   2   1   
+         15     2   4   3   2   2   2   3   2   1   4    {\ldots}      3   3   2   4   4   
+         16     1   1   2   2   1   1   2   1   1   1    {\ldots}      2   2   2   2   2   
+         17     1   3   1   2   1   2   1   2   4   4    {\ldots}      5   1   1   1   1   
+         18     4   1   1   2   1   1   1   1   5   5    {\ldots}      5   1   1   1   1   
+         19     2   5   4   3   1   3   4   4   5   5    {\ldots}      1   1   3   2   2   
+         20     1   1   1   1   1   1   1   1   1   1    {\ldots}      3   1   1   1   2   
+         21     1   2   1   1   1   2   1   1   5   5    {\ldots}      2   2   1   2   2   
+         22     4   1   1   3   1   2   2   1   3   1    {\ldots}      5   4   4   4   4   
+         23     1   1   1   1   1   1   1   1   4   1    {\ldots}      1   1   1   1   1   
+         24     5   1   3   1  -1   2   3   1   5   5    {\ldots}      2   1   1   1   3   
+         25     1   1   1   1   1   1   1   1   3   5    {\ldots}      4   1   1   1   1   
+         26     1   2   1   1   1   1   1   1   3   3    {\ldots}      4   4   2   3   4   
+         27     2   2   1   4   2   3   2   2   5   4    {\ldots}      4   2   2   2   2   
+         28     1   3   3   1   2   3   2   2   3   5    {\ldots}      3   1   1   1   2   
+         29     4   3   1   2   4   4   4   4   3   2    {\ldots}      4   3   3   4   4   
+         {\ldots}   ..  ..  ..  ..  ..  ..  ..  ..  ..  ..    {\ldots}     ..  ..  ..  ..  ..   
+         8825   4   3   1   1   1   5   3   4   4   4    {\ldots}      4   1   2   2   2   
+         8826   3   1   3   1   1   1   1   2   2   5    {\ldots}      4   1   3   2   2   
+         8827   4   4   3   4   4   3   3   3   4   3    {\ldots}      3   3   4   2   3   
+         8828   3   1   1   1   1   1   1  -1   5   4    {\ldots}      1   1   1   1   1   
+         8829   1   3   1   1   1   2   1   2   3   4    {\ldots}      3   1   1   1   1   
+         8830   1   1   1   1   1   1   1   1   1   5    {\ldots}      1   1   1   1   1   
+         8831   1   1   1   1   1   3   1   1   4   3    {\ldots}      3   1   2   1   1   
+         8832   5   4   4   4   3   4   3   3   5   4    {\ldots}      4   3   3   5   3   
+         8833   2   2   3   3   1   4   1   2   4   5    {\ldots}      4   1   1   1   3   
+         8834   4   4   5   2   3   3   3   3   5   4    {\ldots}      5   5   4   4   2   
+         8835   1   1   1   1   1   1   1   2   1   5    {\ldots}      2   4   4   4   5   
+         8836   3   3   4   2   3   4   3   3   3   2    {\ldots}      3   3   3   3   3   
+         8837   3   3   3   3   3   3   3   3   3   3    {\ldots}      3   3   3   3   3   
+         8838   2   2   1   2   1   2   2   2   4   2    {\ldots}      3   1   3   2   3   
+         8839   1   1   1   1   1   1   1   1   1   1    {\ldots}      1   1   1   1   1   
+         8840   2   2   2   2   1   3   1   2   4   4    {\ldots}      3   2   2   2   2   
+         8841   4   2   3   1   1   2   1   2   4   4    {\ldots}      3   1   2   1   1   
+         8842   1   1   1   1   2   1   1   1   1   1    {\ldots}      4   1   2   2   1   
+         8843   1   3   1   1   1   4   1   3   3   1    {\ldots}      1   1   1   1   1   
+         8844   5   1   1   5   1   1   5   5   5   2    {\ldots}      5   5   2   5   5   
+         8845   1   1   5   4   4   1   4   1   1   4    {\ldots}      1   4   5   1   1   
+         8846   1   2   1   1   1   2   1   1   4   3    {\ldots}      2   3   1   2   1   
+         8847   1   1   1   1   1   1   1   1   2   1    {\ldots}      1   1   1   1   2   
+         8848   4   4   2   4   3   4   3   4   5   4    {\ldots}      4   2   3   2   3   
+         8849   3   3   1   4   2   2   2   1   5   5    {\ldots}      1   2   1   2   2   
+         8850   2   2   4   1   1  -1   3   2   4   3    {\ldots}      3   1   1   1   1   
+         8851   3   2   3   4   3   2   2   2   3   3    {\ldots}      3   3   4   5   3   
+         8852   4   3   3   3   2   2   1   2   5   5    {\ldots}      4   1   2   2   1   
+         8853   4   4   3   5   4   5   3   4   5   4    {\ldots}      4   3   5   5   4   
+         8854   4   2   4   4   1   4   2   3   4   5    {\ldots}      1   1   1   1   1   
+         
+               C5  C6  C7  C8  Strength  
+         0      2   1   1   2         4  
+         1      1   1   1   1         1  
+         2      3   4   4   4         2  
+         3      1   3   2   1         4  
+         4      4   3   3   3         5  
+         5      3   3   3   3         5  
+         6      1   1   1   1         0  
+         7      1   1   1   1         0  
+         8      2   2   2   1         3  
+         9      1   3   1   1         5  
+         10     3   4   1   1         4  
+         11     4   3   3   4         2  
+         12     4   4   2   2         2  
+         13     4   4   4   4         2  
+         14     4   3   3   1         5  
+         15     4   2   4   2         3  
+         16     1   2   2   1         0  
+         17     1   2   1   1         4  
+         18     2   3   1   2         5  
+         19     1   1   2   2         5  
+         20     1   1   1   1         1  
+         21     2   1   1   1         4  
+         22     3   3   2   4         2  
+         23     1   1   1   1         1  
+         24     1   1   1   2         4  
+         25     1   1   1   1         4  
+         26     4   4   3   4         2  
+         27     3   3   3   2         5  
+         28     1   2   1   2         4  
+         29     4   5   4   5         2  
+         {\ldots}   ..  ..  ..  ..       {\ldots}  
+         8825   3   4   2   2         3  
+         8826   2   2   2   1         4  
+         8827   1   3   1   3         5  
+         8828   4   1   1   1         4  
+         8829   1   1   1   1         0  
+         8830   1   3   1   1         1  
+         8831   1   1   1   2         4  
+         8832   4   5   3   4         5  
+         8833   2   3   3   1         4  
+         8834   3   4   5   3         3  
+         8835   3   3   2   3         2  
+         8836   3   2   3   3         5  
+         8837   3   3   3   3         3  
+         8838   1   2   2   3         1  
+         8839   1   1   1   1         1  
+         8840   4   3   2   2         4  
+         8841   1   1   1   1         4  
+         8842   2   2   2   2         0  
+         8843   1   3   1   1         1  
+         8844   5   5   5   5         3  
+         8845   2   3   1   1         2  
+         8846   1   2   1   1         4  
+         8847   2   2   2   1         1  
+         8848   3   4   1   3         3  
+         8849   5   4   2   2         5  
+         8850   3   3   2   1         4  
+         8851   4   4   3   3         5  
+         8852   1   2   1   2         4  
+         8853   5   4   3   4         3  
+         8854   3   2   1   1         4  
+         
+         [8855 rows x 49 columns]
+\end{Verbatim}
+        
+    \emph{Sum up creation}
+
+Sanity checks for datasets:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k}{def} \PY{n+nf}{sanity}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x}\PY{o}{=}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{R1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{I1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{A1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{A8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{S1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{S8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{E1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{E8}\PY{p}{)}
+             \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{C1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{C8}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spearman}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sanity}\PY{p}{(}\PY{n}{random\PYZus{}sample}\PY{p}{)}
+         \PY{n}{sanity}\PY{p}{(}\PY{n}{same\PYZus{}preference}\PY{p}{)}
+         \PY{n}{sanity}\PY{p}{(}\PY{n}{equal\PYZus{}genders}\PY{p}{)}
+         
+         \PY{k}{print}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{n}{random\PYZus{}sample}\PY{p}{,}\PY{n}{same\PYZus{}preference}\PY{p}{,}\PY{n}{equal\PYZus{}genders}\PY{p}{,}\PY{n}{clustered}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}.csv}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n+nb}{enumerate}\PY{p}{(}\PY{p}{[}\PY{n}{random\PYZus{}sample}\PY{p}{,}\PY{n}{same\PYZus{}preference}\PY{p}{,}\PY{n}{equal\PYZus{}genders}\PY{p}{,}\PY{n}{clustered}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+          R         I         A         S         E         C
+R  1.000000  0.336925  0.121951  0.053615  0.256236  0.493145
+I  0.336925  1.000000  0.354764  0.140627  0.044335  0.108021
+A  0.121951  0.354764  1.000000  0.323678  0.240965 -0.057847
+S  0.053615  0.140627  0.323678  1.000000  0.427732  0.150591
+E  0.256236  0.044335  0.240965  0.427732  1.000000  0.464166
+C  0.493145  0.108021 -0.057847  0.150591  0.464166  1.000000
+          R         I         A         S         E         C
+R  1.000000  0.392197  0.093335  0.080263  0.215052  0.476342
+I  0.392197  1.000000  0.341903  0.204322  0.031996  0.130974
+A  0.093335  0.341903  1.000000  0.367359  0.196295 -0.096838
+S  0.080263  0.204322  0.367359  1.000000  0.347138  0.062591
+E  0.215052  0.031996  0.196295  0.347138  1.000000  0.428114
+C  0.476342  0.130974 -0.096838  0.062591  0.428114  1.000000
+          R         I         A         S         E         C
+R  1.000000  0.330095  0.114161  0.022075  0.244910  0.447003
+I  0.330095  1.000000  0.311654  0.139892  0.043397  0.112865
+A  0.114161  0.311654  1.000000  0.292624  0.224672 -0.081070
+S  0.022075  0.139892  0.292624  1.000000  0.406622  0.128495
+E  0.244910  0.043397  0.224672  0.406622  1.000000  0.443659
+C  0.447003  0.112865 -0.081070  0.128495  0.443659  1.000000
+[R1    941
+dtype: int64, R1    800
+dtype: int64, R1    6576
+dtype: int64, R1    8855
+dtype: int64]
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} [None, None, None, None]
 \end{Verbatim}
         
     As it can be seen, pairs R-S, I-E and A-C have the lowest correlations,
-which is in line with assumptions of the RIASEC model.
+which is in line with assumptions of the RIASEC model. In each dataset,
+artistic and conventional approaches have negative correlation, which
+suggest the starkest opposition of those archetypes. Moreover
+similarities between neighbouring types are exhibited, with the
+strongest link between realistic and conventional types.
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.decomposition} \PY{k+kn}{import} \PY{n}{PCA}
-        \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-        \PY{n}{pca}\PY{o}{.}\PY{n}{get\PYZus{}params}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+Datasets have varying length and have to be normalized. For each, a
+fixed amount of samples will be used for training and cross-validating
+the model.
 
-            \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}6}]:} \{'copy': True, 'n\_components': 30, 'whiten': False\}
-\end{Verbatim}
-        
+\subsection{Conclusions}\label{conclusions}
+
+We've created datasets for the classifier. Moreover, we reduced the
+amount of questions, creating more dense dataset. In later stages of the
+paper we will assess performances of different classifying techniques.
+
 
     % Add a bibliography block to the postdoc
     

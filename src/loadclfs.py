@@ -15,4 +15,9 @@ NaiveBayes.fit = lambda self,col,df: super(NaiveBayes,self).fit(\
 
 def fit(model,col,df):
     if model=="naiveBayes":
-        return NaiveBayes().fit(col,df)
+        nb = NaiveBayes()
+        nb.fit(col,df)
+        return nb
+
+def predict(model,data):
+    return model.predict(data)

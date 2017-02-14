@@ -24,7 +24,8 @@ def index():
 
 @app.route('/quiz/<testid>')
 def quiz(testid):
-    with open('static/quiz.json','r') as f:
+    with open(tests[int(testid)]["datafile"],'r') as f:
+        print(tests[int(testid)]["datafile"])
         return flask.render_template('quiz.html',quizJSON=f.read(),testid=testid)
 
 @app.route('/meta/<testid>',methods=['post'])
@@ -39,10 +40,11 @@ def result(testid):
         vector.append({'id':add,'answer':flask.request.form[add]})
     vector = json.dumps(vector)
     loader.dump_test_data(int(testid),vector)
-    reports = [reporting.query_report(report,vector) for report in tests[int(testid)]['reports']]
+    vectordata = [x['answer'] for x in json.loads(vector)]
+    reports = [reporting.query_report(report,vectordata,copy.deepcopy(SCOPE)) for report in tests[int(testid)]['reports']]
     return flask.render_template('result.html',testid=testid,vector=vector,
         reports=reports,accuracy=tests[int(testid)]['accuracy'])
-    #ocena zgodnosci musi byc
+    #ocena zgodnoscqi musi byc
 
 @app.route('/rank/<testid>',methods=['post'])
 def rank(testid):

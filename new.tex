@@ -61,6 +61,19 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%Praca właściwa
 
@@ -367,18 +380,26 @@ Schemy tych dwóch rodzajów plików przedstawione są w tabelach \ref{tests-sch
 
 Całość programu zaopatrzono w skrypty instalacyjne do generacji niezależnego środowiska Pythona \emph{virtualenv}. Ze względu na trudności związane z domyślną lokalizacją biblioteki \emph{libsvm}, która jest związana z zewnętrznym plikiem wykonywalnym napisanym w C, postanowiono uruchamiać ten program poprzez powłokę systemu i komunikować się przy pomocy plików tymczasowych. Aplikację udostępniono na chmurze Amazona pod adresem IP \emph{54.93.169.189}(stan na 30 listopada 2016r.). Kod źródłowy wraz z tekstem tej pracy i notatkami udostępniono poprzez serwis github: \emph{https://github.com/Zantyr/dissertation}\par
 
-
-
-
-
-
-
-
-
-
 \chapter{Wyniki analiz i przedstawienie działania aplikacji}
+
 \section{Wyniki EDA}
+
+Na zestawie danych przeprowadzono wstępną analizę danych. Ze względu na jej długość nie załączono jej w treść rozdziału, a dołączono jako dodatek do pracy razem z listingiem kodu. W niniejszym rozdziale zamieszczono jedynie streszczony przebieg analizy. \par
+
+Zestaw danych oczyszczono, a następnie stworzono z niego dwa inne: jeden zawierający dane zagregowane względem krajów, drugi, na którym przeprowadzono analizę rozkładu wieku wśród responentów.  Na podstawie tego przeglądu stworzono pięć zestawów danych: \par
+
+\begin{itemize}
+\item random sample
+\item european with the same preference as Poland
+\item european with roughly equal gender distribution
+\item random sample with feature selection
+\item ranks rearranged with the clustering algorithm
+\end{itemize}
+
+Dla każdego z zestawów danych wykonano autokorelację celem sprawdzenia poprawności danych, zapisano zestawy po pięćset rekordów wybranych losowo z każdego zestawu danych. Każdy taki plik został następnie wykorzystany do konstrukcji odrębnego klasyfikatora.\par
+
 \section{Porównanie trafności klasyfikatorów}
+
 \section{Wnioski wyciągnięte z badań}
 
 

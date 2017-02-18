@@ -37,10 +37,11 @@ def meta(testid):
 def result(testid):
     vector = json.loads('[{}]'.format(flask.request.form['vector']))
     for add in tests[int(testid)]['additional']:
-        vector.append({'id':add,'answer':flask.request.form[add]})
-    vector = json.dumps(vector)
-    loader.dump_test_data(int(testid),vector)
-    vectordata = [x['answer'] for x in json.loads(vector)]
+        nv = [x for x in vector]
+        nv.append({'id':add,'answer':flask.request.form[add]})
+    nv = json.dumps(nv)
+    loader.dump_test_data(int(testid),nv)
+    vectordata = [x['answer'] for x in vector]
     reports = [reporting.query_report(report,vectordata,copy.deepcopy(SCOPE)) for report in tests[int(testid)]['reports']]
     return flask.render_template('result.html',testid=testid,vector=vector,
         reports=reports,accuracy=tests[int(testid)]['accuracy'])

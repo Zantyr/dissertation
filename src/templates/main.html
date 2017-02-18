@@ -42,9 +42,9 @@ h2{
 	margin-left: 10%;
 }
 .spacer{
-	margin-left:30%;
+	margin-left:25%;
 	margin-top:5%;
-	width:40%;
+	width:50%;
 }
 .button{
 	background-color: #47a;
@@ -67,7 +67,7 @@ h2{
 			{% for test in tests%}
 			<div class=spacer><div class='button-box'>
 					<a href='/quiz/{{test[0]}}' class='button-link'><div class='button'>{{test[1]}}</div></a>
-			</div>
+			</div></div>
 			{% endfor %}
 	</div>
 </div>

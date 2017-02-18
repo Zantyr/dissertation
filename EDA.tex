@@ -276,7 +276,7 @@
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
         \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k+kn}{import} \PY{n}{print\PYZus{}function}
 \end{Verbatim}
 
@@ -292,7 +292,7 @@ pages.
 dataset}\label{load-and-describe-the-dataset}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.cluster} \PY{k+kn}{import} \PY{n}{KMeans}
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.cluster} \PY{k+kn}{import} \PY{n}{KMeans}
         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
@@ -320,7 +320,7 @@ dataset}\label{load-and-describe-the-dataset}
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}3}]:}                  count       mean          std  min   25\%    50\%    75\%  \textbackslash{}
+{\color{outcolor}Out[{\color{outcolor}2}]:}                  count       mean          std  min   25\%    50\%    75\%  \textbackslash{}
         implementation  8855.0       1.76         0.43  1.0   2.0    2.0    2.0   
         R1              8855.0       2.42         1.30 -1.0   1.0    2.0    3.0   
         R2              8855.0       2.16         1.24 -1.0   1.0    2.0    3.0   
@@ -460,7 +460,7 @@ Internet, many nations are included, however some may prevail. This
 research aims to cast light to that issue.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}filter the malformed entries from each dataset}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}filter the malformed entries from each dataset}
         \PY{n}{riasec} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fromsearch}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{elapse}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{implementation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
         \PY{k}{for} \PY{n}{val} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RIASEC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
             \PY{n}{riasec} \PY{o}{=} \PY{n}{riasec}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}0\PYZcb{}\PYZgt{}0 and \PYZob{}0\PYZcb{}\PYZlt{}6}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{val}\PY{p}{)}\PY{p}{)}
@@ -477,7 +477,7 @@ research aims to cast light to that issue.
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}7}]:}              R        I        A        S        E        C
+{\color{outcolor}Out[{\color{outcolor}3}]:}              R        I        A        S        E        C
         count  7543.00  7543.00  7543.00  7543.00  7543.00  7543.00
         mean     16.70    24.30    23.89    24.79    19.58    18.53
         std       6.95     8.09     7.86     7.33     6.68     7.52
@@ -493,7 +493,7 @@ distribution of respondents. Also, classifying those countries may be
 useful.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{newriasec} \PY{o}{=} \PY{n}{riasec}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{newriasec} \PY{o}{=} \PY{n}{riasec}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
         \PY{n}{newriasec}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{u\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{u\PYZsq{}}\PY{l+s+s1}{statistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
         \PY{n}{newriasec} \PY{o}{=} \PY{n}{newriasec}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{statistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{pivot}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{statistic}\PY{l+s+s1}{\PYZsq{}}
                                                             \PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
@@ -502,7 +502,7 @@ useful.
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}8}]:}                 A              C              E              I              R  \textbackslash{}
+{\color{outcolor}Out[{\color{outcolor}4}]:}                 A              C              E              I              R  \textbackslash{}
         statistic   count   mean   count   mean   count   mean   count   mean   count   
         country                                                                         
         US         4601.0  23.52  4601.0  18.40  4601.0  19.12  4601.0  24.26  4601.0   
@@ -614,7 +614,7 @@ useful.
     Let's take into account data from Europe only.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}TO ANALYZE: abbrevs of country names}
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}TO ANALYZE: abbrevs of country names}
         \PY{n}{euro} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CZ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{VA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
         \PY{n}{dfeu} \PY{o}{=} \PY{n}{newriasec}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{euro}\PY{p}{]}
         \PY{n}{dfeu} \PY{o}{=} \PY{n}{dfeu}\PY{p}{[}\PY{n}{dfeu}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{}filtering out NaNs (non\PYZhy{}existent records)}
@@ -622,7 +622,7 @@ useful.
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}9}]:}                A                 C                 E                 I  \textbackslash{}
+{\color{outcolor}Out[{\color{outcolor}5}]:}                A                 C                 E                 I  \textbackslash{}
         statistic  count       mean  count       mean  count       mean  count   
         country                                                                  
         GB         416.0  24.230769  416.0  17.221154  416.0  18.766827  416.0   
@@ -725,32 +725,32 @@ combination of presence and absence of gender or age data. Age histogram
 will be plotted.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{with\PYZus{}age} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100 and not (gender \PYZgt{} 0 and gender \PYZlt{} 3)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{with\PYZus{}gender} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender \PYZgt{} 0 and gender \PYZlt{} 3 and not (age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100 and gender \PYZgt{} 0 and gender \PYZlt{} 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{unspecified} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{not (age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100) and not (gender \PYZgt{} 0 and gender \PYZlt{} 3)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{len}\PY{p}{,}\PY{p}{(}\PY{n}{with\PYZus{}age}\PY{p}{,}\PY{n}{with\PYZus{}gender}\PY{p}{,}\PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{p}{,}\PY{n}{unspecified}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{with\PYZus{}age} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100 and not (gender \PYZgt{} 0 and gender \PYZlt{} 3)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{with\PYZus{}gender} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender \PYZgt{} 0 and gender \PYZlt{} 3 and not (age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100 and gender \PYZgt{} 0 and gender \PYZlt{} 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{unspecified} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{not (age \PYZgt{} \PYZhy{}1 and age \PYZlt{} 100) and not (gender \PYZgt{} 0 and gender \PYZlt{} 3)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{len}\PY{p}{,}\PY{p}{(}\PY{n}{with\PYZus{}age}\PY{p}{,}\PY{n}{with\PYZus{}gender}\PY{p}{,}\PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{p}{,}\PY{n}{unspecified}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}10}]:} [18, 15, 2093, 6729]
+{\color{outcolor}Out[{\color{outcolor}6}]:} [18, 15, 2093, 6729]
 \end{Verbatim}
         
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
-         \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{range}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{]}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
-         \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
-         \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
-         
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{range}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{]}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+        \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
     
     \begin{verbatim}
-<matplotlib.figure.Figure at 0x7fe439080c90>
+<matplotlib.figure.Figure at 0x7fcf58e9c3d0>
     \end{verbatim}
 
     
@@ -778,121 +778,121 @@ matplotlib API and is used as is. Source:
 ``http://matplotlib.org/examples/api/radar\_chart.html''
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}12}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
-         \PY{l+s+sd}{======================================}
-         \PY{l+s+sd}{Radar chart (aka spider or star chart)}
-         \PY{l+s+sd}{======================================}
-         
-         \PY{l+s+sd}{This example creates a radar chart, also known as a spider or star chart [1]\PYZus{}.}
-         
-         \PY{l+s+sd}{Although this example allows a frame of either \PYZsq{}circle\PYZsq{} or \PYZsq{}polygon\PYZsq{}, polygon}
-         \PY{l+s+sd}{frames don\PYZsq{}t have proper gridlines (the lines are circles instead of polygons).}
-         \PY{l+s+sd}{It\PYZsq{}s possible to get a polygon grid by setting GRIDLINE\PYZus{}INTERPOLATION\PYZus{}STEPS in}
-         \PY{l+s+sd}{matplotlib.axis to the desired number of vertices, but the orientation of the}
-         \PY{l+s+sd}{polygon is not aligned with the radial axes.}
-         
-         \PY{l+s+sd}{.. [1] http://en.wikipedia.org/wiki/Radar\PYZus{}chart}
-         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
-         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
-         
-         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
-         \PY{k+kn}{from} \PY{n+nn}{matplotlib.path} \PY{k+kn}{import} \PY{n}{Path}
-         \PY{k+kn}{from} \PY{n+nn}{matplotlib.spines} \PY{k+kn}{import} \PY{n}{Spine}
-         \PY{k+kn}{from} \PY{n+nn}{matplotlib.projections.polar} \PY{k+kn}{import} \PY{n}{PolarAxes}
-         \PY{k+kn}{from} \PY{n+nn}{matplotlib.projections} \PY{k+kn}{import} \PY{n}{register\PYZus{}projection}
-         
-         
-         \PY{k}{def} \PY{n+nf}{radar\PYZus{}factory}\PY{p}{(}\PY{n}{num\PYZus{}vars}\PY{p}{,} \PY{n}{frame}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
-             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Create a radar chart with `num\PYZus{}vars` axes.}
-         
-         \PY{l+s+sd}{    This function creates a RadarAxes projection and registers it.}
-         
-         \PY{l+s+sd}{    Parameters}
-         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
-         \PY{l+s+sd}{    num\PYZus{}vars : int}
-         \PY{l+s+sd}{        Number of variables for radar chart.}
-         \PY{l+s+sd}{    frame : \PYZob{}\PYZsq{}circle\PYZsq{} | \PYZsq{}polygon\PYZsq{}\PYZcb{}}
-         \PY{l+s+sd}{        Shape of frame surrounding axes.}
-         
-         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
-             \PY{c+c1}{\PYZsh{} calculate evenly\PYZhy{}spaced axis angles}
-             \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{n}{num\PYZus{}vars}\PY{p}{,} \PY{n}{endpoint}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
-             \PY{c+c1}{\PYZsh{} rotate theta such that the first axis is at the top}
-             \PY{n}{theta} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{2}
-         
-             \PY{k}{def} \PY{n+nf}{draw\PYZus{}poly\PYZus{}patch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                 \PY{n}{verts} \PY{o}{=} \PY{n}{unit\PYZus{}poly\PYZus{}verts}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
-                 \PY{k}{return} \PY{n}{plt}\PY{o}{.}\PY{n}{Polygon}\PY{p}{(}\PY{n}{verts}\PY{p}{,} \PY{n}{closed}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-             \PY{k}{def} \PY{n+nf}{draw\PYZus{}circle\PYZus{}patch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                 \PY{c+c1}{\PYZsh{} unit circle centered on (0.5, 0.5)}
-                 \PY{k}{return} \PY{n}{plt}\PY{o}{.}\PY{n}{Circle}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
-         
-             \PY{n}{patch\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polygon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{draw\PYZus{}poly\PYZus{}patch}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{draw\PYZus{}circle\PYZus{}patch}\PY{p}{\PYZcb{}}
-             \PY{k}{if} \PY{n}{frame} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{patch\PYZus{}dict}\PY{p}{:}
-                 \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown value for `frame`: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{frame}\PY{p}{)}
-         
-             \PY{k}{class} \PY{n+nc}{RadarAxes}\PY{p}{(}\PY{n}{PolarAxes}\PY{p}{)}\PY{p}{:}
-         
-                 \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radar}\PY{l+s+s1}{\PYZsq{}}
-                 \PY{c+c1}{\PYZsh{} use 1 line segment to connect specified points}
-                 \PY{n}{RESOLUTION} \PY{o}{=} \PY{l+m+mi}{1}
-                 \PY{c+c1}{\PYZsh{} define draw\PYZus{}frame method}
-                 \PY{n}{draw\PYZus{}patch} \PY{o}{=} \PY{n}{patch\PYZus{}dict}\PY{p}{[}\PY{n}{frame}\PY{p}{]}
-         
-                 \PY{k}{def} \PY{n+nf}{fill}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
-                     \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Override fill so that line is closed by default\PYZdq{}\PYZdq{}\PYZdq{}}
-                     \PY{n}{closed} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{closed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb+bp}{True}\PY{p}{)}
-                     \PY{k}{return} \PY{n+nb}{super}\PY{p}{(}\PY{n}{RadarAxes}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{n}{closed}\PY{o}{=}\PY{n}{closed}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
-         
-                 \PY{k}{def} \PY{n+nf}{plot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
-                     \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Override plot so that line is closed by default\PYZdq{}\PYZdq{}\PYZdq{}}
-                     \PY{n}{lines} \PY{o}{=} \PY{n+nb}{super}\PY{p}{(}\PY{n}{RadarAxes}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
-                     \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{lines}\PY{p}{:}
-                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}close\PYZus{}line}\PY{p}{(}\PY{n}{line}\PY{p}{)}
-         
-                 \PY{k}{def} \PY{n+nf}{\PYZus{}close\PYZus{}line}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{line}\PY{p}{)}\PY{p}{:}
-                     \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{get\PYZus{}data}\PY{p}{(}\PY{p}{)}
-                     \PY{c+c1}{\PYZsh{} FIXME: markers at x[0], y[0] get doubled\PYZhy{}up}
-                     \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{!=} \PY{n}{x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
-                         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
-                         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{p}{[}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
-                         \PY{n}{line}\PY{o}{.}\PY{n}{set\PYZus{}data}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
-         
-                 \PY{k}{def} \PY{n+nf}{set\PYZus{}varlabels}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{:}
-                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{set\PYZus{}thetagrids}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{degrees}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
-         
-                 \PY{k}{def} \PY{n+nf}{\PYZus{}gen\PYZus{}axes\PYZus{}patch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                     \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{draw\PYZus{}patch}\PY{p}{(}\PY{p}{)}
-         
-                 \PY{k}{def} \PY{n+nf}{\PYZus{}gen\PYZus{}axes\PYZus{}spines}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                     \PY{k}{if} \PY{n}{frame} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
-                         \PY{k}{return} \PY{n}{PolarAxes}\PY{o}{.}\PY{n}{\PYZus{}gen\PYZus{}axes\PYZus{}spines}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
-                     \PY{c+c1}{\PYZsh{} The following is a hack to get the spines (i.e. the axes frame)}
-                     \PY{c+c1}{\PYZsh{} to draw correctly for a polygon frame.}
-         
-                     \PY{c+c1}{\PYZsh{} spine\PYZus{}type must be \PYZsq{}left\PYZsq{}, \PYZsq{}right\PYZsq{}, \PYZsq{}top\PYZsq{}, \PYZsq{}bottom\PYZsq{}, or `circle`.}
-                     \PY{n}{spine\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}
-                     \PY{n}{verts} \PY{o}{=} \PY{n}{unit\PYZus{}poly\PYZus{}verts}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
-                     \PY{c+c1}{\PYZsh{} close off polygon by repeating first vertex}
-                     \PY{n}{verts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{verts}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-                     \PY{n}{path} \PY{o}{=} \PY{n}{Path}\PY{p}{(}\PY{n}{verts}\PY{p}{)}
-         
-                     \PY{n}{spine} \PY{o}{=} \PY{n}{Spine}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{spine\PYZus{}type}\PY{p}{,} \PY{n}{path}\PY{p}{)}
-                     \PY{n}{spine}\PY{o}{.}\PY{n}{set\PYZus{}transform}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transAxes}\PY{p}{)}
-                     \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{spine}\PY{p}{\PYZcb{}}
-         
-             \PY{n}{register\PYZus{}projection}\PY{p}{(}\PY{n}{RadarAxes}\PY{p}{)}
-             \PY{k}{return} \PY{n}{theta}
-         
-         \PY{k}{def} \PY{n+nf}{unit\PYZus{}poly\PYZus{}verts}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{:}
-             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return vertices of polygon for subplot axes.}
-         
-         \PY{l+s+sd}{    This polygon is circumscribed by a unit circle centered at (0.5, 0.5)}
-         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
-             \PY{n}{x0}\PY{p}{,} \PY{n}{y0}\PY{p}{,} \PY{n}{r} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{3}
-             \PY{n}{verts} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{r}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{o}{+} \PY{n}{x0}\PY{p}{,} \PY{n}{r}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{o}{+} \PY{n}{y0}\PY{p}{)} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{theta}\PY{p}{]}
-             \PY{k}{return} \PY{n}{verts}
+{\color{incolor}In [{\color{incolor}8}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{======================================}
+        \PY{l+s+sd}{Radar chart (aka spider or star chart)}
+        \PY{l+s+sd}{======================================}
+        
+        \PY{l+s+sd}{This example creates a radar chart, also known as a spider or star chart [1]\PYZus{}.}
+        
+        \PY{l+s+sd}{Although this example allows a frame of either \PYZsq{}circle\PYZsq{} or \PYZsq{}polygon\PYZsq{}, polygon}
+        \PY{l+s+sd}{frames don\PYZsq{}t have proper gridlines (the lines are circles instead of polygons).}
+        \PY{l+s+sd}{It\PYZsq{}s possible to get a polygon grid by setting GRIDLINE\PYZus{}INTERPOLATION\PYZus{}STEPS in}
+        \PY{l+s+sd}{matplotlib.axis to the desired number of vertices, but the orientation of the}
+        \PY{l+s+sd}{polygon is not aligned with the radial axes.}
+        
+        \PY{l+s+sd}{.. [1] http://en.wikipedia.org/wiki/Radar\PYZus{}chart}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib.path} \PY{k+kn}{import} \PY{n}{Path}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib.spines} \PY{k+kn}{import} \PY{n}{Spine}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib.projections.polar} \PY{k+kn}{import} \PY{n}{PolarAxes}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib.projections} \PY{k+kn}{import} \PY{n}{register\PYZus{}projection}
+        
+        
+        \PY{k}{def} \PY{n+nf}{radar\PYZus{}factory}\PY{p}{(}\PY{n}{num\PYZus{}vars}\PY{p}{,} \PY{n}{frame}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Create a radar chart with `num\PYZus{}vars` axes.}
+        
+        \PY{l+s+sd}{    This function creates a RadarAxes projection and registers it.}
+        
+        \PY{l+s+sd}{    Parameters}
+        \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{l+s+sd}{    num\PYZus{}vars : int}
+        \PY{l+s+sd}{        Number of variables for radar chart.}
+        \PY{l+s+sd}{    frame : \PYZob{}\PYZsq{}circle\PYZsq{} | \PYZsq{}polygon\PYZsq{}\PYZcb{}}
+        \PY{l+s+sd}{        Shape of frame surrounding axes.}
+        
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} calculate evenly\PYZhy{}spaced axis angles}
+            \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{n}{num\PYZus{}vars}\PY{p}{,} \PY{n}{endpoint}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} rotate theta such that the first axis is at the top}
+            \PY{n}{theta} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{2}
+        
+            \PY{k}{def} \PY{n+nf}{draw\PYZus{}poly\PYZus{}patch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{n}{verts} \PY{o}{=} \PY{n}{unit\PYZus{}poly\PYZus{}verts}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                \PY{k}{return} \PY{n}{plt}\PY{o}{.}\PY{n}{Polygon}\PY{p}{(}\PY{n}{verts}\PY{p}{,} \PY{n}{closed}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{draw\PYZus{}circle\PYZus{}patch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} unit circle centered on (0.5, 0.5)}
+                \PY{k}{return} \PY{n}{plt}\PY{o}{.}\PY{n}{Circle}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+        
+            \PY{n}{patch\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polygon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{draw\PYZus{}poly\PYZus{}patch}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{draw\PYZus{}circle\PYZus{}patch}\PY{p}{\PYZcb{}}
+            \PY{k}{if} \PY{n}{frame} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{patch\PYZus{}dict}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown value for `frame`: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{frame}\PY{p}{)}
+        
+            \PY{k}{class} \PY{n+nc}{RadarAxes}\PY{p}{(}\PY{n}{PolarAxes}\PY{p}{)}\PY{p}{:}
+        
+                \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radar}\PY{l+s+s1}{\PYZsq{}}
+                \PY{c+c1}{\PYZsh{} use 1 line segment to connect specified points}
+                \PY{n}{RESOLUTION} \PY{o}{=} \PY{l+m+mi}{1}
+                \PY{c+c1}{\PYZsh{} define draw\PYZus{}frame method}
+                \PY{n}{draw\PYZus{}patch} \PY{o}{=} \PY{n}{patch\PYZus{}dict}\PY{p}{[}\PY{n}{frame}\PY{p}{]}
+        
+                \PY{k}{def} \PY{n+nf}{fill}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                    \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Override fill so that line is closed by default\PYZdq{}\PYZdq{}\PYZdq{}}
+                    \PY{n}{closed} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{closed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb+bp}{True}\PY{p}{)}
+                    \PY{k}{return} \PY{n+nb}{super}\PY{p}{(}\PY{n}{RadarAxes}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{n}{closed}\PY{o}{=}\PY{n}{closed}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+        
+                \PY{k}{def} \PY{n+nf}{plot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                    \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Override plot so that line is closed by default\PYZdq{}\PYZdq{}\PYZdq{}}
+                    \PY{n}{lines} \PY{o}{=} \PY{n+nb}{super}\PY{p}{(}\PY{n}{RadarAxes}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+                    \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{lines}\PY{p}{:}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}close\PYZus{}line}\PY{p}{(}\PY{n}{line}\PY{p}{)}
+        
+                \PY{k}{def} \PY{n+nf}{\PYZus{}close\PYZus{}line}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{line}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{get\PYZus{}data}\PY{p}{(}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{} FIXME: markers at x[0], y[0] get doubled\PYZhy{}up}
+                    \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{!=} \PY{n}{x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{p}{[}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{line}\PY{o}{.}\PY{n}{set\PYZus{}data}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        
+                \PY{k}{def} \PY{n+nf}{set\PYZus{}varlabels}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{set\PYZus{}thetagrids}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{degrees}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+        
+                \PY{k}{def} \PY{n+nf}{\PYZus{}gen\PYZus{}axes\PYZus{}patch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{draw\PYZus{}patch}\PY{p}{(}\PY{p}{)}
+        
+                \PY{k}{def} \PY{n+nf}{\PYZus{}gen\PYZus{}axes\PYZus{}spines}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{frame} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                        \PY{k}{return} \PY{n}{PolarAxes}\PY{o}{.}\PY{n}{\PYZus{}gen\PYZus{}axes\PYZus{}spines}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{} The following is a hack to get the spines (i.e. the axes frame)}
+                    \PY{c+c1}{\PYZsh{} to draw correctly for a polygon frame.}
+        
+                    \PY{c+c1}{\PYZsh{} spine\PYZus{}type must be \PYZsq{}left\PYZsq{}, \PYZsq{}right\PYZsq{}, \PYZsq{}top\PYZsq{}, \PYZsq{}bottom\PYZsq{}, or `circle`.}
+                    \PY{n}{spine\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{n}{verts} \PY{o}{=} \PY{n}{unit\PYZus{}poly\PYZus{}verts}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{} close off polygon by repeating first vertex}
+                    \PY{n}{verts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{verts}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{path} \PY{o}{=} \PY{n}{Path}\PY{p}{(}\PY{n}{verts}\PY{p}{)}
+        
+                    \PY{n}{spine} \PY{o}{=} \PY{n}{Spine}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{spine\PYZus{}type}\PY{p}{,} \PY{n}{path}\PY{p}{)}
+                    \PY{n}{spine}\PY{o}{.}\PY{n}{set\PYZus{}transform}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transAxes}\PY{p}{)}
+                    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{spine}\PY{p}{\PYZcb{}}
+        
+            \PY{n}{register\PYZus{}projection}\PY{p}{(}\PY{n}{RadarAxes}\PY{p}{)}
+            \PY{k}{return} \PY{n}{theta}
+        
+        \PY{k}{def} \PY{n+nf}{unit\PYZus{}poly\PYZus{}verts}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return vertices of polygon for subplot axes.}
+        
+        \PY{l+s+sd}{    This polygon is circumscribed by a unit circle centered at (0.5, 0.5)}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{x0}\PY{p}{,} \PY{n}{y0}\PY{p}{,} \PY{n}{r} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{3}
+            \PY{n}{verts} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{r}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{o}{+} \PY{n}{x0}\PY{p}{,} \PY{n}{r}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{o}{+} \PY{n}{y0}\PY{p}{)} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{theta}\PY{p}{]}
+            \PY{k}{return} \PY{n}{verts}
 \end{Verbatim}
 
     In the cell below, a code for gneration of the data source is provided.
@@ -900,7 +900,7 @@ Moreover, a example usage of the API above is listed (REMOVE IT LATER
 WHEN YOU'RE DONE)
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k+kn}{import} \PY{n}{pi}
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k+kn}{import} \PY{n}{pi}
          
          \PY{n}{theta} \PY{o}{=} \PY{n}{radar\PYZus{}factory}\PY{p}{(}\PY{l+m+mi}{48}\PY{p}{,} \PY{n}{frame}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polygon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
          \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{,} \PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
@@ -925,6 +925,29 @@ WHEN YOU'RE DONE)
                                 \PY{n}{labelspacing}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
          
          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{theta} \PY{o}{=} \PY{n}{radar\PYZus{}factory}\PY{p}{(}\PY{l+m+mi}{48}\PY{p}{,} \PY{n}{frame}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polygon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{,} \PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}
+                                  \PY{n}{subplot\PYZus{}kw}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.20}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{l+m+mf}{0.85}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}
+         \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ff0000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ff8800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ffff00}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}88ff00}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}00ff00}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}00ff88}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}00ffff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}0088ff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}0000ff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}8800ff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ff00ff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ff0088}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         
+         \PY{n}{plottable} \PY{o}{=} \PY{n}{with\PYZus{}age\PYZus{}and\PYZus{}gender}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RIASEC}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)} \PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plottable}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{plottable}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plottable} \PY{o}{=} \PY{n}{plottable}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{spoke\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{plottable}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{]} \PY{c+c1}{\PYZsh{}?? \PYZhy{} for sure?}
+         
+         \PY{k}{for} \PY{n}{idx}\PY{p}{,}\PY{n}{color}\PY{p}{,}\PY{n}{ax}\PY{p}{,}\PY{n}{num} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{plottable}\PY{o}{.}\PY{n}{index}\PY{p}{]}\PY{p}{,}\PY{n}{colors}\PY{p}{,}\PY{n}{axes}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{case\PYZus{}data} \PY{o}{=} \PY{n}{plottable}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{theta}\PY{p}{,}\PY{n}{case\PYZus{}data}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}varlabels}\PY{p}{(}\PY{n}{spoke\PYZus{}labels}\PY{p}{)}
+             \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}\PYZhy{}\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+m+mi}{6}\PY{o}{*}\PY{n}{num}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{o}{*}\PY{n}{num}\PY{o}{+}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{]}
+             \PY{n}{legend} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{95}\PY{p}{)}\PY{p}{,}
+                                \PY{n}{labelspacing}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
     \begin{center}
@@ -932,14 +955,19 @@ WHEN YOU'RE DONE)
     \end{center}
     { \hspace*{\fill} \\}
     
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{EDA_files/EDA_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
     Gender and age profile of respondents from Poland and Europe:
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country == }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{PL}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country == }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{PL}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}78}]:}       implementation  R1  R2  R3  R4  R5  R6  R7  R8  I1 {\ldots}   C5  C6  C7  C8  \textbackslash{}
+{\color{outcolor}Out[{\color{outcolor}10}]:}       implementation  R1  R2  R3  R4  R5  R6  R7  R8  I1 {\ldots}   C5  C6  C7  C8  \textbackslash{}
          532                2   4   1   3   4   2   2   3   1   4 {\ldots}    3   3   3   2   
          610                2   4   3   3   3   2   4   3   3   3 {\ldots}    5   4   2   3   
          667                2   2   1   1   1   1   1   1   1   3 {\ldots}    3   1   2   3   
@@ -1003,7 +1031,7 @@ sample with feature selection * ranks rearranged with the clustering
 algorithm
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{copy} \PY{k+kn}{import} \PY{n}{deepcopy}
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{copy} \PY{k+kn}{import} \PY{n}{deepcopy}
          
          \PY{k}{def} \PY{n+nf}{classify}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
              \PY{n}{x} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n}{x}\PY{p}{)}
@@ -1043,7 +1071,7 @@ the redundant questions. Note that for those items non-linear
 correlation coefficients are applicable (Spearman?)
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{stdf} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RIASEC}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{stdf} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RIASEC}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
          \PY{n}{top\PYZus{}features} \PY{o}{=} \PY{n}{stdf}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{30}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
          \PY{n}{dg} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n}{dc}\PY{p}{)}
          \PY{n}{picked\PYZus{}features} \PY{o}{=} \PY{n}{dg}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{(}\PY{n}{top\PYZus{}features}\PY{o}{+}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Strength}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
@@ -1056,7 +1084,7 @@ Top features: A5, A7, A4, A6, A3, A2, A8, I8, I3, I5, I4, I6, S6, A1, S3, S5, E5
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}30}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.cluster} \PY{k+kn}{import} \PY{n}{KMeans}
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.cluster} \PY{k+kn}{import} \PY{n}{KMeans}
          \PY{n}{clf} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RIASEC}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
          \PY{n}{clustered} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RIASEC}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
          \PY{n}{clustered}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Strength}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{clustered}\PY{p}{)}
@@ -1064,7 +1092,7 @@ Top features: A5, A7, A4, A6, A3, A2, A8, I8, I3, I5, I4, I6, S6, A1, S3, S5, E5
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}30}]:}       R1  R2  R3  R4  R5  R6  R7  R8  I1  I2    {\ldots}     E8  C1  C2  C3  C4  \textbackslash{}
+{\color{outcolor}Out[{\color{outcolor}13}]:}       R1  R2  R3  R4  R5  R6  R7  R8  I1  I2    {\ldots}     E8  C1  C2  C3  C4  \textbackslash{}
          0      3   1   4   2   1   2   1   1   5   4    {\ldots}      4   1   1   1   1   
          1      1   1   1   1   1   1   1   1   4   4    {\ldots}      1   1   1   1   1   
          2      3   2   1   1   1   1   2   1   5   2    {\ldots}      2   4   3   2   3   
@@ -1128,67 +1156,67 @@ Top features: A5, A7, A4, A6, A3, A2, A8, I8, I3, I5, I4, I6, S6, A1, S3, S5, E5
          8854   4   2   4   4   1   4   2   3   4   5    {\ldots}      1   1   1   1   1   
          
                C5  C6  C7  C8  Strength  
-         0      2   1   1   2         4  
+         0      2   1   1   2         0  
          1      1   1   1   1         1  
-         2      3   4   4   4         2  
-         3      1   3   2   1         4  
-         4      4   3   3   3         5  
-         5      3   3   3   3         5  
-         6      1   1   1   1         0  
-         7      1   1   1   1         0  
-         8      2   2   2   1         3  
-         9      1   3   1   1         5  
-         10     3   4   1   1         4  
-         11     4   3   3   4         2  
-         12     4   4   2   2         2  
-         13     4   4   4   4         2  
-         14     4   3   3   1         5  
-         15     4   2   4   2         3  
-         16     1   2   2   1         0  
-         17     1   2   1   1         4  
-         18     2   3   1   2         5  
-         19     1   1   2   2         5  
+         2      3   4   4   4         3  
+         3      1   3   2   1         0  
+         4      4   3   3   3         2  
+         5      3   3   3   3         2  
+         6      1   1   1   1         4  
+         7      1   1   1   1         4  
+         8      2   2   2   1         5  
+         9      1   3   1   1         2  
+         10     3   4   1   1         0  
+         11     4   3   3   4         3  
+         12     4   4   2   2         3  
+         13     4   4   4   4         3  
+         14     4   3   3   1         2  
+         15     4   2   4   2         5  
+         16     1   2   2   1         4  
+         17     1   2   1   1         0  
+         18     2   3   1   2         0  
+         19     1   1   2   2         2  
          20     1   1   1   1         1  
-         21     2   1   1   1         4  
-         22     3   3   2   4         2  
+         21     2   1   1   1         0  
+         22     3   3   2   4         3  
          23     1   1   1   1         1  
-         24     1   1   1   2         4  
-         25     1   1   1   1         4  
-         26     4   4   3   4         2  
-         27     3   3   3   2         5  
-         28     1   2   1   2         4  
-         29     4   5   4   5         2  
+         24     1   1   1   2         0  
+         25     1   1   1   1         0  
+         26     4   4   3   4         3  
+         27     3   3   3   2         2  
+         28     1   2   1   2         0  
+         29     4   5   4   5         3  
          {\ldots}   ..  ..  ..  ..       {\ldots}  
-         8825   3   4   2   2         3  
-         8826   2   2   2   1         4  
-         8827   1   3   1   3         5  
-         8828   4   1   1   1         4  
-         8829   1   1   1   1         0  
+         8825   3   4   2   2         5  
+         8826   2   2   2   1         0  
+         8827   1   3   1   3         2  
+         8828   4   1   1   1         0  
+         8829   1   1   1   1         4  
          8830   1   3   1   1         1  
-         8831   1   1   1   2         4  
-         8832   4   5   3   4         5  
-         8833   2   3   3   1         4  
-         8834   3   4   5   3         3  
-         8835   3   3   2   3         2  
-         8836   3   2   3   3         5  
-         8837   3   3   3   3         3  
+         8831   1   1   1   2         0  
+         8832   4   5   3   4         2  
+         8833   2   3   3   1         0  
+         8834   3   4   5   3         5  
+         8835   3   3   2   3         3  
+         8836   3   2   3   3         2  
+         8837   3   3   3   3         5  
          8838   1   2   2   3         1  
          8839   1   1   1   1         1  
-         8840   4   3   2   2         4  
-         8841   1   1   1   1         4  
-         8842   2   2   2   2         0  
+         8840   4   3   2   2         0  
+         8841   1   1   1   1         0  
+         8842   2   2   2   2         4  
          8843   1   3   1   1         1  
-         8844   5   5   5   5         3  
-         8845   2   3   1   1         2  
-         8846   1   2   1   1         4  
+         8844   5   5   5   5         5  
+         8845   2   3   1   1         3  
+         8846   1   2   1   1         0  
          8847   2   2   2   1         1  
-         8848   3   4   1   3         3  
-         8849   5   4   2   2         5  
-         8850   3   3   2   1         4  
-         8851   4   4   3   3         5  
-         8852   1   2   1   2         4  
-         8853   5   4   3   4         3  
-         8854   3   2   1   1         4  
+         8848   3   4   1   3         2  
+         8849   5   4   2   2         2  
+         8850   3   3   2   1         0  
+         8851   4   4   3   3         2  
+         8852   1   2   1   2         0  
+         8853   5   4   3   4         5  
+         8854   3   2   1   1         0  
          
          [8855 rows x 49 columns]
 \end{Verbatim}
@@ -1198,7 +1226,7 @@ Top features: A5, A7, A4, A6, A3, A2, A8, I8, I3, I5, I4, I6, S6, A1, S3, S5, E5
 Sanity checks for datasets:
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}36}]:} \PY{k}{def} \PY{n+nf}{sanity}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{sanity}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
              \PY{n}{x}\PY{o}{=}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{x}\PY{p}{)}
              \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{R1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{R8}\PY{p}{)}
              \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{I1} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I2} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I3} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I4} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I5} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I6} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I7} \PY{o}{+} \PY{n}{x}\PY{o}{.}\PY{n}{I8}\PY{p}{)}
@@ -1211,20 +1239,21 @@ Sanity checks for datasets:
          \PY{n}{sanity}\PY{p}{(}\PY{n}{random\PYZus{}sample}\PY{p}{)}
          \PY{n}{sanity}\PY{p}{(}\PY{n}{same\PYZus{}preference}\PY{p}{)}
          \PY{n}{sanity}\PY{p}{(}\PY{n}{equal\PYZus{}genders}\PY{p}{)}
+         \PY{n}{sanity}\PY{p}{(}\PY{n}{clustered}\PY{p}{)}
          
          \PY{k}{print}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{n}{random\PYZus{}sample}\PY{p}{,}\PY{n}{same\PYZus{}preference}\PY{p}{,}\PY{n}{equal\PYZus{}genders}\PY{p}{,}\PY{n}{clustered}\PY{p}{]}\PY{p}{)}\PY{p}{)}
          
-         \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}.csv}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n+nb}{enumerate}\PY{p}{(}\PY{p}{[}\PY{n}{random\PYZus{}sample}\PY{p}{,}\PY{n}{same\PYZus{}preference}\PY{p}{,}\PY{n}{equal\PYZus{}genders}\PY{p}{,}\PY{n}{clustered}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}.csv}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n+nb}{enumerate}\PY{p}{(}\PY{p}{[}\PY{n}{random\PYZus{}sample}\PY{p}{,}\PY{n}{same\PYZus{}preference}\PY{p}{,}\PY{n}{equal\PYZus{}genders}\PY{p}{,}\PY{n}{clustered}\PY{p}{,}\PY{n}{picked\PYZus{}features}\PY{p}{]}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
           R         I         A         S         E         C
-R  1.000000  0.336925  0.121951  0.053615  0.256236  0.493145
-I  0.336925  1.000000  0.354764  0.140627  0.044335  0.108021
-A  0.121951  0.354764  1.000000  0.323678  0.240965 -0.057847
-S  0.053615  0.140627  0.323678  1.000000  0.427732  0.150591
-E  0.256236  0.044335  0.240965  0.427732  1.000000  0.464166
-C  0.493145  0.108021 -0.057847  0.150591  0.464166  1.000000
+R  1.000000  0.316133  0.111854  0.066131  0.234008  0.435276
+I  0.316133  1.000000  0.334858  0.169745 -0.000281  0.075611
+A  0.111854  0.334858  1.000000  0.286929  0.216033 -0.093226
+S  0.066131  0.169745  0.286929  1.000000  0.370089  0.108939
+E  0.234008 -0.000281  0.216033  0.370089  1.000000  0.426445
+C  0.435276  0.075611 -0.093226  0.108939  0.426445  1.000000
           R         I         A         S         E         C
 R  1.000000  0.392197  0.093335  0.080263  0.215052  0.476342
 I  0.392197  1.000000  0.341903  0.204322  0.031996  0.130974
@@ -1239,7 +1268,14 @@ A  0.114161  0.311654  1.000000  0.292624  0.224672 -0.081070
 S  0.022075  0.139892  0.292624  1.000000  0.406622  0.128495
 E  0.244910  0.043397  0.224672  0.406622  1.000000  0.443659
 C  0.447003  0.112865 -0.081070  0.128495  0.443659  1.000000
-[R1    941
+          R         I         A         S         E         C
+R  1.000000  0.331143  0.119409  0.051537  0.249179  0.463329
+I  0.331143  1.000000  0.314317  0.148906  0.021750  0.099953
+A  0.119409  0.314317  1.000000  0.301875  0.225229 -0.075600
+S  0.051537  0.148906  0.301875  1.000000  0.395553  0.134766
+E  0.249179  0.021750  0.225229  0.395553  1.000000  0.446287
+C  0.463329  0.099953 -0.075600  0.134766  0.446287  1.000000
+[R1    939
 dtype: int64, R1    800
 dtype: int64, R1    6576
 dtype: int64, R1    8855
@@ -1248,7 +1284,7 @@ dtype: int64]
     \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}36}]:} [None, None, None, None]
+{\color{outcolor}Out[{\color{outcolor}15}]:} [None, None, None, None, None]
 \end{Verbatim}
         
     As it can be seen, pairs R-S, I-E and A-C have the lowest correlations,

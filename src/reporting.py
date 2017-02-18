@@ -4,12 +4,16 @@ import pandas
 import matplotlib.pyplot as plt
 import os
 from werkzeug.utils import escape
-from loadclfs import kmeans,fit,predict
+from loadclfs import kmeans,fit,predict,score
 import re
+import numpy as np
 
 def bar_plot(df,title=None):
     plot_name = "tmp/plot.png"
-    df.plot.bar()
+    if type(df)==pandas.DataFrame:
+        df.plot.bar()
+    else:
+        pandas.DataFrame(df).plot.bar()
     fig = plt.gcf()
     plt.draw()
     fig.savefig(plot_name)
@@ -55,6 +59,20 @@ def pythoneval(expr,*scope):
     scope = dict(["$"+(str(x),y) for x,y in enumerate(scope)])
     return eval(expr)
 
+def dfsplit(ratio,df):
+    mask = np.random.rand(len(df)) < ratio
+    return(df[mask],df[~mask])
+
+def setter(item,val,obj):
+    obj[item] = val
+
+def aggreg(list,*lists):
+    q = []
+    for l in lists:
+        if l[0]=='+':
+            q.append(sum([list[ix] for ix in l[1:]]))
+    return q
+
 functions = {
     'log':lambda x,*formats: print(str(x).format(*formats)) or "",
     'rem':lambda *x:"",
@@ -78,6 +96,12 @@ functions = {
     'mean':lambda df:df.mean(),
     'load':lambda x:loader.loader(x,separator=','),
     'predict':predict,
+    'split':dfsplit,
+    'get':lambda index,object:object[index],
+    'set':setter,
+    'score':score,
+    'aggreg':aggreg,
+    '+':lambda *i:['+']+list(i)
 }
 
 class Evaluator(object):

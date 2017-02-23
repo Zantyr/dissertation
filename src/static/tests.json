@@ -2,7 +2,6 @@
   "name":"RIASEC - pełen test",
   "datafile":"static/quiz.json",
   "logfile":"static/qviz.tsv",
-  "accuracy":false,
   "additional":{
     "country":"text"
   },
@@ -90,18 +89,18 @@
   "name":"RIASEC - zredukowany",
   "datafile":"static/reduced.json",
   "logfile":"static/reduced.tsv",
-  "accuracy":true,
   "additional":{
     "age":"textInteger",
     "country":"text",
-    "gender":"textInteger"
+    "gender":"textInteger",
+    "accuracy":"textInteger"
   },
   "initialize":[
                     ["log","Fitting on feature selected..."],
                     ["$nbfeat",["fit","naiveBayes","Strength",["load","static/4.csv"]]]
                 ],
   "reports":[
-                 ["print","Klasyfikator zredukowany: {}",["predict","$nbgend","df"]]
+                 ["print","Klasyfikator zredukowany: {}",["predict","$nbfeat","df"]]
             ],
   "batch": [
                 ["safePrint","<h3>Cluster the data and count the clusters</h3>"]

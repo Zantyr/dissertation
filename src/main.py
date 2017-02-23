@@ -8,7 +8,7 @@ import loader
 import os
 import copy
 
-#Ustawienie domyślnego pliku z konfiguracją testóœ
+#Ustawienie domyślnego pliku z konfiguracją testów
 TESTS = "static/tests.json"
 
 #Tworzenie aplikacji webowej
@@ -46,29 +46,21 @@ def meta(testid):
 @app.route('/results/<testid>',methods=['post'])
 def result(testid):
     vector = json.loads('[{}]'.format(flask.request.form['vector']))
+    nv = [x for x in vector]
     for add in tests[int(testid)]['additional']:
-        nv = [x for x in vector]
         nv.append({'id':add,'answer':flask.request.form[add]})
+        print add
     nv = json.dumps(nv)
-    loader.dump_test_data(int(testid),nv)
+    loader.dump_test_data(tests[int(testid)]["logfile"],nv)
     vectordata = [x['answer'] for x in vector]
     reports = [reporting.query_report(report,vectordata,copy.deepcopy(SCOPE)) for report in tests[int(testid)]['reports']]
     return flask.render_template('result.html',testid=testid,vector=vector,
-        reports=reports,accuracy=tests[int(testid)]['accuracy'])
-
-@app.route('/rank/<testid>',methods=['post'])
-def rank(testid):
-    oldvector = flask.request.form['vector']
-    vector = json.loads(oldvector)
-    vector['accuracy'] = flask.request.form['accuracy']
-    vector = json.dumps(vector)
-    loader.update_test_data(int(testid),oldvector,vector)
-    return flask.render_template('added.html')
+        reports=reports)
 
 ##########################
 #Widoki administratora
 
-#Generowanei raportów na podstawie pliku konfiguracyjnego
+#Generowanie raportów na podstawie pliku konfiguracyjnego
 @app.route('/report/<testid>')
 def reports(testid):
     filename = tests[int(testid)]['logfile']
@@ -86,7 +78,7 @@ def query(testid):
     q = flask.request.form['query']
     print q
     filename = tests[int(testid)]['logfile']
-    return reporting.query_batch(json.loads(q),filename)
+    return reporting.query_batch(json.loads(q),filename,copy.deepcopy(SCOPE))
 
 #Uruchomienie aplikacji
 if __name__=="__main__":

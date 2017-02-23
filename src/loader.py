@@ -1,5 +1,6 @@
 #-*- coding:utf-8; -*-
 import pandas as pd
+import json
 
 def try_to_numerify(x):
     """
@@ -37,8 +38,10 @@ def load(filename):
     else:
         raise IOError("Can't load Data: {}".format(filename))
 
-def dump_test_data(testintid,object):
-    pass
-
-def update_test_data(testintid,oldjsonstr,newjsonstr):
-    pass
+def dump_test_data(logfilename,obj):
+    """
+    Funkcja zapisuje rekord do pliku z logami
+    """
+    data = [x['answer'] for x in json.loads(obj)]
+    with open(logfilename,'a') as f:
+        f.write("\n{}".format("\t".join([str(x) for x in data])))

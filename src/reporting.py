@@ -1,14 +1,29 @@
+#-*- coding:utf-8; -*-
+
 from __future__ import print_function
+
 import loader
-import pandas
 import matplotlib.pyplot as plt
-import os
-from werkzeug.utils import escape
-from loadclfs import kmeans,fit,predict,score
-import re
 import numpy as np
+import os
+import pandas
+import re
+
+from loadclfs import kmeans,fit,predict,score
+from werkzeug.utils import escape
+
+"""
+Dokument podzielony jest na trzy części:
+Pierwsza z nich to funkcje do interpretera
+Druga to sam interpreter
+Trzecia to wiązania do interpretera używane przez widoki
+Cały plik dotyczy wykonywania plików konfiguracyjnych do programu
+"""
 
 def bar_plot(df,title=None):
+    """
+    Generuje wykres słupkowy, konwertuje go na base64 i wkleja w HTML
+    """
     plot_name = "tmp/plot.png"
     if type(df)==pandas.DataFrame:
         df.plot.bar()
@@ -22,20 +37,10 @@ def bar_plot(df,title=None):
     os.remove(plot_name)
     return "<img src='{}' style='width:80%;height:auto;'/>".format(data)
 
-def radar_plot(df):
-    plot_name = "tmp/plot.png"
-    m = df.as_matrix()
-    labels = [6.28/len(m)*x for x in range(len(m))]
-    plt.bar(labels,m,c=m,cmap=plt.cm.jet)
-    fig = plt.gcf()
-    plt.draw()
-    fig.savefig(plot_name)
-    with open(plot_name,'rb') as f:
-        data="data:image/png;base64,{}".format(f.read().encode('base64'))
-    os.remove(plot_name)
-    return "<img src='{}' style='width:80%;height:auto;'/>".format(data)
-
 def vertical_table(df):
+    """
+    Generuje tabele odwracając dataset
+    """
     header = [['index']+[x for x in df.columns]]
     body = [[str(x) for x in sublist] for sublist in df.as_matrix()]
     body = [[str(label)]+row for label,row in zip([x for x in df.index],body)]
@@ -45,6 +50,9 @@ def vertical_table(df):
             ["</td><td>".join(sub) for sub in lists]))
 
 def mapping(df,*strings):
+    """
+    Tworzy nowe kolumny przy pomocy operacji arytmetycznych na starych
+    """
     for s in strings:
         columnName,expression = [x.strip() for x in s.split('=',1)]
         dfColumns = [x for x in df.columns]
@@ -54,19 +62,24 @@ def mapping(df,*strings):
         df[columnName]=eval(expression,{"df":df})
     return df
 
-def pythoneval(expr,*scope):
-    #link with evaluator
-    scope = dict(["$"+(str(x),y) for x,y in enumerate(scope)])
-    return eval(expr)
-
 def dfsplit(ratio,df):
+    """
+    Losowo dzieli dataset na dwie części
+    """
     mask = np.random.rand(len(df)) < ratio
     return(df[mask],df[~mask])
 
 def setter(item,val,obj):
+    """
+    Wrapper do reportingu
+    """
     obj[item] = val
 
 def aggreg(list,*lists):
+    """
+    Tworzy nową listę przez agregację poprzedniej
+    Używane w tworzeniu skali sumacyjnej
+    """
     q = []
     for l in lists:
         if l[0]=='+':
@@ -92,7 +105,6 @@ functions = {
     'groupBy':lambda by,df:df.groupby(by=by),
     'map':mapping,
     'fit':fit,
-    'star':radar_plot,
     'mean':lambda df:df.mean(),
     'load':lambda x:loader.loader(x,separator=','),
     'predict':predict,
@@ -105,6 +117,14 @@ functions = {
 }
 
 class Evaluator(object):
+    """
+    Klasa jest interpreterem wywołań języka raportów
+    Parsuje listy w sposób odpowiadający egzekucji kodu LISPa
+    Posiada słownik *scope* jako otoczenie ze zmiennymi
+    Obiekty tej klasy są *callable*, więc działają de facto jak
+        funkcja z własnym otoczeniem, można by rzec, że taki
+        obiekt jest pewnego rodzaju domknięciem.
+    """
     def __init__(self,vector,scope=None):
         self.vector=vector
         self.scope = scope if scope!=None else {}
@@ -125,17 +145,26 @@ class Evaluator(object):
             return item
 
 def initialize(tests):
+    """
+    Funkcja inicjalizuje testy, używana m.in. 
+    do trenowania klasyfikatorów
+    """
     scope = {}
     for test in tests:
         [query_batch(report,test['logfile'],scope) for report in test['initialize']]
     return scope
 
 def query_report(query,vector,scope):
-    print(vector)
+    """
+    Funkcja konstruuje raport dla respondenta
+    """
     eval = Evaluator(vector,scope)
     return eval(query)
 
 def query_batch(query,testfilename,scope):
+    """
+    Funkcja konstruuje raport dla analityka
+    """
     data = loader.load(testfilename)
     eval = Evaluator(data,scope)
     return eval(query)

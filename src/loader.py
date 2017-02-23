@@ -1,6 +1,10 @@
+#-*- coding:utf-8; -*-
 import pandas as pd
 
 def try_to_numerify(x):
+    """
+    Jeśli to możliwe, przekonwertuj na liczbę
+    """
     try:
         return int(x)
     except:
@@ -10,6 +14,11 @@ def try_to_numerify(x):
             return x
 
 def loader(filename,separator='\t',nan='-1'):
+    """
+    Funkcja wczytuje pliki csv
+    Można użyć pandas.from_csv, jednak zostało już wprowadzone w kod
+        i pozostaje dla kompatybilności
+    """
     with open(filename,'r') as f:
         rows = [x for x in f.read().split('\n') if x]
     rows = [x.split(separator) for x in rows]
@@ -19,7 +28,10 @@ def loader(filename,separator='\t',nan='-1'):
     return pd.DataFrame(data,columns=colnames)
 
 def load(filename):
-    #load intelligently according to contents
+    """
+    Funkcja wczytywania - rozbudowanie jej pozwala ładować pliki
+        w innych formatach niż csv/tsv
+    """
     if filename[-4:] in ['.csv','.tsv']:
         return loader(filename)
     else:

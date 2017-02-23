@@ -87,8 +87,8 @@
 }
 
 \renewcommand\thechapter{\arabic{chapter}.}
-\renewcommand\thesection{\arabic{chapter}.\arabic{section}.}
-\renewcommand\thesubsection{\arabic{chapter}.\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesection{\arabic{chapter}\arabic{section}.}
+\renewcommand\thesubsection{\arabic{chapter}\arabic{section}.\arabic{subsection}.}
 
 
 
@@ -269,13 +269,13 @@ Analiza danych jest dziedziną zajmującą się procesem wyciągania użytecznej
 
 Proces analizy składa się z kilku etapów, często nachodzących na siebie i powtarzających się. Poprawna analiza danych musi składać się ze zrozumienia analizowanej próbki, wstępnego przygotowania jej, modelowania i walidacji modelu. \par
 
-\emph{CRISP-DM} stanowi przemysłowy standard wykorzystywania danych. Jego iteracyjna formuła jest dobrym punktem wyjścia do omówienia procesów związanych z danymi: ich zbieranie, zrozumienie, oczyszczanie, modelowanie i walidację. Na uwagę zwraca fakt iteracyjności procesu - opracowywane modele nie są doskonałe i podlegają ulepszaniu wraz z lepszym zrozumieniem badanych zjawisk. Jest to też powód, dla którego budowana platforma udostępnia raportowanie wyników. \cite{crispdm} \par
+\emph{CRISP-DM} stanowi przemysłowy standard wykorzystywania danych. Jego iteracyjna formuła jest dobrym punktem wyjścia do omówienia procesów związanych z danymi: ich zbieranie, zrozumienie, oczyszczanie, modelowanie i walidację. Iteracyjnośc procesu wynika z faktu, że opracowywane modele nie są doskonałe i podlegają ulepszaniu wraz z lepszym zrozumieniem badanych zjawisk. Jest to też powód, dla którego budowana platforma udostępnia raportowanie wyników. \cite{crispdm} \par
 
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{crisp-dm.png}
 \label{crisp-dm}
-\caption{Metodologia CRISP-DM}
+\caption{Metodologia CRISP-DM. Według \cite{crispdm} jedna z najpopularniejszych metodologii Data Miningu, implikuje wykorzystanie wiedzy do modelowania danych i poszerzanie wiedzy przez wnioski wyciągnięte z wykorzystania modelu. Modelowanie danych jest procesem iteracyjnym i dopiero po osiągnięciu odpowiedniej dokładności model jest wykorzystywany w produkcji.}
 \end{figure}
 
 
@@ -284,7 +284,7 @@ Proces analizy składa się z kilku etapów, często nachodzących na siebie i p
 
 \section{Techniki eksploracyjnej analizy danych}
 
-Eksploracyjna analiza danych (EDA) stanowi etap przygotowawczy do budowy modelu na danych. Celem EDA jest sformułowanie i wstępne zweryfikowanie przez analityka założeń dotyczących danego problemu na podstawie trendów pojawiających się w próbce. EDA jest wykonywana jako etap poprzedzający confirmatory data analysis. EDA jest też szeroko stosowana jako podstawa do budowania systemów Business Intelligence.\cite{hseltman} \par 
+Eksploracyjna analiza danych (EDA) stanowi etap przygotowawczy do budowy modelu na danych. Celem EDA jest sformułowanie i wstępne zweryfikowanie przez analityka założeń dotyczących danego problemu na podstawie trendów pojawiających się w próbce. EDA jest wykonywana jako etap poprzedzający \emph{confirmatory data analysis}. EDA jest też szeroko stosowana jako podstawa do budowania systemów Business Intelligence.\cite{hseltman} \par 
 
 Wykorzystanie technik EDA zależy od rodzaju dostępnych danych oraz od oczekiwanego rodzaju wniosków. Przede wszystkim należy wyróżnić podział na metody \emph{numeryczne} i \emph{wizualne}. Te pierwsze stanowią nieparametryczne metody statystyczne. W szczególności jednak używane są techniki graficzne, pozwalające w łatwy sposób zobrazować kluczowe cechu zestawu danych: trendy, rozrzuty, odstępstwa, rozkłady etc. Techniki różnią się też w zależności od rodzaju danych i wymiarowości, w której operują.\par
 
@@ -299,12 +299,13 @@ Podstawą dla statystyki są cztery wielkości, które opisują daną próbkę. 
 \begin{table}
 \begin{tabular}{l|l|l}
 Wielkość & Miara porządkowa & Miara równomierna  \\
+\hline
 Wyśrodkowanie & Mediana, mediana ważona, moda & Średnia, średnia ważona \\
 Zmienność & Rozstęp, rozstęp międzykwartylowy & Wariancja, odchylenie standardowe \\
-Asymetria &  & współczynnik skośności \\
-Koncentracja &  & kurtoza \\
+Asymetria &  & Współczynnik skośności \\
+Koncentracja &  & Kurtoza \\
 \end{tabular}
-\caption{Zestawienie wielkości opisujących próbkę}
+\caption{Zestawienie wielkości opisujących próbkę statystyczną dla skali porządkowej i równomiernej. Puste pola w drugiej kolumnie wynikają z braku odpowiedniej miary.}
 \label{miary-statystyczne}
 \end{table}
 
@@ -356,7 +357,7 @@ Nie mniej ważnym faktem jest też złożoność obliczeniowa klasyfikatorów. O
 
 \subsection{Nadmierne dopasowanie}
 
-Zjawisko nadmiernego dopasowania, czy też \emph{overfittingu} jest czynnikiem nakładającym górną granicę na ilość próbek dostarczanych do modelu. Dla dziedziny $X$ hipoteza $h$ jest nadmiernie dopasowana, gdy istnieje hipoteza h' o większym błędzie próbki a mniejszym rzeczywistym. \cite{cichosz} \par
+Zjawisko nadmiernego dopasowania, czy też \emph{overfittingu} jest czynnikiem nakładającym górną granicę na ilość próbek dostarczanych do modelu. Dla dziedziny $X$ hipoteza $h$ jest nadmiernie dopasowana, gdy istnieje hipoteza $h'$ o większym błędzie próbki a mniejszym rzeczywistym. \cite{cichosz} \par
 
 Nadmiernie dopasowana hipoteza oddaje przekłamania na danych. Ponadto, hipotezy zbyt dopasowane są porównywalne do interpolacji zaszumionych danych - po prostu zniekształcają obraz rzeczywistości. innymi słowy - bardziej trafne mogą być hipotezy niespójne na danych wejściowych.\par
 
@@ -379,7 +380,7 @@ Uczenie maszynowe (\emph{machine learning}) stanowi jeden z ostatnich trendów t
 \centering
 \includegraphics[width=0.75\textwidth]{gartner.png}
 \label{gartner}
-\caption{\emph{Hype cycle} Gartnera, rok 2016}
+\caption{\emph{Hype cycle} Gartnera, rok 2016. Poza uczeniem maszynowym znajduje się tu garść technologii opartych o sztuczną inteligencję, m.in \emph{Smart Data Discorvery}, \emph{Natural-Language Question Answering} oraz \emph{General-Purpose Machine Intelligence}}
 \end{figure}
 
 Z punktu widzenia analizy danych, uczenie maszynowe jest sposobem na budowę modelu na danych. W istocie klasyfikatory typu bayesowskiego są niczym innym jak praktycznym zastosowaniem reguł prawdopodobieństwa. Zaletą uczenia maszynowego jest automatyczne budowanie hipotezy na danych w przeciwieństwie do klasycznego wnioskowania statystycznego, które wymaga od analityka postawienia hipotez do weryfikacji. \par
@@ -412,7 +413,12 @@ L_m(\vec{x},\vec{y}) = (\sum\limits_{i=1}^{n} \lvert x_i - y_i \rvert ^m)^{\frac
 \end{equation}
 \label{minkowski}
 
-Drugim elementem, poza metryką, definiującym kształt klasy jest \emph{norma}. Norma ma najczęściej postać macierzy $n \times n$ współczynników, gdzie $n$ to długość wektora cech, w której znajdują się współczynniki przekształcające wektor w taki sposób, aby zrównoważyć wpływ różnego rozrzutu cech na klasyfikację, jak i uwzględnić zależności między cechami. \cite{rutkowski} \par
+Drugim elementem, poza metryką, definiującym kształt klasy jest \emph{norma}. Norma ma najczęściej postać macierzy $n \times n$ współczynników, gdzie $n$ to długość wektora cech, w której znajdują się współczynniki przekształcające wektor w taki sposób, aby zrównoważyć wpływ różnego rozrzutu cech na klasyfikację, jak i uwzględnić zależności między cechami. Normalizacja wektora $\vec{x}$ przez normę $N$ ma postać podaną we wzorze \ref{norma}. \cite{rutkowski} \par
+
+\begin{equation}
+\vec{y} = N \times \vec{x}
+\end{equation}
+\label{norma}
 
 Uzbrojeni w definicję podobieństwa i sposób jego obliczenia, jesteśmy w stanie w miarę dobrze ocenić poprawność działania algorytmów. Ważnym elementem różnych rozwiązań jest też sposób klasyfikacji: dzieli się ją na \emph{ostrą}, \emph{rozmytą} i \emph{posybilistyczną}. Klasyfikacja ostra przyporządkowuje obiekt do jednej i tylko jednej klasy. Klasyfikacja rozmyta wiąże obiekt z róznymi klasami z różną siłą, przy czym suma współczynników określających przynależność dla danego obiektu jest zawsze równa jedności. Klasifykacja posybilistyczna różni się od poprzedniej zniesieniem ograniczenia sumy.\par
 
@@ -425,7 +431,7 @@ Jedna z prostszych metod klasyfikacji opiera się na definicji prawdopodobieńst
 P(C|\vec{x}) = \frac{P(\vec{x}|C)P(C)}{P(\vec{x})}
 \end{equation}
 
-Prawdopodobieństwo złożonej zmiennej $\vec{x}$ jest równe iloczynowi prawdopodobieństw jego składowych, jak pokazano we wzorze \ref{pp-zlozone}. Analogicznie można otrzymać prawdopodobieństwo złożonej implikacji \ref{pp-implikacji} (citation needed). Obydwa wzory funkcjonują na założeniu \emph{niezależności} zmiennych, mianowicie prawdopodobieństwo jednej zmiennej nie jest zależne od żadnej innej. \ref{niezaleznosc}. "Naiwność" klasyfikatora wynika właśnie z założenia niezależności zmiennych, co nie zawsze jest prawdą(wręcz przeciwnie - dla większości sytuacji cechy są ze sobą związane). Uwzględnienie zależności zmiennych pozwala tworzyć kaskadowe modele zwane sieciami bayesowskimi. \cite{dm-cichosz} Nie są one jednak częścią tej pracy.\par
+Prawdopodobieństwo złożonej zmiennej $\vec{x}$ jest równe iloczynowi prawdopodobieństw jego składowych, jak pokazano we wzorze \ref{pp-zlozone}. Analogicznie można otrzymać prawdopodobieństwo złożonej implikacji \ref{pp-implikacji}. Obydwa wzory funkcjonują na założeniu \emph{niezależności} zmiennych, mianowicie prawdopodobieństwo jednej zmiennej nie jest zależne od żadnej innej. \ref{niezaleznosc}. "Naiwność" klasyfikatora wynika właśnie z założenia niezależności zmiennych, co nie zawsze jest prawdą(wręcz przeciwnie - dla większości sytuacji cechy są ze sobą związane). Uwzględnienie zależności zmiennych pozwala tworzyć kaskadowe modele zwane sieciami bayesowskimi. \cite{dm-cichosz} Nie są one jednak częścią tej pracy.\par
 
 \begin{equation}
 P(\vec{x}) = \prod\limits_{i=1}^n{P(x_i)}
@@ -445,17 +451,17 @@ P(A \cap B) = P(A)P(B)
 Naiwny klasifykator bayesowski dla danego wektora wejściowego $\vec{x}$ testuje prawdopodobieństwo każdej z hipotez $P(C_j|\vec{x}) | C_j \in C$, gdzie C to zbiór zdarzeń elementarnych polegających na przynależności elementu do jednej z kategorii. W przypadku klasyfikacji ostrej $\sum\limits_{C_j \in C} P(C_j) = 1 $. Za prawdopodobieństwa zdarzeń elementarnych wchodzących w skład reguły Bayesa przyjmuje się prawdopodobieństwa wystąpienia danych zdarzeń w próbce uczącej. \par
 
 Ze względu na fakt, iż dla nie występującego w próbce uczącej wektora $P(\vec{x}) = 0$ oraz fakt, że $P(\vec{x})=const$ dla każdego $C_j$ człon pomija się, uzywając do klasyfikacji miary proporcjonalnej do prawdopodobieństwa. Następnie jako wynik klasyfikacji przyjmuje się zdarzenie, które osiąga najwyższą miarę.\par
-
+\vspace{0.5cm}
 Wady:\par
 \begin{itemize}
 \item mała akceptowalna ilość hipotez(klasyfikator bierze pod uwagę wszystkie hipotezy i nimi operuje)
 \item nieuwzględnienie uporządkowania kategorii (a więc trzeba wstępnie wyznaczyć pojęcia)
-\end{itemize}
+\end{itemize}\par
 Zalety:\par
 \begin{itemize}
 \item Niska złożoność obliczeniowa: O(n)
 \item Łatwość implementacji
-\end{itemize}
+\end{itemize}\par
 
 
 
@@ -464,13 +470,13 @@ Zalety:\par
 
 \subsection{Klasyfikator maksymalnoogległościowy}
 
-Klasyfikatory maksymalnoodległościowe zostały wynalezione przez Vapnika. Opierają się one na wyznaczeniu granicy między zestawmi danych w taki sposób, aby zachować możliwie dużą odległość najbliższych punktów od granicy. Inna nazwa tej metody, \emph{maszyna wektorów wspierających}, oddaje sposób w jaki zostaje to wykonane. Wybiera się $n$ punktów spośród zestawu danych, a następnie wyznacza hiperpłaszczyznę dzielącą te punkty. Rycina \ref{hyperplane-png} przedstawia przypadek dla dwóch wymiarów. Sednem algorytmu jest wybranie takich punktów/wektorów, dla których suma odległości od nich do płaszczyzny jest maksymalna (stąd nazwa). W gruncie rzeczy jest to więc algorytm optymalizacyjny. \par
+Klasyfikatory maksymalnoodległościowe zostały wynalezione przez Vapnika. Opierają się one na wyznaczeniu granicy między zestawmi danych w taki sposób, aby zachować możliwie dużą odległość najbliższych punktów od granicy. Inna nazwa tej metody, \emph{maszyna wektorów wspierających}, oddaje sposób w jaki zostaje to wykonane. Wybiera się $n$ punktów spośród zestawu danych, a następnie wyznacza hiperpowierzchnię dzielącą te punkty. Rycina \ref{hyperplane-png} przedstawia przypadek dla dwóch wymiarów. Sednem algorytmu jest wybranie takich punktów/wektorów, dla których suma odległości od nich do powierzchni jest maksymalna (stąd nazwa). W gruncie rzeczy jest to więc algorytm optymalizacyjny. \par
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{hyperplane.png}
 \label{hyperplane-png}
-\caption{Płaszczyzna o maksymalnej odległości}
+\caption{Hiperpowierzchnia o maksymalnej odległości. W przypadku dwuwymiarowym o jądrze liniowym ma ona postać prostej o maksymalnej odległości od punktów wspierających.}
 \end{figure}
 
 
@@ -481,26 +487,24 @@ VC(H) = max(D) \implies \bigvee\limits_C \lvert C \rvert = D \implies H \cap C \
 \end{equation}
 \label{wymiar-vc}
 
-Ze względu na złożoną definicję, wymiar VC jest ciężki do obliczenia, co stanowi jedną z większych przeszkód w wykorzystywaniu SVM. Algorytm ma zaletę, że jest w stanie radzić sobie z zestawami danych, które nie są liniowo-separowalne. W tym celu wykorzystuje się tzw. \emph{kernel trick} - jest to operacja dodania do danych dodatkowej zmiennej, która wiąże określonym wzorem poprzednie zmienne. Odpowiednie związanie zmiennych pozwala sprowadzić zestaw danych do postaci liniowo-separowalnej. \cite{kernel-trick} Ilustracja tego procesu przedstawiona jest na rycinie \ref{kernel-trick-png}
+Ze względu na złożoną definicję, wymiar VC jest ciężki do obliczenia, co stanowi jedną z większych przeszkód w wykorzystywaniu SVM. Algorytm ma zaletę, że jest w stanie radzić sobie z zestawami danych, które nie są liniowo-separowalne. W tym celu wykorzystuje się tzw. \emph{kernel trick} - jest to operacja dodania do danych dodatkowej zmiennej, która wiąże określonym wzorem poprzednie zmienne. Odpowiednie związanie zmiennych pozwala sprowadzić zestaw danych do postaci liniowo-separowalnej. \cite{kernel-trick} Ilustracja tego procesu przedstawiona jest na rysunku \ref{kernel-trick-png}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{kernel-trick.png}
 \label{kernel-trick-png}
-\caption{Dodanie zmiennej w celu osiągnięcia liniowej separowalności}
-\end{figure}
-
-
-\par
+\caption{Przekształcenie zmiennych w celu osiągnięcia liniowej separowalności. Przekształcone zmienne (lub podzbiór zmiennych) dołączane są do zestawu danych. Na rysunku przedstawione jest osiągnięcie liniowej separowalności poprzez zamianę układu współrzędnych na układ biegunowy.}
+\end{figure}\par
+\vspace{0.5cm}
 Wady:\par
 \begin{itemize}
 \item Duża złożoność obliczeniowa (pomiędzy $O(n^2)$ a $O(n^3)$)
-\end{itemize}
+\end{itemize}\par
 Zalety:\par
 \begin{itemize}
 \item Możliwość separacji danych nieseparowalnych liniowo
 \item Możliwość wykorzystania w budowaniu modelu regresyjnego
-\end{itemize}
+\end{itemize}\par
 
 \subsection{Metoda k średnich}
 
@@ -510,21 +514,21 @@ Metoda k-średnich stanowi niewątpliwie jeden z najprostszych algorytmów klast
 \centering
 \includegraphics[width=0.8\textwidth]{kmeans.png}
 \label{kmeans-png}
-\caption{Ilustracja działania metody k-średnich}
+\caption{Ilustracja działania metody k-średnich. Początkowo losowo rozmieszczone centra są iteracyjnie przyciągane w taki sposób, aby możliwie dokładnie odwzorować występujące grupy. Należy zwrócić uwagę na rozdzielenie bardzo blisko położonych centr w pierwszej iteracji.}
 \end{figure}
 
 Metodę k-średnich można wykorzystać do klasyfikacji danych na podstawie otrzymanego modelu. Klasyfikacja ta ma charakter minimalnoodległościowy - obiekt przynależy do grupy, do której środka ciężkości ma najbliżej. Nie jest to jednak efektywna metoda klasyfikacji, a wykorzystanie tej metody do przypisania do już istniejących cech wiąże się z rozwiązaniem problemu rozbieżności etykiet nadanych przez klasyfikator i rzeczywiście opisujących zestaw danych. Z tego powodu, jako metoda klastryzacji, jest ona bardziej użyteczna jako metoda eksploracyjna. \par
-
+\vspace{0.5cm}
 Wady:\par
 \begin{itemize}
 \item Odgórnie ustalona liczba kategorii
 \item Mała odporność na liniowo-nieseparowalne grupy
 \item NP-złożoność
-\end{itemize}
+\end{itemize}\par
 Zalety:\par
 \begin{itemize}
 \item Prostota implementacji
-\end{itemize}
+\end{itemize}\par
 
 
 
@@ -543,7 +547,7 @@ e_P^c(h) = \frac{| \{ x \in P | h(x) != c(x) \} |}{|P|}
 \begin{equation}
 e_\Omega^c (h) = Pr_{x \in \Omega}(h(x) != c(x))
 \end{equation}
-\label{bp}
+\label{br}
 
 \begin{equation}
 r_P^c(h) = | \{ x \in P | h(x) != c(x) \} | 
@@ -689,10 +693,10 @@ C & 0.447003 & 0.112865 & -0.081070 & 0.128495 & 0.443659 & 1.000000 \\
  & R & I & A & S & E & C \\ 
 R & 1.000000 & 0.331143 & 0.119409 & 0.051537 & 0.249179 & 0.463329 \\ 
 I & 0.331143 & 1.000000 & 0.314317 & 0.148906 & 0.021750 & 0.099953 \\ 
-A & 0.119409 & 0.314317 & 1.000000 & 0.301875 & 0.225229 -0.075600 \\ 
+A & 0.119409 & 0.314317 & 1.000000 & 0.301875 & 0.225229 & -0.075600 \\ 
 S & 0.051537 & 0.148906 & 0.301875 & 1.000000 & 0.395553 & 0.134766 \\ 
 E & 0.249179 & 0.021750 & 0.225229 & 0.395553 & 1.000000 & 0.446287 \\ 
-C & 0.463329 & 0.099953 -0.075600 & 0.134766 & 0.446287 & 1.000000 \\ 
+C & 0.463329 & 0.099953 & -0.075600 & 0.134766 & 0.446287 & 1.000000 \\ 
 \hline
 \end{tabular}
 \caption{Autokorelacje zestawów danych, kolejno: losowej próbki, identycznej preferencji i równomiernej płci}
@@ -706,25 +710,25 @@ Planowano także stworzyć zestaw danych o profilu wiekowym identycznym do polsk
 \centering
 \includegraphics[width=0.8\textwidth]{histo1.png}
 \label{histo1}
-\caption{Histogram dla danych z podanym wiekiem}
+\caption{Histogram dla danych z podanym wiekiem. Należy zauważyć mocne scentrowanie danych wokół ludzi młodych, przeważnie w wieku poszukiwania pierwszego zawodu.}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{histo2.png}
 \label{histo2}
-\caption{Histogram dla danych z wiekiem w przedziałach po 6 lat}
+\caption{Histogram dla danych z wiekiem w przedziałach po 6 lat. Wnioski analogiczne, jak w poprzednim histogramie - przeważają ludzie bez lub z małym doświadczeniem zawodowym.}
 \end{figure}
 
 
 Wykonano także wykresy radarowe dla poszczególnych grup wiekowych, celem porównania zmieniających się z wiekiem/czasem 
-preferencji zawodowych oraz zróżnicowania płciowego. Przedstawiono wyniki na rycinie \ref{profile} \par
+preferencji zawodowych oraz zróżnicowania płciowego. Przedstawiono wyniki na rysunku \ref{profile} \par
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{profile.png}
 \label{profile}
-\caption{Profile dla grup wiekowych}
+\caption{Profile dla grup wiekowych. Na większości wykresów widoczna jest wyraźna tendencja do uprawiania zawodów z grup Intelektualnej, Artystycznej i Społecznej. Na uwagę zasługuje ostatni diagram, na którym przedstawiony został profil pojedyńczego odpowiadającego.}
 \end{figure}
 
 \section{Działanie aplikacji}
@@ -763,7 +767,7 @@ Pod URL \texttt{/report/<id>} generowany jest raport dotyczący całych zebranyc
 
 \section{Porównanie trafności klasyfikatorów}
 
-Skonfigurowano aplikację, aby przeprowadzała walidację krzyżową na próbkach po ich klasyfikacji. Wyniki walidacji wyświetlono w raporcie do wyników testu, (rycina \ref{cross-validation}). Ze względu na losowy dobór próbki, wyniki mogą się różnić między uruchomieniami. W tabeli \ref{cross-val-tab} przedstawiono wyniki dziesięciu kolejnych walidacji. Uśrednione wyniki znajdują się w tabeli \ref{cross-val-tab-av}.
+Skonfigurowano aplikację, aby przeprowadzała walidację krzyżową na próbkach po ich klasyfikacji. Wyniki walidacji wyświetlono w raporcie do wyników testu, (rysunek \ref{cross-validation}). Ze względu na losowy dobór próbki, wyniki mogą się różnić między uruchomieniami. W tabeli \ref{cross-val-tab} przedstawiono wyniki dziesięciu kolejnych walidacji. Uśrednione wyniki znajdują się w tabeli \ref{cross-val-tab-av}.
 
 \begin{figure}
 \centering

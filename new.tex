@@ -87,11 +87,11 @@
 }
 
 \renewcommand\thechapter{\arabic{chapter}.}
-\renewcommand\thesection{\arabic{chapter}\arabic{section}.}
-\renewcommand\thesubsection{\arabic{chapter}\arabic{section}.\arabic{subsection}.}
-
-
-
+\renewcommand\thesection{\arabic{chapter}.\arabic{section}.}
+\renewcommand\thesubsection{\arabic{chapter}.\arabic{section}.\arabic{subsection}.}
+\renewcommand\thefigure{\arabic{chapter}.\arabic{figure}.}
+\renewcommand\thetable{\arabic{chapter}.\arabic{table}.}
+\renewcommand\theequation{\arabic{chapter}.\arabic{equation}.}
 
 
 
@@ -274,8 +274,8 @@ Proces analizy składa się z kilku etapów, często nachodzących na siebie i p
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{crisp-dm.png}
-\label{crisp-dm}
-\caption{Metodologia CRISP-DM. Według \cite{crispdm} jedna z najpopularniejszych metodologii Data Miningu, implikuje wykorzystanie wiedzy do modelowania danych i poszerzanie wiedzy przez wnioski wyciągnięte z wykorzystania modelu. Modelowanie danych jest procesem iteracyjnym i dopiero po osiągnięciu odpowiedniej dokładności model jest wykorzystywany w produkcji.}
+\label{crispdm}
+\caption[Metodologia CRISP-DM]{Metodologia CRISP-DM. Według \cite{crispdm} jedna z najpopularniejszych metodologii data miningu, implikuje wykorzystanie wiedzy do modelowania danych i poszerzanie wiedzy przez wnioski wyciągnięte z wykorzystania modelu. Modelowanie danych jest procesem iteracyjnym i dopiero po osiągnięciu odpowiedniej dokładności model jest wykorzystywany w produkcji.}
 \end{figure}
 
 
@@ -305,7 +305,7 @@ Zmienność & Rozstęp, rozstęp międzykwartylowy & Wariancja, odchylenie stand
 Asymetria &  & Współczynnik skośności \\
 Koncentracja &  & Kurtoza \\
 \end{tabular}
-\caption{Zestawienie wielkości opisujących próbkę statystyczną dla skali porządkowej i równomiernej. Puste pola w drugiej kolumnie wynikają z braku odpowiedniej miary.}
+\caption[Zestawienie wielkości opisujących próbkę statystyczną dla skali porządkowej i równomiernej]{Zestawienie wielkości opisujących próbkę statystyczną dla skali porządkowej i równomiernej. Puste pola w drugiej kolumnie wynikają z braku odpowiedniej miary.}
 \label{miary-statystyczne}
 \end{table}
 
@@ -380,7 +380,7 @@ Uczenie maszynowe (\emph{machine learning}) stanowi jeden z ostatnich trendów t
 \centering
 \includegraphics[width=0.75\textwidth]{gartner.png}
 \label{gartner}
-\caption{\emph{Hype cycle} Gartnera, rok 2016. Poza uczeniem maszynowym znajduje się tu garść technologii opartych o sztuczną inteligencję, m.in \emph{Smart Data Discorvery}, \emph{Natural-Language Question Answering} oraz \emph{General-Purpose Machine Intelligence}}
+\caption[\emph{Hype cycle} Gartnera, rok 2016.]{\emph{Hype cycle} Gartnera, rok 2016. Poza uczeniem maszynowym znajduje się tu garść technologii opartych o sztuczną inteligencję, m.in \emph{Smart Data Discorvery}, \emph{Natural-Language Question Answering} oraz \emph{General-Purpose Machine Intelligence}}
 \end{figure}
 
 Z punktu widzenia analizy danych, uczenie maszynowe jest sposobem na budowę modelu na danych. W istocie klasyfikatory typu bayesowskiego są niczym innym jak praktycznym zastosowaniem reguł prawdopodobieństwa. Zaletą uczenia maszynowego jest automatyczne budowanie hipotezy na danych w przeciwieństwie do klasycznego wnioskowania statystycznego, które wymaga od analityka postawienia hipotez do weryfikacji. \par
@@ -431,17 +431,17 @@ Jedna z prostszych metod klasyfikacji opiera się na definicji prawdopodobieńst
 P(C|\vec{x}) = \frac{P(\vec{x}|C)P(C)}{P(\vec{x})}
 \end{equation}
 
-Prawdopodobieństwo złożonej zmiennej $\vec{x}$ jest równe iloczynowi prawdopodobieństw jego składowych, jak pokazano we wzorze \ref{pp-zlozone}. Analogicznie można otrzymać prawdopodobieństwo złożonej implikacji \ref{pp-implikacji}. Obydwa wzory funkcjonują na założeniu \emph{niezależności} zmiennych, mianowicie prawdopodobieństwo jednej zmiennej nie jest zależne od żadnej innej. \ref{niezaleznosc}. "Naiwność" klasyfikatora wynika właśnie z założenia niezależności zmiennych, co nie zawsze jest prawdą(wręcz przeciwnie - dla większości sytuacji cechy są ze sobą związane). Uwzględnienie zależności zmiennych pozwala tworzyć kaskadowe modele zwane sieciami bayesowskimi. \cite{dm-cichosz} Nie są one jednak częścią tej pracy.\par
+Prawdopodobieństwo złożonej zmiennej $\vec{x}$ jest równe iloczynowi prawdopodobieństw jego składowych, jak pokazano we wzorze \ref{ppzlozone}. Analogicznie można otrzymać prawdopodobieństwo złożonej implikacji \ref{ppimplikacji}. Obydwa wzory funkcjonują na założeniu \emph{niezależności} zmiennych, mianowicie prawdopodobieństwo jednej zmiennej nie jest zależne od żadnej innej. \ref{niezaleznosc}. "Naiwność" klasyfikatora wynika właśnie z założenia niezależności zmiennych, co nie zawsze jest prawdą(wręcz przeciwnie - dla większości sytuacji cechy są ze sobą związane). Uwzględnienie zależności zmiennych pozwala tworzyć kaskadowe modele zwane sieciami bayesowskimi. \cite{dm-cichosz} Nie są one jednak częścią tej pracy.\par
 
 \begin{equation}
 P(\vec{x}) = \prod\limits_{i=1}^n{P(x_i)}
 \end{equation}
-\label{pp-zlozone}
+\label{ppzlozone}
 
 \begin{equation}
 P(C|\vec{x}) = \frac{P(C)\prod\limits_{i=1}^n{P(x_i|C)}}{\prod\limits_{i=1}^n{P({x_i})}}
 \end{equation}
-\label{pp-implikacji}
+\label{ppimplikacji}
 
 \begin{equation}
 P(A \cap B) = P(A)P(B)
@@ -470,30 +470,29 @@ Zalety:\par
 
 \subsection{Klasyfikator maksymalnoogległościowy}
 
-Klasyfikatory maksymalnoodległościowe zostały wynalezione przez Vapnika. Opierają się one na wyznaczeniu granicy między zestawmi danych w taki sposób, aby zachować możliwie dużą odległość najbliższych punktów od granicy. Inna nazwa tej metody, \emph{maszyna wektorów wspierających}, oddaje sposób w jaki zostaje to wykonane. Wybiera się $n$ punktów spośród zestawu danych, a następnie wyznacza hiperpowierzchnię dzielącą te punkty. Rycina \ref{hyperplane-png} przedstawia przypadek dla dwóch wymiarów. Sednem algorytmu jest wybranie takich punktów/wektorów, dla których suma odległości od nich do powierzchni jest maksymalna (stąd nazwa). W gruncie rzeczy jest to więc algorytm optymalizacyjny. \par
+Klasyfikatory maksymalnoodległościowe zostały wynalezione przez Vapnika. Opierają się one na wyznaczeniu granicy między zestawmi danych w taki sposób, aby zachować możliwie dużą odległość najbliższych punktów od granicy. Inna nazwa tej metody, \emph{maszyna wektorów wspierających}, oddaje sposób w jaki zostaje to wykonane. Wybiera się $n$ punktów spośród zestawu danych, a następnie wyznacza hiperpowierzchnię dzielącą te punkty. Rycina \ref{hyperplanepng} przedstawia przypadek dla dwóch wymiarów. Sednem algorytmu jest wybranie takich punktów/wektorów, dla których suma odległości od nich do powierzchni jest maksymalna (stąd nazwa). W gruncie rzeczy jest to więc algorytm optymalizacyjny. \par
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{hyperplane.png}
-\label{hyperplane-png}
-\caption{Hiperpowierzchnia o maksymalnej odległości. W przypadku dwuwymiarowym o jądrze liniowym ma ona postać prostej o maksymalnej odległości od punktów wspierających.}
+\label{hyperplanepng}
+\caption[Hiperpowierzchnia o maksymalnej odległości]{Hiperpowierzchnia o maksymalnej odległości. W przypadku dwuwymiarowym o jądrze liniowym ma ona postać prostej o maksymalnej odległości od punktów wspierających.}
 \end{figure}
 
 
-Istotne do poprawnego wykorzystania SVM jest wykonanie kilku kroków \cite{chih-wei}. Po pierwsze, należy przygotować i znormalizować dane. Drugim etapem jest wybór rodzaju funkcji jądra. Standardowo rozróżnia się cztery jej rodzaje: liniowe, wielomianowe, RBF i sigmoidalne. Następnie, należy ocenić odpowiednio wartość zmiennej C, zwanej z angielskiego \emph{penalty variable}. Zgodnie z badaniami samego autora tej metody, musi być ona równa wymiarowi $VC$ (\emph{Vapnika-Chervonenkisa}) dla zbioru danych. Wymiar VC definiuje się w sposób podany we wzorze \ref{wymiar-vc} - mianowicie jest to największa moc zbioru C, który jest w stanie rozbić rodzinę zbiorów H na wszystkie podzbiory C. Wraz z oceną tego parametru należy jeszcze znaleźć współczynnik błędu. \par
+Istotne do poprawnego wykorzystania SVM jest wykonanie kilku kroków \cite{chih-wei}. Po pierwsze, należy przygotować i znormalizować dane. Drugim etapem jest wybór rodzaju funkcji jądra. Standardowo rozróżnia się cztery jej rodzaje: liniowe, wielomianowe, RBF i sigmoidalne. Następnie, należy ocenić odpowiednio wartość zmiennej C, zwanej z angielskiego \emph{penalty variable}. Zgodnie z badaniami samego autora tej metody, musi być ona równa wymiarowi $VC$ (\emph{Vapnika-Chervonenkisa}) dla zbioru danych. Wymiar VC definiuje się w sposób podany we wzorze \ref{wymiarvc} - mianowicie jest to największa moc zbioru C, który jest w stanie rozbić rodzinę zbiorów H na wszystkie podzbiory C. Wraz z oceną tego parametru należy jeszcze znaleźć współczynnik błędu. \par
 
 \begin{equation}
 VC(H) = max(D) \implies \bigvee\limits_C \lvert C \rvert = D \implies H \cap C \supset 2^{C}
 \end{equation}
-\label{wymiar-vc}
+\label{wymiarvc}
 
-Ze względu na złożoną definicję, wymiar VC jest ciężki do obliczenia, co stanowi jedną z większych przeszkód w wykorzystywaniu SVM. Algorytm ma zaletę, że jest w stanie radzić sobie z zestawami danych, które nie są liniowo-separowalne. W tym celu wykorzystuje się tzw. \emph{kernel trick} - jest to operacja dodania do danych dodatkowej zmiennej, która wiąże określonym wzorem poprzednie zmienne. Odpowiednie związanie zmiennych pozwala sprowadzić zestaw danych do postaci liniowo-separowalnej. \cite{kernel-trick} Ilustracja tego procesu przedstawiona jest na rysunku \ref{kernel-trick-png}
+Ze względu na złożoną definicję, wymiar VC jest ciężki do obliczenia, co stanowi jedną z większych przeszkód w wykorzystywaniu SVM. Algorytm ma zaletę, że jest w stanie radzić sobie z zestawami danych, które nie są liniowo-separowalne. W tym celu wykorzystuje się tzw. \emph{kernel trick} - jest to operacja dodania do danych dodatkowej zmiennej, która wiąże określonym wzorem poprzednie zmienne. Odpowiednie związanie zmiennych pozwala sprowadzić zestaw danych do postaci liniowo-separowalnej. \cite{kernel-trick} Ilustracja tego procesu przedstawiona jest na rysunku \ref{kerneltrickpng}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{kernel-trick.png}
-\label{kernel-trick-png}
-\caption{Przekształcenie zmiennych w celu osiągnięcia liniowej separowalności. Przekształcone zmienne (lub podzbiór zmiennych) dołączane są do zestawu danych. Na rysunku przedstawione jest osiągnięcie liniowej separowalności poprzez zamianę układu współrzędnych na układ biegunowy.}
+\caption[Przekształcenie zmiennych w celu osiągnięcia liniowej separowalności]{Przekształcenie zmiennych w celu osiągnięcia liniowej separowalności. Przekształcone zmienne (lub podzbiór zmiennych) dołączane są do zestawu danych. Na rysunku przedstawione jest osiągnięcie liniowej separowalności poprzez zamianę układu współrzędnych na układ biegunowy.\label{kerneltrickpng}}
 \end{figure}\par
 \vspace{0.5cm}
 Wady:\par
@@ -508,13 +507,13 @@ Zalety:\par
 
 \subsection{Metoda k średnich}
 
-Metoda k-średnich stanowi niewątpliwie jeden z najprostszych algorytmów klastrujących. Jej działanie opiera się na iteracyjnym grupowaniu i klasyfikowaniu elementów. Jego działanie najlepiej przedstawione jest na rysunku \ref{kmeans-png}. Cykl poprawiania średnich trwa aż ich zmiana będzie mniejsza od progu.\par
+Metoda k-średnich stanowi niewątpliwie jeden z najprostszych algorytmów klastrujących. Jej działanie opiera się na iteracyjnym grupowaniu i klasyfikowaniu elementów. Jego działanie najlepiej przedstawione jest na rysunku \ref{kmeanspng}. Cykl poprawiania średnich trwa aż ich zmiana będzie mniejsza od progu.\par
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{kmeans.png}
-\label{kmeans-png}
-\caption{Ilustracja działania metody k-średnich. Początkowo losowo rozmieszczone centra są iteracyjnie przyciągane w taki sposób, aby możliwie dokładnie odwzorować występujące grupy. Należy zwrócić uwagę na rozdzielenie bardzo blisko położonych centr w pierwszej iteracji.}
+\label{kmeanspng}
+\caption[Ilustracja działania metody k-średnich]{Ilustracja działania metody k-średnich. Początkowo losowo rozmieszczone centra są iteracyjnie przyciągane w taki sposób, aby możliwie dokładnie odwzorować występujące grupy. Należy zwrócić uwagę na rozdzielenie bardzo blisko położonych centr w pierwszej iteracji.}
 \end{figure}
 
 Metodę k-średnich można wykorzystać do klasyfikacji danych na podstawie otrzymanego modelu. Klasyfikacja ta ma charakter minimalnoodległościowy - obiekt przynależy do grupy, do której środka ciężkości ma najbliżej. Nie jest to jednak efektywna metoda klasyfikacji, a wykorzystanie tej metody do przypisania do już istniejących cech wiąże się z rozwiązaniem problemu rozbieżności etykiet nadanych przez klasyfikator i rzeczywiście opisujących zestaw danych. Z tego powodu, jako metoda klastryzacji, jest ona bardziej użyteczna jako metoda eksploracyjna. \par
@@ -637,7 +636,7 @@ Pliki konfiguracyjne do programu oparte są o standard JSON. Pozwala to na łatw
 
 Głównym plikiem konfiguracyjnym jest \texttt{static/tests.json}. W nim zawarte są informacje dotyczące: zestawu pytań, lokalizacji logów i danych odniesienia, dodatkowych parametrów testu oraz metod generacji raportów. Kompletną listę dyrektyw zestawiono w tabeli \ref{lang}. Drugim typem plików konfiguracyjnych są pliki linkowane przez poszczególne testy. Struktura takiego pliku to lista obiektów przedstawiających pytania do testów.\par
 
-Schemy tych dwóch rodzajów plików przedstawione są w tabelach \ref{tests-schema} i \ref{questions-schema}
+Schemy tych dwóch rodzajów plików przedstawione są w tabelach \ref{testsschema} i \ref{questionsschema}
 
 \section{Instalacja i uruchomienie}
 
@@ -709,15 +708,13 @@ Planowano także stworzyć zestaw danych o profilu wiekowym identycznym do polsk
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{histo1.png}
-\label{histo1}
-\caption{Histogram dla danych z podanym wiekiem. Należy zauważyć mocne scentrowanie danych wokół ludzi młodych, przeważnie w wieku poszukiwania pierwszego zawodu.}
+\caption[Histogram dla danych z podanym wiekiem]{Histogram dla danych z podanym wiekiem. Należy zauważyć mocne scentrowanie danych wokół ludzi młodych, przeważnie w wieku poszukiwania pierwszego zawodu.\label{histo1}}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{histo2.png}
-\label{histo2}
-\caption{Histogram dla danych z wiekiem w przedziałach po 6 lat. Wnioski analogiczne, jak w poprzednim histogramie - przeważają ludzie bez lub z małym doświadczeniem zawodowym.}
+\caption[Histogram dla danych z wiekiem w przedziałach po 6 lat]{Histogram dla danych z wiekiem w przedziałach po 6 lat. Wnioski analogiczne, jak w poprzednim histogramie - przeważają ludzie bez lub z małym doświadczeniem zawodowym.\label{histo2}}
 \end{figure}
 
 
@@ -727,35 +724,31 @@ preferencji zawodowych oraz zróżnicowania płciowego. Przedstawiono wyniki na 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{profile.png}
-\label{profile}
-\caption{Profile dla grup wiekowych. Na większości wykresów widoczna jest wyraźna tendencja do uprawiania zawodów z grup Intelektualnej, Artystycznej i Społecznej. Na uwagę zasługuje ostatni diagram, na którym przedstawiony został profil pojedyńczego odpowiadającego.}
+\caption[Profile dla grup wiekowych]{Profile dla grup wiekowych. Na większości wykresów widoczna jest wyraźna tendencja do uprawiania zawodów z grup Intelektualnej, Artystycznej i Społecznej. Na uwagę zasługuje ostatni diagram, na którym przedstawiony został profil pojedyńczego odpowiadającego.\label{profile}}
 \end{figure}
 
 \section{Działanie aplikacji}
 
-Aplikacja ładuje dowolną testów umieszczonych w plikach konfiguracyjnych i udostępnia je w widoku głównym (\ref{main-menu}). Wybrany test prezentuje jedno pytanie jednocześnie, przy czym możliwe są pytania w skali Likerta oraz typu \emph{tak-nie} \ref{questions}. Pytania nie są zapisywane w trakcie sesji. Kliknięcie na przycisk z pytaniem resetuje przebieg testu.  Po wykonaniu testu użytkownik zostaje przekierowany do strony, na której może podać dodatkowe informacje do logowania \ref{additional-info}. Następnie prezentowane są mu wyniki, generowane według określonego skryptu raportu. W przedstawionej wersji są to wyniki numeryczne. Do raportu z wynikami można dołączyć dowolną ilość wykresów. (\ref{outputs}). \par
+Aplikacja ładuje dowolną testów umieszczonych w plikach konfiguracyjnych i udostępnia je w widoku głównym (\ref{mainmenu}). Wybrany test prezentuje jedno pytanie jednocześnie, przy czym możliwe są pytania w skali Likerta oraz typu \emph{tak-nie} \ref{questions}. Pytania nie są zapisywane w trakcie sesji. Kliknięcie na przycisk z pytaniem resetuje przebieg testu.  Po wykonaniu testu użytkownik zostaje przekierowany do strony, na której może podać dodatkowe informacje do logowania \ref{additional-info}. Następnie prezentowane są mu wyniki, generowane według określonego skryptu raportu. W przedstawionej wersji są to wyniki numeryczne. Do raportu z wynikami można dołączyć dowolną ilość wykresów. (\ref{outputs}). \par
 
 Pod URL \texttt{/report/<id>} generowany jest raport dotyczący całych zebranych danych, oprogramowany analogicznie do raportu wynikowego. W przedstawionej implementacji jest to raport prezentujący wyniki walidacji krzyżowej, która przeprowadzana jest podczas uruchamiania serwera. Pod URL \texttt{/console/<id>} prezentowana jest konsola, w której można testować wywołania języka skryptowego.\par
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{4.png}
-\label{main-menu}
-\caption{Menu wyboru testu}
+\caption{Menu wyboru testu\label{mainmenu}}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{2.png}
-\label{questions}
-\caption{Pytanie ze skalą Likerta}
+\caption{Pytanie ze skalą Likerta\label{questions}}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{3.png}
-\label{additional-info}
-\caption{Zapytanie o dodatkowe informacje}
+\caption{Zapytanie o dodatkowe informacje\label{additionalinfo}}
 \end{figure}
 
 \begin{figure}
@@ -767,13 +760,12 @@ Pod URL \texttt{/report/<id>} generowany jest raport dotyczący całych zebranyc
 
 \section{Porównanie trafności klasyfikatorów}
 
-Skonfigurowano aplikację, aby przeprowadzała walidację krzyżową na próbkach po ich klasyfikacji. Wyniki walidacji wyświetlono w raporcie do wyników testu, (rysunek \ref{cross-validation}). Ze względu na losowy dobór próbki, wyniki mogą się różnić między uruchomieniami. W tabeli \ref{cross-val-tab} przedstawiono wyniki dziesięciu kolejnych walidacji. Uśrednione wyniki znajdują się w tabeli \ref{cross-val-tab-av}.
+Skonfigurowano aplikację, aby przeprowadzała walidację krzyżową na próbkach po ich klasyfikacji. Wyniki walidacji wyświetlono w raporcie do wyników testu, (rysunek \ref{crossvalidation}). Ze względu na losowy dobór próbki, wyniki mogą się różnić między uruchomieniami. W tabeli \ref{crossvaltab} przedstawiono wyniki dziesięciu kolejnych walidacji. Uśrednione wyniki znajdują się w tabeli \ref{crossvaltabav}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{5.png}
-\label{cross-validation}
-\caption{Raport z wynikami walidacji krzyżowej}
+\caption{Raport z wynikami walidacji krzyżowej\label{crossvalidation}}
 \end{figure}
 
 \begin{table}
@@ -796,7 +788,7 @@ Skonfigurowano aplikację, aby przeprowadzała walidację krzyżową na próbkac
 \hline
 \end{tabular}
 \caption{Wyniki kolejnych walidacji krzyżowych}
-\label{cross-val-tab}
+\label{crossvaltab}
 \end{table}
 
 \begin{table}
@@ -807,10 +799,10 @@ NB1 & NB2 & NB3 & NB4 & SV1 & SV2 & SV3 & SV4 & SC1 & SC2 & SC 3 & SC4 \\
 \hline
 \end{tabular}
 \caption{Uśrednione wyniki walidacji krzyżowych}
-\label{cross-val-tab-av}
+\label{crossvaltabav}
 \end{table}
 
-W tabeli \ref{sample-out} zestawiono przykładowe wyniki klasyfikacji. Widoczna jest duża zgodność między klasyfikatorami typu SVM dla odpowiadających sobie typów. Należy zauważyć, że klasyfikatory trenowane na zestawie danych nr 4 mają własne oznaczenia numeryczne i są między sobą zgodne.
+W tabeli \ref{sampleout} zestawiono przykładowe wyniki klasyfikacji. Widoczna jest duża zgodność między klasyfikatorami typu SVM dla odpowiadających sobie typów. Należy zauważyć, że klasyfikatory trenowane na zestawie danych nr 4 mają własne oznaczenia numeryczne i są między sobą zgodne.
 
 \begin{table}
 \begin{tabular}{l|l|l|l|l|l|l|l|l|l|l|l|l}
@@ -824,7 +816,7 @@ NB1 & NB2 & NB3 & NB4 & SV1 & SV2 & SV3 & SV4 & SC1 & SC2 & SC 3 & SC4 & Likert 
 \hline
 \end{tabular}
 \caption{Przykładowe wyniki klasyfikacji}
-\label{sample-out}
+\label{sampleout}
 \end{table}
 
 \section{Wnioski wyciągnięte z badań}
@@ -892,25 +884,42 @@ Analizując przykładową próbkę można stwierdzić zgodnośc klasyfikatorów 
 \chapter{Kod źródłowy}
 Poniżej wypisano wszystkie pliki używane w aplikacji do jej konstrukcji. Aplikacja działa pod systemami \emph{Linux Mint} oraz \emph{Linux Ubuntu}, aczkolwiek powinna działać na każdym systemie bazowanym na dystrybucji \emph{Debian}. Wszystkie pliki wykorzystują kodowanie UTF-8.
 \section{Wsadowy skrypt instalacyjny (Unix)}
+{\large\texttt install.sh\par}
 \lstinputlisting[breaklines]{src/install.sh}
+{\large\texttt run.sh\par}
 \lstinputlisting[breaklines]{src/run.sh}
 \section{Kod serwera i udostępniane widoki}
+{\large\texttt main.py\par}
 \lstinputlisting[breaklines]{src/main.py}
-\lstinputlisting[breaklines]{src/templates/added.html}
+{\large\texttt templates/console.html\par}
 \lstinputlisting[breaklines]{src/templates/console.html}
+{\large\texttt templates/main.html\par}
 \lstinputlisting[breaklines]{src/templates/main.html}
+{\large\texttt templates/pick.html\par}
 \lstinputlisting[breaklines]{src/templates/pick.html}
+{\large\texttt templates/quiz.html\par}
 \lstinputlisting[breaklines]{src/templates/quiz.html}
+{\large\texttt templates/report.html\par}
 \lstinputlisting[breaklines]{src/templates/report.html}
+{\large\texttt templates/result.html\par}
 \lstinputlisting[breaklines]{src/templates/result.html}
 \section{Kod modułów analitycznych}
+{\large\texttt loadclfs.py\par}
 \lstinputlisting[breaklines]{src/loadclfs.py}
+{\large\texttt loader.py \par}
 \lstinputlisting[breaklines]{src/loader.py}
+{\large\texttt reporting.py\par}
 \lstinputlisting[breaklines]{src/reporting.py}
 \section{Pliki konfiguracyjne}
+Ze względu na długość i powtarzalność nie zamieszczono treści plików \texttt{static/quiz.json} oraz \texttt{static/reduced.json}. Załączono te pliku do wersji elektronicznej pracy.
+{\large\texttt static/tests.json\par}
 \lstinputlisting[breaklines]{src/static/tests.json}
-\lstinputlisting[breaklines]{src/static/quiz.json}
-\lstinputlisting[breaklines]{src/static/reduced.json}
+%\lstinputlisting[breaklines]{src/static/quiz.json}
+%\lstinputlisting[breaklines]{src/static/reduced.json}
+
+\chapter{EDA}
+
+Dołączony został dokument generowany w programie Jupyter Notebook. Ze względu na rozbieżność w bibliotekach dwu plików formatowanie różni się od reszty dokumentu. Jednocześnie analiza przeprowadzana była początkowo w języku angielskim, z tego powodu nie została włączona w główną treść pracy. Plik \texttt{EDA.ipynb} zawierający elektroniczną wersję skoroszytu, w którym została przeprowadzona ta analiza, dołączony został w wersji elektronicznej pracy.\par
 
 \end{document}
 

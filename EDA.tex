@@ -140,9 +140,9 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{EDA}
-    
-    
+    \renewcommand\appendixname{Dodatek}
+    \appendix
+\setcounter{page}{53}
     
 
     % Pygments definitions
@@ -268,10 +268,11 @@
     
 
     \begin{document}
+    \appendix
+    \setcounter{section}{1}
+    \section{EDA}\label{eda}
     
-    
-    \maketitle
-    
+This document was created by iPython Jupyter software, therefore formatting may differ from the rest of the document.
     
 
     
@@ -280,15 +281,13 @@
         \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k+kn}{import} \PY{n}{print\PYZus{}function}
 \end{Verbatim}
 
-    \section{EDA}\label{eda}
-
 The goal of this EDA is to extract a datasource required to fit the
 classifier in the application. Also, different classifying methods will
 be described. In this chapter the output and taken steps will be cutted
 to absolute minimum, as the full EDA output could easily take tens of
 pages.
 
-\subsection{Load and describe the
+{Load and describe the
 dataset}\label{load-and-describe-the-dataset}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -440,7 +439,7 @@ shouldn't be calculated, it means, there's a lot of -1 values, which
 indicated lack of answer) * each question has at least one empty answer
 (marked as -1)
 
-\subsection{Cleansing and division}\label{cleansing-and-division}
+{Cleansing and division}\label{cleansing-and-division}
 
 The purpose of this action is to remove malformed entries. However,
 requiring empty `age' and `gender' columns (-1) would severely reduce
@@ -451,7 +450,7 @@ end, the conclusion will be drawn to create a final dataset.
 Datasets created: * one with aggregated RIASEC measures and countries *
 one containing the data with age and gender and disaggregated answers
 
-\subsubsection{Geographic distribution
+{Geographic distribution
 dataset}\label{geographic-distribution-dataset}
 
 For creating the training set, samples with possible similarity to
@@ -715,7 +714,7 @@ countries similar to Poland may be created. Fortunately, Investigative
 is a common choice among european respondents. With the next dataset, we
 will delve into age and gender profiles of countries.
 
-\subsubsection{Age and gender dataset}\label{age-and-gender-dataset}
+{Age and gender dataset}\label{age-and-gender-dataset}
 
 First step into analysing age and gender relations within the group is
 to remove entries with garbled values. Since the amount of records
@@ -1022,7 +1021,7 @@ WHEN YOU'RE DONE)
 cannot build datasets that are similar to Polish in this case. As a rule
 of thumb, we can select datasets, that have balanced gender quotas.
 
-    \subsection{Preparing data for
+    {Preparing data for
 modeling}\label{preparing-data-for-modeling}
 
     Choice of datasets: * random sample * european with the same preference
@@ -1298,7 +1297,7 @@ Datasets have varying length and have to be normalized. For each, a
 fixed amount of samples will be used for training and cross-validating
 the model.
 
-\subsection{Conclusions}\label{conclusions}
+{Conclusions}\label{conclusions}
 
 We've created datasets for the classifier. Moreover, we reduced the
 amount of questions, creating more dense dataset. In later stages of the
